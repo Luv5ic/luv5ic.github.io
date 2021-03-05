@@ -20,30 +20,49 @@
     var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Work Life Balance">
-<meta property="og:type" content="website">
-<meta property="og:title" content="luv5ic&#39;s blog">
-<meta property="og:url" content="https://luv5ic.github.io/index.html">
+  <meta name="description" content="酒店预订平台用户流失概率预测1、项目介绍某酒店预订平台所属公司作为中国领先的综合性旅行服务公司，每天向超过2.5亿会员提供全方位的旅行服务，在这海量的网站访问量中，我们可分析用户的行为数据来挖掘潜在的信息资源。其中，客户流失率是考量业务成绩的一个非常关键的指标。此次分析的目的是为了深入了解用户画像及行为偏好，找到最优算法，挖掘出影响用户流失的关键因素，从而更好地完善产品设计、提升用户体验！  目的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="酒店预订平台用户流失概率预测">
+<meta property="og:url" content="https://luv5ic.github.io/2021-01-11-%E9%85%92%E5%BA%97%E9%A2%84%E5%AE%9A%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B/index.html">
 <meta property="og:site_name" content="luv5ic&#39;s blog">
-<meta property="og:description" content="Work Life Balance">
+<meta property="og:description" content="酒店预订平台用户流失概率预测1、项目介绍某酒店预订平台所属公司作为中国领先的综合性旅行服务公司，每天向超过2.5亿会员提供全方位的旅行服务，在这海量的网站访问量中，我们可分析用户的行为数据来挖掘潜在的信息资源。其中，客户流失率是考量业务成绩的一个非常关键的指标。此次分析的目的是为了深入了解用户画像及行为偏好，找到最优算法，挖掘出影响用户流失的关键因素，从而更好地完善产品设计、提升用户体验！  目的">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://luv5ic.github.io/images/19.">
+<meta property="og:image" content="https://luv5ic.github.io/images/5.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/6.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/7.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/8.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/9.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/10.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/11.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/12.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/13.jpg">
+<meta property="og:image" content="https://luv5ic.github.io/images/14.png">
+<meta property="og:image" content="https://luv5ic.github.io/images/15.png">
+<meta property="og:image" content="https://luv5ic.github.io/images/18.png">
+<meta property="article:published_time" content="2021-01-11T03:31:02.000Z">
+<meta property="article:modified_time" content="2021-03-05T15:13:34.522Z">
 <meta property="article:author" content="luv5ic">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="特征工程">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luv5ic.github.io/images/19.">
 
-<link rel="canonical" href="https://luv5ic.github.io/">
+<link rel="canonical" href="https://luv5ic.github.io/2021-01-11-%E9%85%92%E5%BA%97%E9%A2%84%E5%AE%9A%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>luv5ic's blog</title>
+  <title>酒店预订平台用户流失概率预测 | luv5ic's blog</title>
   
 
 
@@ -174,9 +193,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -192,10 +212,9 @@
       <meta itemprop="name" content="luv5ic's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-01-11-%E9%85%92%E5%BA%97%E9%A2%84%E5%AE%9A%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B/" class="post-title-link" itemprop="url">酒店预订平台用户流失概率预测</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          酒店预订平台用户流失概率预测
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -234,7 +253,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="酒店预订平台用户流失概率预测"><a href="#酒店预订平台用户流失概率预测" class="headerlink" title="酒店预订平台用户流失概率预测"></a>酒店预订平台用户流失概率预测</h1><h2 id="1、项目介绍"><a href="#1、项目介绍" class="headerlink" title="1、项目介绍"></a>1、项目介绍</h2><p>某酒店预订平台所属公司作为中国领先的综合性旅行服务公司，每天向超过2.5亿会员提供全方位的旅行服务，在这海量的网站访问量中，我们可分析用户的行为数据来挖掘潜在的信息资源。其中，客户流失率是考量业务成绩的一个非常关键的指标。此次分析的目的是为了<strong>深入了解用户画像及行为偏好，找到最优算法，挖掘出影响用户流失的关键因素</strong>，从而更好地完善产品设计、提升用户体验！</p>
+        <h1 id="酒店预订平台用户流失概率预测"><a href="#酒店预订平台用户流失概率预测" class="headerlink" title="酒店预订平台用户流失概率预测"></a>酒店预订平台用户流失概率预测</h1><h2 id="1、项目介绍"><a href="#1、项目介绍" class="headerlink" title="1、项目介绍"></a>1、项目介绍</h2><p>某酒店预订平台所属公司作为中国领先的综合性旅行服务公司，每天向超过2.5亿会员提供全方位的旅行服务，在这海量的网站访问量中，我们可分析用户的行为数据来挖掘潜在的信息资源。其中，客户流失率是考量业务成绩的一个非常关键的指标。此次分析的目的是为了<strong>深入了解用户画像及行为偏好，找到最优算法，挖掘出影响用户流失的关键因素</strong>，从而更好地完善产品设计、提升用户体验！</p>
 <ul>
 <li><p>目的<br>分析影响客户流失的关键因素，并通过算法预测客户访问的转化结果。</p>
 </li>
@@ -468,276 +487,35 @@
 </tr>
 </tbody></table>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/" rel="tag"># 特征工程</a>
+              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="luv5ic">
-      <meta itemprop="description" content="Work Life Balance">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luv5ic's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">“数智教育”可视化分析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-05 11:39:53" itemprop="dateCreated datePublished" datetime="2021-01-05T11:39:53+08:00">2021-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-05 19:26:07" itemprop="dateModified" datetime="2021-03-05T19:26:07+08:00">2021-03-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">个人项目</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a target="_blank" rel="noopener" href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/" rel="prev" title="“数智教育”可视化分析">
+      <i class="fa fa-chevron-left"></i> “数智教育”可视化分析
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-01-%E6%BB%B4%E6%BB%B4SQL%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="luv5ic">
-      <meta itemprop="description" content="Work Life Balance">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luv5ic's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021-01-01-%E6%BB%B4%E6%BB%B4SQL%E9%A2%98/" class="post-title-link" itemprop="url">滴滴SQL题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-01-01 15:36:52" itemprop="dateCreated datePublished" datetime="2021-01-01T15:36:52+08:00">2021-01-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-05 19:17:03" itemprop="dateModified" datetime="2021-03-05T19:17:03+08:00">2021-03-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="滴滴笔试题"><a href="#滴滴笔试题" class="headerlink" title="滴滴笔试题"></a>滴滴笔试题</h1><p>1、 假设某天用户发单量异常，如何分析？</p>
-<p>分析这一天的环比、同比数据；这一天是工作日、周末、还是节假日；由于设备还是服务器什么的原因；发生地点？对比其他地点；客群分析</p>
-<p>2、 上海虹桥站，6月司机应答后取消率高于去年同期（其他火车站无此现象），如何分析？</p>
-<p>环比数据；六月所有数据具体到天、小时；查看机场的异常情况（因为虹桥站跟机场在一起）；跟其他城市对比；查看是谁取消的，司机/用户，by应答时间</p>
-<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1683757374866084787&wfr=spider&for=pc">业务数据分析方法之<strong>异常数据如何分析</strong></a></p>
-<p>3、表名：dw_v_order_base</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>order_id</td>
-<td>订单编号</td>
-</tr>
-<tr>
-<td>pid</td>
-<td>乘客编号</td>
-</tr>
-<tr>
-<td>driver_id</td>
-<td>司机编号</td>
-</tr>
-<tr>
-<td>finish_time</td>
-<td>完单时间（格式为2019-07-08  17:20:58）</td>
-</tr>
-<tr>
-<td>product_id</td>
-<td>完单类型（3,4为快车）</td>
-</tr>
-<tr>
-<td>order_status</td>
-<td>订单状态（5为完成订单，7为被取消订单）</td>
-</tr>
-<tr>
-<td>city_name</td>
-<td>城市名称</td>
-</tr>
-<tr>
-<td>distance</td>
-<td>订单实际距离（单位：km）</td>
-</tr>
-</tbody></table>
-<p>表名：dm.gulf_order_scene</p>
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>order_id</td>
-<td>订单编号</td>
-</tr>
-<tr>
-<td>scene_l2</td>
-<td>订单场景（‘去火车站’、‘火车站出发’为火车站场景订单）</td>
-</tr>
-</tbody></table>
-<h2 id="分区的乘客数分布"><a href="#分区的乘客数分布" class="headerlink" title="分区的乘客数分布"></a>分区的乘客数分布</h2><p>1）请写出过去一周火车站场景下快车完单量、完单城市关于乘客数分布；</p>
-<p>（说明：快车完单数1单 2单 单。。。完单城市北京，上海，深圳。。各情况对应的用户数是多少）</p>
-<ul>
-<li> <strong>筛选日期</strong>：<code>subdate(curdate(),interval 7 day)</code>；<strong>筛选场景</strong>：<code>scene_l2  like &#39;%火车站%&#39;</code>  ；<strong>筛选类型</strong>是快车；<strong>筛选订单状态</strong>是完单</li>
-<li> 按照<strong>乘客和城市分组</strong>，计算每个城市各个乘客的快车完单量 <code>count(distinct order_id)</code></li>
-<li> 再按照<strong>完单量和城市分组</strong>，得到相应的用户数<code>count(pid)</code></li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 完单数,city_name,<span class="built_in">count</span>(pid)乘客数 </span><br><span class="line"><span class="keyword">from</span>(<span class="keyword">select</span> pid,city_name, <span class="built_in">count</span>(<span class="keyword">distinct</span> d.order_id)完单数 </span><br><span class="line"><span class="keyword">from</span> dw_v_order_base d <span class="keyword">left</span> <span class="keyword">join</span> gulf_order_scene g <span class="keyword">on</span> d.order_id <span class="operator">=</span> g.order_id</span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(finish_time) <span class="operator">&gt;</span> date_sub(curdate(),<span class="type">interval</span> <span class="number">7</span> <span class="keyword">day</span>)</span><br><span class="line"><span class="keyword">and</span> g.scene_l2 <span class="keyword">like</span> <span class="string">&#x27;%火车站%&#x27;</span> <span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> pid,city_name)t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 完单数,city_name;</span><br></pre></td></tr></table></figure>
-<p><img src="images/1.png"></p>
-<h2 id="分里程时段的订单量分布"><a href="#分里程时段的订单量分布" class="headerlink" title="分里程时段的订单量分布"></a>分里程时段的订单量分布</h2><p>2）请写出过去一个月各城市分里程分时段快车完单量的分布；（无从得知怎么对时段里程分区的情况下，按照滴滴的产品计费规则理解）</p>
-<ul>
-<li><strong>筛选日期</strong>：<code>subdate(curdate(),interval 1 month)</code>；<strong>筛选类型</strong>是快车；<strong>筛选订单状态</strong>是完单</li>
-<li>时段分组 6-21是普通时段，其余是特殊时段；里程分组：0-8,8-15,15-40,40以上；在select里查询为单独列</li>
-<li>然后按照<strong>城市，里程区间，时段区间分组</strong></li>
-<li>计算每个分组里的订单量</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> city_name,</span><br><span class="line">	   if(distance<span class="operator">&lt;=</span><span class="number">8</span>,<span class="string">&#x27;0-8公里&#x27;</span>,if(distance<span class="operator">&lt;=</span><span class="number">15</span>,<span class="string">&#x27;8-15公里&#x27;</span>,if(distance<span class="operator">&lt;=</span><span class="number">40</span>,<span class="string">&#x27;15-40公里&#x27;</span>,<span class="string">&#x27;40公里以上&#x27;</span>))) 里程,</span><br><span class="line">       if(<span class="keyword">hour</span>(finish_time)<span class="operator">&gt;=</span><span class="number">6</span> <span class="keyword">and</span> <span class="keyword">hour</span>(finish_time)<span class="operator">&lt;</span><span class="number">21</span>,<span class="string">&#x27;普通时段&#x27;</span>,<span class="string">&#x27;特殊时段&#x27;</span>) 时段,</span><br><span class="line">       <span class="built_in">count</span>(<span class="keyword">distinct</span> order_id)快车完单量</span><br><span class="line"><span class="keyword">from</span> dw_v_order_base d </span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(finish_time) <span class="operator">&gt;</span> date_sub(curdate(),<span class="type">interval</span> <span class="number">1</span> <span class="keyword">month</span>)</span><br><span class="line"><span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> city_name,if(distance<span class="operator">&lt;=</span><span class="number">8</span>,<span class="string">&#x27;0-8公里&#x27;</span>,if(distance<span class="operator">&lt;=</span><span class="number">15</span>,<span class="string">&#x27;8-15公里&#x27;</span>,if(distance<span class="operator">&lt;=</span><span class="number">40</span>,<span class="string">&#x27;15-40公里&#x27;</span>,<span class="string">&#x27;40公里以上&#x27;</span>))),if(<span class="keyword">hour</span>(finish_time)<span class="operator">&gt;=</span><span class="number">6</span> <span class="keyword">and</span> <span class="keyword">hour</span>(finish_time)<span class="operator">&lt;</span><span class="number">21</span>,<span class="string">&#x27;普通时段&#x27;</span>,<span class="string">&#x27;特殊时段&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p><img src="../images/2.png"> </p>
-<h2 id="日留存率"><a href="#日留存率" class="headerlink" title="日留存率"></a>日留存率</h2><p>3）2020-05-01快车完单用户在之后一周内日留存率；</p>
-<ul>
-<li><strong>筛选日期</strong>：<code>date(finish_time) between&#39;2020-05-01&#39; and &#39;2020-05-08&#39;</code>；<strong>筛选类型</strong>是快车；<strong>筛选订单状态</strong>是完单；得到符合以上条件的<strong>用户u</strong></li>
-<li><strong>在用户u的基础上</strong>，<strong>筛选日期</strong><code>date(finish_time) between&#39;2020-05-02&#39; and &#39;2020-05-08&#39;</code> ，<strong>按照完单日期分组</strong>，用<strong>每个完单日期与05-01的差</strong>得到留存天数，对每个分组内的用户数计数得到<strong>日留存用户数</strong></li>
-<li><strong>日留存率 = 日留存用户数/05-01的总用户数</strong> </li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 2020-05-01快车完单总用户数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> pid <span class="keyword">from</span> dw_v_order_base d </span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(d.finish_time)<span class="operator">=</span><span class="string">&#x27;2020-05-01&#x27;</span> <span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span>;</span><br><span class="line"><span class="comment">-- 2020-05-02至2020-05-08的日留存率</span></span><br><span class="line"><span class="keyword">select</span> timestampdiff(<span class="keyword">day</span>,<span class="string">&#x27;2020-05-01&#x27;</span>,<span class="type">date</span>(d.finish_time)) 留存天数,</span><br><span class="line">	  <span class="built_in">count</span>(<span class="keyword">distinct</span> d.pid) 留存用户数,</span><br><span class="line">      <span class="built_in">count</span>(<span class="keyword">distinct</span> d.pid)<span class="operator">/</span>(<span class="keyword">select</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> pid) <span class="keyword">from</span> dw_v_order_base d </span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(d.finish_time)<span class="operator">=</span><span class="string">&#x27;2020-05-01&#x27;</span> <span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span>)留存率</span><br><span class="line"><span class="keyword">from</span> dw_v_order_base d </span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(d.finish_time) <span class="keyword">between</span> <span class="string">&#x27;2020-05-02&#x27;</span> <span class="keyword">and</span> <span class="string">&#x27;2020-05-08&#x27;</span></span><br><span class="line"><span class="keyword">and</span> d.pid <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">distinct</span> pid <span class="keyword">from</span> dw_v_order_base d </span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(d.finish_time)<span class="operator">=</span><span class="string">&#x27;2020-05-01&#x27;</span> <span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span>)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="type">date</span>(d.finish_time);</span><br></pre></td></tr></table></figure>
-<p><img src="../images/3.png"></p>
-<h2 id="连续完单天数最长"><a href="#连续完单天数最长" class="headerlink" title="连续完单天数最长"></a>连续完单天数最长</h2><p>4）选出各城市连续完单天数最长的快车司机（加分题）；</p>
-<ul>
-<li><strong>筛选类型</strong>是快车；<strong>筛选订单状态</strong>是完单，查找不重复城市、司机、完单日期（也可以按照城市、司机、完单日期分组）得到t1</li>
-<li>在t1上，对每个城市，每个司机的订单日期使用开窗函数，按照城市、司机进行排序，再用每个完单日期减去排序值，得到的分组日期可以<strong>对连续日期分组</strong>，得到t2</li>
-<li>在t2上，对城市、司机、分组日期进行分组，对每一行都进行最大连续日期的计算（用开窗函数按照城市分组），再与每个司机的连续完单日期进行对比，匹配到该城市完成最大连续日期的司机是谁。</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">	city_name,</span><br><span class="line">    driver_id,</span><br><span class="line">    司机连续完单天数</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> </span><br><span class="line">	city_name,</span><br><span class="line">    driver_id,</span><br><span class="line">    分组日期,</span><br><span class="line">    <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">as</span> 司机连续完单天数,</span><br><span class="line">    <span class="built_in">max</span>(<span class="built_in">count</span>(<span class="operator">*</span>)) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> city_name) <span class="keyword">as</span> 城市最长连续完单天数</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> </span><br><span class="line">	<span class="operator">*</span>,</span><br><span class="line">    <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> city_name,driver_id <span class="keyword">order</span> <span class="keyword">by</span> 完单日期) <span class="keyword">as</span> 序号,</span><br><span class="line">    subdate(完单日期,<span class="type">interval</span> <span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> city_name,driver_id <span class="keyword">order</span> <span class="keyword">by</span> 完单日期) <span class="keyword">day</span>) <span class="keyword">as</span> 分组日期</span><br><span class="line"><span class="keyword">from</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="keyword">distinct</span> city_name,driver_id,<span class="type">date</span>(finish_time) <span class="keyword">as</span> 完单日期</span><br><span class="line"><span class="keyword">from</span> dw_v_order_base) <span class="keyword">as</span> t1) <span class="keyword">as</span> t2</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> city_name,driver_id,分组日期) <span class="keyword">as</span> t3</span><br><span class="line"><span class="keyword">where</span> 司机连续完单天数<span class="operator">=</span>城市最长连续完单天数;</span><br></pre></td></tr></table></figure>
-<p><img src="../images/4.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -790,6 +568,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%92%E5%BA%97%E9%A2%84%E8%AE%A2%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">酒店预订平台用户流失概率预测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">1、项目介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2、项目流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E7%9B%AE%E6%A0%87%E7%89%B9%E5%BE%81%E5%88%86%E5%B8%83"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">2.1.1 目标特征分布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-%E5%A4%84%E7%90%86%E5%BC%82%E5%B8%B8%E5%80%BC"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2.1.2 处理异常值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-%E5%A4%84%E7%90%86%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">2.1.3 处理缺失值</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-1-%E7%94%A8%E5%85%B6%E4%BB%96%E5%AD%97%E6%AE%B5%E7%BB%84%E5%90%88%E5%A1%AB%E5%85%85"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">2.1.3.1 用其他字段组合填充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-2-%E5%9D%87%E5%80%BC%E3%80%81%E4%B8%AD%E4%BD%8D%E6%95%B0%E3%80%810%E5%A1%AB%E5%85%85"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">2.1.3.2 均值、中位数、0填充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-3-%E7%94%A8%E5%85%B6%E4%BB%96%E5%AD%97%E6%AE%B5%E8%81%9A%E7%B1%BB%E8%87%AA%E8%BA%AB%E5%88%86%E6%AE%B5%E5%A1%AB%E5%85%85"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">2.1.3.3 用其他字段聚类自身分段填充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-3-4-%E7%94%A8%E5%85%B6%E4%BB%96%E5%AD%97%E6%AE%B5%E8%81%9A%E7%B1%BB%E5%A1%AB%E5%85%85"><span class="nav-number">1.2.1.3.4.</span> <span class="nav-text">2.1.3.4 用其他字段聚类填充</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%88%86%E6%9E%90%E6%8C%87%E6%A0%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 分析指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-%E5%AE%A2%E6%88%B7%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.2.1 客户分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-%E9%85%92%E5%BA%97%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.2.2 酒店分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E6%96%B0%E5%A2%9E%E5%AD%97%E6%AE%B5"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.3.1 新增字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-%E8%BF%9E%E7%BB%AD%E7%89%B9%E5%BE%81%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2.3.2 连续特征离散化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-%E5%88%A0%E9%99%A4%E5%AD%97%E6%AE%B5"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">2.3.3 删除字段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.3 模型训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E5%88%92%E5%88%86%E8%AE%AD%E7%BB%83%E9%9B%86%E5%92%8C%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">2.3.1 划分训练集和验证集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-%E6%AF%94%E8%BE%83%E5%90%84%E4%B8%AA%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E6%95%88%E6%9E%9C"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2.3.2 比较各个模型的训练效果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3-%E9%87%8D%E8%A6%81%E7%89%B9%E5%BE%81"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">2.3.3 重要特征</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
