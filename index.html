@@ -602,7 +602,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-05 19:17:03" itemprop="dateModified" datetime="2021-03-05T19:17:03+08:00">2021-03-05</time>
+                <time title="Modified: 2021-03-05 23:42:05" itemprop="dateModified" datetime="2021-03-05T23:42:05+08:00">2021-03-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -696,7 +696,7 @@
 <li> 再按照<strong>完单量和城市分组</strong>，得到相应的用户数<code>count(pid)</code></li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 完单数,city_name,<span class="built_in">count</span>(pid)乘客数 </span><br><span class="line"><span class="keyword">from</span>(<span class="keyword">select</span> pid,city_name, <span class="built_in">count</span>(<span class="keyword">distinct</span> d.order_id)完单数 </span><br><span class="line"><span class="keyword">from</span> dw_v_order_base d <span class="keyword">left</span> <span class="keyword">join</span> gulf_order_scene g <span class="keyword">on</span> d.order_id <span class="operator">=</span> g.order_id</span><br><span class="line"><span class="keyword">where</span> <span class="type">date</span>(finish_time) <span class="operator">&gt;</span> date_sub(curdate(),<span class="type">interval</span> <span class="number">7</span> <span class="keyword">day</span>)</span><br><span class="line"><span class="keyword">and</span> g.scene_l2 <span class="keyword">like</span> <span class="string">&#x27;%火车站%&#x27;</span> <span class="keyword">and</span> d.product_id <span class="keyword">in</span> (<span class="number">3</span>,<span class="number">4</span>) <span class="keyword">and</span> d.order_status <span class="operator">=</span><span class="number">5</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> pid,city_name)t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> 完单数,city_name;</span><br></pre></td></tr></table></figure>
-<p><img src="images/1.png"></p>
+<p><img src="../images/1.png"></p>
 <h2 id="分里程时段的订单量分布"><a href="#分里程时段的订单量分布" class="headerlink" title="分里程时段的订单量分布"></a>分里程时段的订单量分布</h2><p>2）请写出过去一个月各城市分里程分时段快车完单量的分布；（无从得知怎么对时段里程分区的情况下，按照滴滴的产品计费规则理解）</p>
 <ul>
 <li><strong>筛选日期</strong>：<code>subdate(curdate(),interval 1 month)</code>；<strong>筛选类型</strong>是快车；<strong>筛选订单状态</strong>是完单</li>
