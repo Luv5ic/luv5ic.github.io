@@ -143,10 +143,7 @@
 <li><p>评估标准<br>评分指标为97%精确度下的召回率，即：在precision&gt;=0.97的recall中，选取max(recall)。</p>
 </li>
 <li><p>数据集<br>数据集包括49个指标（2016年5月16至21日期间一周的数据），689945行，预测的目标样本为流失样本(即label=1)，将这些指标按订单相关、酒店相关和客户行为相关进行归类。</p>
-<img src="../images/19." style="zoom:80%;" />
-
-
-
+<p><img src="../images/19.png"></p>
 </li>
 </ul>
 <h2 id="2、项目流程"><a href="#2、项目流程" class="headerlink" title="2、项目流程"></a>2、项目流程</h2><h3 id="2-1-数据预处理"><a href="#2-1-数据预处理" class="headerlink" title="2.1 数据预处理"></a>2.1 数据预处理</h3><h4 id="2-1-1-目标特征分布"><a href="#2-1-1-目标特征分布" class="headerlink" title="2.1.1 目标特征分布"></a>2.1.1 目标特征分布</h4><p>导入相应包和数据</p>
