@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
+]]></content>
+      <categories>
+        <category>个人项目</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>滴滴SQL题</title>
     <url>/2021-01-01-%E6%BB%B4%E6%BB%B4SQL%E9%A2%98/</url>
     <content><![CDATA[<h1 id="滴滴笔试题"><a href="#滴滴笔试题" class="headerlink" title="滴滴笔试题"></a>滴滴笔试题</h1><p>1、 假设某天用户发单量异常，如何分析？</p>
@@ -110,32 +134,8 @@
       </tags>
   </entry>
   <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
-]]></content>
-      <categories>
-        <category>个人项目</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>酒店预订平台用户流失概率预测</title>
-    <url>/2021-01-11-%E9%85%92%E5%BA%97%E9%A2%84%E5%AE%9A%E5%B9%B3%E5%8F%B0%E7%94%A8%E6%88%B7%E6%B5%81%E5%A4%B1%E6%A6%82%E7%8E%87%E9%A2%84%E6%B5%8B/</url>
+    <url>/2021-01-11-Prediction_of_User_Churn/</url>
     <content><![CDATA[<h1 id="酒店预订平台用户流失概率预测"><a href="#酒店预订平台用户流失概率预测" class="headerlink" title="酒店预订平台用户流失概率预测"></a>酒店预订平台用户流失概率预测</h1><h2 id="1、项目介绍"><a href="#1、项目介绍" class="headerlink" title="1、项目介绍"></a>1、项目介绍</h2><p>某酒店预订平台所属公司作为中国领先的综合性旅行服务公司，每天向超过2.5亿会员提供全方位的旅行服务，在这海量的网站访问量中，我们可分析用户的行为数据来挖掘潜在的信息资源。其中，客户流失率是考量业务成绩的一个非常关键的指标。此次分析的目的是为了<strong>深入了解用户画像及行为偏好，找到最优算法，挖掘出影响用户流失的关键因素</strong>，从而更好地完善产品设计、提升用户体验！</p>
 <ul>
 <li><p>目的<br>分析影响客户流失的关键因素，并通过算法预测客户访问的转化结果。</p>
