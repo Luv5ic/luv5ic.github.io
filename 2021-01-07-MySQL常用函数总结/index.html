@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/hy.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/hy.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="开窗函数注：hive、oracle提供开窗函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL常用函数总结">
+<meta property="og:url" content="https://luv5ic.github.io/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="luv5ic&#39;s blog">
+<meta property="og:description" content="开窗函数注：hive、oracle提供开窗函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-07T02:59:23.000Z">
+<meta property="article:modified_time" content="2021-03-07T03:00:58.628Z">
+<meta property="article:author" content="luv5ic">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="函数">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luv5ic.github.io/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>MySQL常用函数总结 | luv5ic's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">luv5ic's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Work Life Balance">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL常用函数总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-07 10:59:23" itemprop="dateCreated datePublished" datetime="2021-01-07T10:59:23+08:00">2021-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-07 11:00:58" itemprop="dateModified" datetime="2021-03-07T11:00:58+08:00">2021-03-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供开窗函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
+<p>开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
+<ul>
+<li>静态窗口函数：随着记录不同，窗口大小都是固定的</li>
+<li>动态窗口函数：不同的记录对应着不同的窗口。</li>
+</ul>
+<p>开窗函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
+<p><strong>语法</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">开窗函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+<p>开窗函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，开窗函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
+<ul>
+<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，开窗函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
+<li>order by子句：按照指定字段进行排序，开窗函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
+<li>frame子句：当前分区的一个子集，用来定义子集的规则，通常用来作为滑动窗口使用。</li>
+</ul>
+<p>对于滑动窗口的范围指定，通常使用 between frame_start and frame_end 语法来表示行范围，frame_start和frame_end可以支持如下关键字，来确定不同的动态行记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">current row 边界是当前行，一般和其他范围关键字一起使用</span><br><span class="line">unbounded preceding 边界是分区中的第一行</span><br><span class="line">unbounded following 边界是分区中的最后一行</span><br><span class="line">expr preceding 边界是当前行减去expr的值</span><br><span class="line">expr following 边界是当前行加上expr的值</span><br></pre></td></tr></table></figure>
+<p>比如，下面都是合法的范围：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、前一行、后一行一共三行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的前一行、当前行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、后一行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> unbounded preceding 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> unbounded following 窗口范围是分区中的当前行到最后一行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following 窗口范围是当前分区中所有行。</span><br></pre></td></tr></table></figure>
+<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于开窗</p>
+<ul>
+<li>如没有指定排序和滑动窗口范围，默认计算的是分区内的所有记录。</li>
+<li>指定分区和排序后，如没有指定滑动窗口范围，默认计算的是分区内的第一行到当前行。</li>
+</ul>
+<h3 id="FIRST-VALUE-和-LAST-VALUE函数"><a href="#FIRST-VALUE-和-LAST-VALUE函数" class="headerlink" title="FIRST_VALUE 和 LAST_VALUE函数"></a>FIRST_VALUE 和 LAST_VALUE函数</h3><p><code>FIRST_VALUE</code> 取分组内排序后，截止到当前行，第一个值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT cookieid,createtime,pv,</span><br><span class="line">ROW_NUMBER() OVER(PARTITION BY cookieid ORDER BY createtime) AS rn,</span><br><span class="line">FIRST_VALUE(pv) OVER(PARTITION BY cookieid ORDER BY createtime) AS first  </span><br><span class="line">FROM test1;</span><br></pre></td></tr></table></figure>
+<p><strong>LAST_VALUE 函数则相反：</strong><br><code>LAST_VALUE</code> 取分组内排序后，截止到当前行，最后一个值</p>
+<hr>
+<h2 id="静态窗口函数"><a href="#静态窗口函数" class="headerlink" title="静态窗口函数"></a>静态窗口函数</h2><p>row_number() / rank() / dense_rank() / percent_rank() / cume_dist()/lag() /<br>lead() / ntile()</p>
+<ul>
+<li>不管是否指定滑动窗口范围，窗口都是固定的，所以指定的滑动窗口范围无效。</li>
+</ul>
+<p>开窗函数和普通聚合函数的区别：</p>
+<ul>
+<li>聚合函数是将多条记录聚合为一条；而开窗函数是每条记录都会执行，有几条记录执行完还是几条。</li>
+<li>聚合函数也可以用于开窗函数中。</li>
+</ul>
+<h3 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h3><ul>
+<li>rank()：重复间断的组内排序，例如 1，1，3，4，4，6</li>
+<li>dense_rank()：重复不间断的组内排序，例如 1，1，2，2，3</li>
+<li>row_number()：不重复不间断的组内排序，例如 1，2，3，4，5</li>
+</ul>
+<h3 id="cume-dist"><a href="#cume-dist" class="headerlink" title="cume_dist()"></a>cume_dist()</h3><p><em>注：不允许在 CUME_DIST 函数中使用组合排序键（RANGE,ROWS）</em></p>
+<p><code>cume_dist</code> 计算某个值在一组行中的相对位置</p>
+<p>以下示例返回一个包含居住在 California 的职员的<strong>薪水累计分布的结果集</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary,</span><br><span class="line"><span class="built_in">CUME_DIST</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> DepartmentID <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span>) &quot;Rank&quot; </span><br><span class="line"><span class="keyword">FROM</span> Employees  </span><br><span class="line"><span class="keyword">WHERE</span> State <span class="keyword">IN</span> (<span class="string">&#x27;CA&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>以下是该结果集：</p>
+<table>
+<thead>
+<tr>
+<th>DepartmentID</th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>Savarino</td>
+<td>72300.000</td>
+<td>0.333333333333333</td>
+</tr>
+<tr>
+<td>200</td>
+<td>Clark</td>
+<td>45000.000</td>
+<td>0.666666666666667</td>
+</tr>
+<tr>
+<td>200</td>
+<td>Overbey</td>
+<td>39300.000</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>也就是说，薪水小于等于72300的人，占整个分组的0.33；薪水小于等于45000的人，占整个分组的0.66。</p>
+<h3 id="PERCENT-RANK-函数"><a href="#PERCENT-RANK-函数" class="headerlink" title="PERCENT_RANK 函数"></a>PERCENT_RANK 函数</h3><p>与 PERCENT 函数类似，PERCENT_RANK 函数为窗口的 ORDER BY 子句所指定列中的值返回秩，但以介于 0 和 1 之间的小数形式表示，计算方法为 (分组内当前行的RANK值-1) / (分组内总行数-1)</p>
+<p>随着窗口在输入行中向下移动，会计算在窗口的 ORDER BY 子句中所指定的表达式的秩。当 ORDER BY 子句包括多个表达式时，若第一个表达式与相邻行具有相同值，则第二个及后续表达式将用于区分并列情况。NULL 值排在任何其它值的前面（在升序序列中）。</p>
+<p><strong>示例 1</strong></p>
+<p>以下示例返回按性别显示 New York 雇员薪水排位的结果集。该结果使用百分比数按降序列出排位并按性别分区。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary, Sex,    <span class="built_in">PERCENT_RANK</span>( ) <span class="keyword">OVER</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> Sex      <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) <span class="keyword">AS</span> PctRank  <span class="keyword">FROM</span> Employees   <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;NY&#x27;</span> );</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DepartmentID</th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Sex</th>
+<th>PctRank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>200</td>
+<td>Martel</td>
+<td>55700.000</td>
+<td>M</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100</td>
+<td>Guevara</td>
+<td>42998.000</td>
+<td>M</td>
+<td>0.333333333</td>
+</tr>
+<tr>
+<td>3</td>
+<td>100</td>
+<td>Soo</td>
+<td>39075.000</td>
+<td>M</td>
+<td>0.666666667</td>
+</tr>
+<tr>
+<td>4</td>
+<td>400</td>
+<td>Ahmed</td>
+<td>34992.000</td>
+<td>M</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>300</td>
+<td>Davidson</td>
+<td>57090.000</td>
+<td>F</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>400</td>
+<td>Blaikie</td>
+<td>54900.000</td>
+<td>F</td>
+<td>0.333333333</td>
+</tr>
+<tr>
+<td>7</td>
+<td>100</td>
+<td>Whitney</td>
+<td>45700.000</td>
+<td>F</td>
+<td>0.666666667</td>
+</tr>
+<tr>
+<td>8</td>
+<td>400</td>
+<td>Wetherby</td>
+<td>35745.000</td>
+<td>F</td>
+<td>1.0</td>
+</tr>
+</tbody></table>
+<p>由于按性别 (Sex) 划分输入，所以分别对男雇员和女雇员执行 PERCENT_RANK 计算。</p>
+<p><strong>示例 2</strong></p>
+<p>以下示例返回 Utah 和 Arizona 的一些女雇员的列表并根据薪水以降序顺序排列她们。这里的 PERCENT_RANK 函数用于以降序顺序提供累计总数。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Surname, Salary,      <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     <span class="keyword">FROM</span> Employees  <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;UT&#x27;</span>, <span class="string">&#x27;AZ&#x27;</span> ) <span class="keyword">AND</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;F&#x27;</span> );</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Shishov</td>
+<td>72995.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Jordan</td>
+<td>51432.00</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hildebrand</td>
+<td>45829.00</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bigelow</td>
+<td>31200.00</td>
+<td>0.75</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bertrand</td>
+<td>29800.00</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p><strong>使用 PERCENT_RANK 查找最高和最低百分点</strong></p>
+<p>在以下示例中，查询会返回其薪水在数据集的最高的五个百分点之内的男雇员。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  </span><br><span class="line"><span class="keyword">FROM</span>  ( <span class="keyword">SELECT</span> Surname, Salary,</span><br><span class="line">       <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     </span><br><span class="line">       <span class="keyword">FROM</span> Employees  </span><br><span class="line">       <span class="keyword">WHERE</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;M&#x27;</span> )  ) </span><br><span class="line">       <span class="keyword">AS</span> DerivedTable ( Surname, Salary, <span class="keyword">Percent</span> ) </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Percent</span> <span class="operator">&lt;</span> <span class="number">0.05</span>;</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Percent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Scott</td>
+<td>96300.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sheffield</td>
+<td>87900.00</td>
+<td>0.025</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Lull</td>
+<td>87900.00</td>
+<td>0.025</td>
+</tr>
+</tbody></table>
+<h3 id="前后函数"><a href="#前后函数" class="headerlink" title="前后函数"></a>前后函数</h3><p>​                   <strong>lag(expr,n)                / lead(expr,n)</strong><br>分区中位于当前行前n行（lag）/ 后n行(lead)的记录值<br>示例：查询各部门员工入职间隔天数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>,datediff(hiredate,前一位员工的入职日期) <span class="keyword">as</span> 间隔天数</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span>,<span class="built_in">lag</span>(hiredate,<span class="number">1</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> deptno <span class="keyword">order</span> <span class="keyword">by</span> hiredate) <span class="keyword">as</span> 前</span><br><span class="line">一位员工的入职日期 <span class="keyword">from</span> emp) <span class="keyword">as</span> t;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span> empno <span class="operator">|</span> ename <span class="operator">|</span> job    <span class="operator">|</span> mgr <span class="operator">|</span> hiredate  <span class="operator">|</span> sal <span class="operator">|</span> comm <span class="operator">|</span> deptno <span class="operator">|</span> 前一位员工的入职日期 <span class="operator">|</span> 间隔天数 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7782</span> <span class="operator">|</span> clark <span class="operator">|</span> manager  <span class="operator">|</span> <span class="number">7839</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span> <span class="operator">|</span> <span class="number">2450</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="keyword">NULL</span>          <span class="operator">|</span>    <span class="keyword">NULL</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7839</span> <span class="operator">|</span> king  <span class="operator">|</span> persident <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span> <span class="operator">|</span> <span class="number">5000</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span>   <span class="operator">|</span>    <span class="number">161</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7934</span> <span class="operator">|</span> miller <span class="operator">|</span> clerk   <span class="operator">|</span> <span class="number">7782</span> <span class="operator">|</span> <span class="number">1982</span><span class="number">-01</span><span class="number">-23</span> <span class="operator">|</span> <span class="number">1300</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span>    <span class="operator">|</span>    <span class="number">67</span>   <span class="operator">|</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="NTILE-函数"><a href="#NTILE-函数" class="headerlink" title="NTILE 函数"></a>NTILE 函数</h3><p>NTILE(n), 用于将分组函数按照顺序切分成n片，返回当前切片值</p>
+<p>例如：</p>
+<p>统计一个cookie，pv数最多的前1/3的天：取 <code>ntile = 1</code> 的记录，就是我们想要的结果</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> pv <span class="keyword">DESC</span>) <span class="keyword">AS</span> ntile </span><br><span class="line"><span class="keyword">FROM</span> test1;</span><br></pre></td></tr></table></figure>
+<p><em>注1：如果切片不均匀，<strong>默认增加第一个切片的分布</strong></em><br><em>注2：NTILE不支持ROWS BETWEEN</em></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">2</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile1,	<span class="comment">--分组内将数据分成2片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile2,  <span class="comment">--分组内将数据分成3片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">4</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile3   <span class="comment">--将所有数据分成4片</span></span><br><span class="line"><span class="keyword">FROM</span> test1 </span><br><span class="line"><span class="comment">-- ...</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SQL/" rel="tag"># SQL</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0/" rel="tag"># 函数</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/" rel="prev" title="“数智教育”可视化分析">
+      <i class="fa fa-chevron-left"></i> “数智教育”可视化分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-01-11-Prediction_of_User_Churn/" rel="next" title="酒店预订平台用户流失概率预测">
+      酒店预订平台用户流失概率预测 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">开窗函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">动态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIRST-VALUE-%E5%92%8C-LAST-VALUE%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">FIRST_VALUE 和 LAST_VALUE函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">静态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cume-dist"><span class="nav-number">1.2.2.</span> <span class="nav-text">cume_dist()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PERCENT-RANK-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">PERCENT_RANK 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">前后函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTILE-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.5.</span> <span class="nav-text">NTILE 函数</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">luv5ic</p>
+  <div class="site-description" itemprop="description">Work Life Balance</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luv5ic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
