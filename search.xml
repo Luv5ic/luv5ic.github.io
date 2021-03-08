@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>XGBoost</title>
-    <url>/2021-01-12-XGBoost/</url>
-    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所涉及，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
-<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
-<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
-<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
-<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
-<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
-<p><img src="../images/xgboost/1.png"></p>
-<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
-<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
-<ul>
-<li>损失函数，可以是平方损失或逻辑损失</li>
-<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
-</ul>
-<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
-<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
-<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
-<p><img src="../images/xgboost/4.png"></p>
-<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
-<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
-<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
-<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
-<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
-<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
-<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
-<p>回归预测：均方误差RMSE</p>
-<p>分类预测：错误率error 或者 对数损失 log_loss</p>
-<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
-<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
-<p><img src="../images/xgboost/5.png"></p>
-<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
-<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
-<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
-<p><img src="../images/xgboost/6.png"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL常用函数总结</title>
     <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供开窗函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
@@ -329,27 +284,48 @@
       </tags>
   </entry>
   <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
+    <title>XGBoost</title>
+    <url>/2021-01-12-XGBoost/</url>
+    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所涉及，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
+<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
+<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
+<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
+<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
+<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
+<p><img src="../images/xgboost/1.png"></p>
+<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
+<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
+<ul>
+<li>损失函数，可以是平方损失或逻辑损失</li>
+<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
+</ul>
+<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
+<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
+<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
+<p><img src="../images/xgboost/4.png"></p>
+<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
+<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
+<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
+<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
+<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
+<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
+<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
+<p>回归预测：均方误差RMSE</p>
+<p>分类预测：错误率error 或者 对数损失 log_loss</p>
+<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
+<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
+<p><img src="../images/xgboost/5.png"></p>
+<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
+<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
+<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
+<p><img src="../images/xgboost/6.png"></p>
 ]]></content>
       <categories>
-        <category>个人项目</category>
+        <category>机器学习</category>
       </categories>
       <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -385,6 +361,11 @@
 <li>分析型处理，叫联机分析处理OLAP（On-Line Analytical Processing），支持复杂的分析操作，侧重决策支持，并且提供直观易懂的查询结果。<br><img src="../images/2021-03-08-14-33-12.png"></li>
 </ul>
 <h4 id="Hbase-分布式存储系统"><a href="#Hbase-分布式存储系统" class="headerlink" title="Hbase 分布式存储系统"></a>Hbase 分布式存储系统</h4><h1 id="了解常见机器学习算法，并在安全领域有相关的研究和应用实践；"><a href="#了解常见机器学习算法，并在安全领域有相关的研究和应用实践；" class="headerlink" title="了解常见机器学习算法，并在安全领域有相关的研究和应用实践；"></a>了解常见机器学习算法，并在安全领域有相关的研究和应用实践；</h1>]]></content>
+  </entry>
+  <entry>
+    <title>一些面试题</title>
+    <url>/2021-03-08-%E4%B8%80%E4%BA%9B%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>滴滴SQL题</title>
@@ -496,6 +477,66 @@
       </tags>
   </entry>
   <entry>
+    <title>随机森林</title>
+    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
+    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
+<p>什么是集成算法和bagging？——</p>
+<p><strong>集成算法</strong></p>
+<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
+<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
+<p><strong>Bagging</strong></p>
+<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
+<p><img src="../images/rf/2.png"></p>
+<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
+<p>有哪些随机方法</p>
+<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>criterion</td>
+<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
+</tr>
+<tr>
+<td>max_depth</td>
+<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
+</tr>
+<tr>
+<td>min_samples_leaf</td>
+<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>min_samples_split</td>
+<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>max_features</td>
+<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
+</tr>
+<tr>
+<td>min_impurity_decrease</td>
+<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
+<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
+<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
+<p><img src="../images/rf/1.png"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>爬虫入门</title>
     <url>/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>了解一点爬虫</p>
@@ -576,63 +617,27 @@
       </categories>
   </entry>
   <entry>
-    <title>随机森林</title>
-    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
-    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
-<p>什么是集成算法和bagging？——</p>
-<p><strong>集成算法</strong></p>
-<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
-<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
-<p><strong>Bagging</strong></p>
-<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
-<p><img src="../images/rf/2.png"></p>
-<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
-<p>有哪些随机方法</p>
-<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>criterion</td>
-<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
-</tr>
-<tr>
-<td>max_depth</td>
-<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
-</tr>
-<tr>
-<td>min_samples_leaf</td>
-<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>min_samples_split</td>
-<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>max_features</td>
-<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
-</tr>
-<tr>
-<td>min_impurity_decrease</td>
-<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
-</tr>
-</tbody></table>
-<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
-<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
-<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
-<p><img src="../images/rf/1.png"></p>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
 ]]></content>
       <categories>
-        <category>机器学习</category>
+        <category>个人项目</category>
       </categories>
       <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
       </tags>
   </entry>
   <entry>
