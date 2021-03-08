@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="了解一点爬虫 1. 作用 应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  2. 分类2.1 通用爬虫">
+  <meta name="description" content="了解一点爬虫 1. 前言作用  应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  分类">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爬虫入门">
 <meta property="og:url" content="https://luv5ic.github.io/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="luv5ic&#39;s blog">
-<meta property="og:description" content="了解一点爬虫 1. 作用 应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  2. 分类2.1 通用爬虫">
+<meta property="og:description" content="了解一点爬虫 1. 前言作用  应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  分类">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-19T07:13:49.000Z">
-<meta property="article:modified_time" content="2021-03-08T08:04:53.860Z">
+<meta property="article:modified_time" content="2021-03-08T09:07:55.549Z">
 <meta property="article:author" content="luv5ic">
 <meta name="twitter:card" content="summary">
 
@@ -213,7 +213,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-08 16:04:53" itemprop="dateModified" datetime="2021-03-08T16:04:53+08:00">2021-03-08</time>
+                <time title="Modified: 2021-03-08 17:07:55" itemprop="dateModified" datetime="2021-03-08T17:07:55+08:00">2021-03-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -237,15 +237,26 @@
 
       
         <p>了解一点爬虫</p>
-<h1 id="1-作用"><a href="#1-作用" class="headerlink" title="1. 作用"></a>1. 作用</h1><ul>
+<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>作用</p>
+<ul>
 <li>应⽤于搜索引擎中对站点进⾏爬取收录</li>
 <li>应⽤于数据分析与挖掘中对数据进⾏采集</li>
 <li>应⽤于⾦融分析中对⾦融数据进⾏采集</li>
 <li>应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域</li>
 </ul>
-<h1 id="2-分类"><a href="#2-分类" class="headerlink" title="2. 分类"></a>2. 分类</h1><h2 id="2-1-通用爬虫"><a href="#2-1-通用爬虫" class="headerlink" title="2.1 通用爬虫"></a>2.1 通用爬虫</h2><p>通⽤⽹络爬⾍ 是 捜索引擎抓取系统（Baidu、Google、Yahoo等）的重要组成部 分。主要⽬的是将互联⽹上的⽹⻚下载到本地，形成⼀个互联⽹内容的镜像备份。通⽤⽹络爬⾍ 从互联⽹中搜集⽹⻚，采集信息，这些⽹⻚信息⽤于为搜索引擎 建⽴索引从⽽提供⽀持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果。</p>
-<h2 id="2-2-聚焦爬虫"><a href="#2-2-聚焦爬虫" class="headerlink" title="2.2 聚焦爬虫"></a>2.2 聚焦爬虫</h2><p>聚焦爬⾍，是”⾯向特定主题需求”的⼀种⽹络爬⾍程序，它与通⽤搜索引擎爬⾍的区别在于： 聚焦爬⾍在实施⽹⻚抓取时会对内容进⾏处理筛选，尽量保证只抓取与需求相关的⽹⻚信息。</p>
-<h1 id="3-爬虫的知识体系"><a href="#3-爬虫的知识体系" class="headerlink" title="3. 爬虫的知识体系"></a>3. 爬虫的知识体系</h1><ol>
+<p>分类</p>
+<ul>
+<li>通用爬虫</li>
+</ul>
+<p>通⽤⽹络爬⾍ 是 捜索引擎抓取系统（Baidu、Google、Yahoo等）的重要组成部 分。主要⽬的是将互联⽹上的⽹⻚下载到本地，形成⼀个互联⽹内容的镜像备份。通⽤⽹络爬⾍ 从互联⽹中搜集⽹⻚，采集信息，这些⽹⻚信息⽤于为搜索引擎 建⽴索引从⽽提供⽀持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果。</p>
+<ul>
+<li>聚焦爬虫</li>
+</ul>
+<p>聚焦爬⾍，是”⾯向特定主题需求”的⼀种⽹络爬⾍程序，它与通⽤搜索引擎爬⾍的区别在于： 聚焦爬⾍在实施⽹⻚抓取时会对内容进⾏处理筛选，尽量保证只抓取与需求相关的⽹⻚信息。<br>下面讲的是聚焦爬虫。</p>
+<ul>
+<li>爬虫的知识体系</li>
+</ul>
+<ol>
 <li>Python的基本语法</li>
 <li>⽹站开发相关知识：HTTP协议，HTML</li>
 <li>模拟请求库：requests</li>
@@ -259,7 +270,10 @@
 <li>Scrapy爬⾍框架的使⽤</li>
 <li>分布式爬⾍</li>
 </ol>
-<h1 id="4-原理"><a href="#4-原理" class="headerlink" title="4. 原理"></a>4. 原理</h1><p>每⼀个我们能够访问的⽹站实际上都是被部署在⼀个带有⽹络连接的服务器中。每⼀个在线的服务器都会有⼀个IP地址，⽽我们将⽹站的域名绑定到这个IP地址上⾯，这样⼀来当我们访问这个域名的时候，实际上就和这个服务器建⽴起了连接。</p>
+<ul>
+<li>原理</li>
+</ul>
+<p>每⼀个我们能够访问的⽹站实际上都是被部署在⼀个带有⽹络连接的服务器中。每⼀个在线的服务器都会有⼀个IP地址，⽽我们将⽹站的域名绑定到这个IP地址上⾯，这样⼀来当我们访问这个域名的时候，实际上就和这个服务器建⽴起了连接。</p>
 <p>首先明白<strong>网络连接</strong>：计算机带着请求头和消息体向服务器发起一次request，相应的服务器会返回本计算机所相应的HTML文件作为response。</p>
 <p>即：计算机⼀次Request请求和服务器端的Response响应。所以对于爬虫来说需要：</p>
 <p>(1) 模拟计算机对服务器发起Request请求<br>(2) 接收服务端的Response内容并解析, 提取所需的消息</p>
@@ -273,7 +287,7 @@
 <li>进⼊专题详细⻚⾯爬取详细⻚数据</li>
 <li>储存数据, 循环完毕, 结束爬取程序</li>
 </ol>
-<h1 id="5-利用requests库访问网站"><a href="#5-利用requests库访问网站" class="headerlink" title="5. 利用requests库访问网站"></a>5. 利用requests库访问网站</h1><p>在此之前，要先了解网页的构成。</p>
+<h1 id="2-利用requests库访问网站"><a href="#2-利用requests库访问网站" class="headerlink" title="2. 利用requests库访问网站"></a>2. 利用requests库访问网站</h1><p>在此之前，要先了解网页的构成。</p>
 <p>网页大致分为 HTML、CSS、JavaScript 三部分。</p>
 <ol>
 <li>HTML, 是⽹⻚的基础架构, 它⽤各种标签来表示内容,通过标签之间的各种嵌套组合, 组成了我们看到的⽹⻚.在HTML中，把这些标签叫做节点，所有节点构成一个树形的结构，叫做节点数。上级的 parent 节点，下级的 child 节点，同级的 sibling 节点等。</li>
@@ -282,7 +296,7 @@
 </ol>
 <hr>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># headers是为了模仿使用真实的浏览器访问(伪装客户端)，否则有些网站会识别出是爬虫</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;user-agent&#x27;</span>:<span class="string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># httpbin.org是一个开源的专门用于爬虫测试的网站, 通过这个网站可以获得很多, 爬虫正常访问网站的时候, 无法获取到的信息.</span></span><br><span class="line">url = <span class="string">&quot;http://httpbin.org/get&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GET 方法，发起get请求，返回页面信息</span></span><br><span class="line">r = requests.get(url, headers = headers)</span><br><span class="line">r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将解析网站的语言换成网站编写的语言，预测的不一定都一定准确</span></span><br><span class="line">r.encoding = r.apparent_encoding </span><br><span class="line"></span><br><span class="line"><span class="comment"># 和请求的网页相关的所有内容,都封装在了r中</span></span><br><span class="line">r.url</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问的消息头</span></span><br><span class="line">r.headers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取状态码</span></span><br><span class="line">r.status_code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网页源代码，打印不会改变源码格式</span></span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
-<h2 id="5-1-Response"><a href="#5-1-Response" class="headerlink" title="5.1 Response"></a>5.1 Response</h2><p>服务端返回给客户端, 分为三部分:</p>
+<h2 id="2-1-Response"><a href="#2-1-Response" class="headerlink" title="2.1 Response"></a>2.1 Response</h2><p>服务端返回给客户端, 分为三部分:</p>
 <p>响应状态码(Response Status Code) ,<br>响应头(Respongse Headers),<br>和响应体(Respongse body ).<br>响应状态码<br>响应状态码表示服务器的响应状态, 是否正常, 能够找到网页等等.</p>
 <p>最常见的:</p>
 <p>200代表正常,</p>
@@ -290,25 +304,37 @@
 <p>404代表没找到页面,</p>
 <p>403 Forbidden：请求资源的访问被服务器拒绝, 例如IP被封了</p>
 <p>500服务器错误(例如服务器宕机了)</p>
-<h2 id="5-2-GET方法传递url参数"><a href="#5-2-GET方法传递url参数" class="headerlink" title="5.2 GET方法传递url参数"></a>5.2 GET方法传递url参数</h2><p>一般来说, 我们访问的网页链接分为两种, 一种是动态网址, 一种是静态网址</p>
+<h2 id="2-2-GET方法传递url参数"><a href="#2-2-GET方法传递url参数" class="headerlink" title="2.2 GET方法传递url参数"></a>2.2 GET方法传递url参数</h2><p>一般来说, 我们访问的网页链接分为两种, 一种是动态网址, 一种是静态网址</p>
 <p>网址中含有问号的符号就是动态网址, 例如: <a target="_blank" rel="noopener" href="https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h">https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h</a></p>
 <p>问号后面的是该网址的”参数”,参数是由 key=value的形式进行构造的, 多个参数之间由&amp;符号进行连接.</p>
 <p>不同的参数控制了网页中的内容或者属性有所不同.</p>
 <p>网址中没有问号的就是静态网址, 例如:</p>
 <p><a target="_blank" rel="noopener" href="http://top.chinaz.com/Html/site_weibo.com.html">http://top.chinaz.com/Html/site_weibo.com.html</a></p>
 <p>这种网址不管如何访问, 进入的都是固定的页面.</p>
-<h3 id="5-2-1-用字符串的方法手动构造"><a href="#5-2-1-用字符串的方法手动构造" class="headerlink" title="5.2.1 用字符串的方法手动构造"></a>5.2.1 用字符串的方法手动构造</h3><p>不管是动态网址还是静态网址, 我们都可以通过字符串的格式化等方法进行手动构造:</p>
+<h3 id="2-2-1-用字符串的方法手动构造"><a href="#2-2-1-用字符串的方法手动构造" class="headerlink" title="2.2.1 用字符串的方法手动构造"></a>2.2.1 用字符串的方法手动构造</h3><p>不管是动态网址还是静态网址, 我们都可以通过字符串的格式化等方法进行手动构造:</p>
 <p>format方法:</p>
 <ol>
 <li>查询关键字<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">word = <span class="string">&#x27;疫情&#x27;</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&amp;wd=&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(word)</span><br><span class="line">print(url)</span><br><span class="line">r = requests.get(url,headers = headers)</span><br></pre></td></tr></table></figure></li>
 <li>百度贴吧网址页数变化<h1 id="使用循环"><a href="#使用循环" class="headerlink" title="使用循环"></a>使用循环</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">6</span>):</span><br><span class="line">    url = <span class="string">&quot;http://tieba.baidu.com/p/6487024722?pn=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i)</span><br><span class="line">    print(url)</span><br></pre></td></tr></table></figure>
-<h3 id="5-2-2-使用requests库带的方法进行动态网址构造"><a href="#5-2-2-使用requests库带的方法进行动态网址构造" class="headerlink" title="5.2.2 使用requests库带的方法进行动态网址构造"></a>5.2.2 使用requests库带的方法进行动态网址构造</h3>requests库中也带有构造动态网址的方法, 使用的是params参数, 使用字典的数据类型传入参数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span> <span class="comment"># 静态部分</span></span><br><span class="line">word = <span class="string">&#x27;实时疫情&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;ie&#x27;</span>:<span class="string">&quot;utf-8&quot;</span>,<span class="string">&quot;f&quot;</span>:<span class="string">&quot;8&quot;</span>,<span class="string">&quot;rsv_bp&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&#x27;rsv_idx&#x27;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;tn&quot;</span>:<span class="string">&quot;baidu&quot;</span>,<span class="string">&quot;wd&quot;</span>:word&#125;</span><br><span class="line">r =requests.get(url, params= d , headers= headers)</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
-<h2 id="6-POST方法"><a href="#6-POST方法" class="headerlink" title="6. POST方法"></a>6. POST方法</h2>POST请求大多数在表单提交时发起, 例如我们在登陆一个网站的时候, 需要输入用户名和密码</li>
+<h3 id="2-2-2-使用requests库带的方法进行动态网址构造"><a href="#2-2-2-使用requests库带的方法进行动态网址构造" class="headerlink" title="2.2.2 使用requests库带的方法进行动态网址构造"></a>2.2.2 使用requests库带的方法进行动态网址构造</h3>requests库中也带有构造动态网址的方法, 使用的是params参数, 使用字典的数据类型传入参数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span> <span class="comment"># 静态部分</span></span><br><span class="line">word = <span class="string">&#x27;实时疫情&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;ie&#x27;</span>:<span class="string">&quot;utf-8&quot;</span>,<span class="string">&quot;f&quot;</span>:<span class="string">&quot;8&quot;</span>,<span class="string">&quot;rsv_bp&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&#x27;rsv_idx&#x27;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;tn&quot;</span>:<span class="string">&quot;baidu&quot;</span>,<span class="string">&quot;wd&quot;</span>:word&#125;</span><br><span class="line">r =requests.get(url, params= d , headers= headers)</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-POST方法"><a href="#2-3-POST方法" class="headerlink" title="2.3 POST方法"></a>2.3 POST方法</h2>POST请求大多数在表单提交时发起, 例如我们在登陆一个网站的时候, 需要输入用户名和密码</li>
 </ol>
 <p>用户名和密码不可能作为参数放到网址中去, 因此需要换一个传输方法.</p>
 <p>我们把需要传输的内容, 作为表单传送过去, 而不是作为URL中的参数.</p>
 <p>在Preview中可以查看, 向服务器发送的表单信息</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;http://httpbin.org/post&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;haoxueai&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;1234567890&#x27;</span>,<span class="string">&#x27;captcha&#x27;</span>:<span class="string">&#x27;eszr&#x27;</span>&#125;</span><br><span class="line">r = requests.post(url,data = d, headers = headers)</span><br></pre></td></tr></table></figure>
+<h1 id="3-Beautiful-Soup"><a href="#3-Beautiful-Soup" class="headerlink" title="3. Beautiful Soup"></a>3. Beautiful Soup</h1><p>Beautiful Soup 是一个可以从HTML或XML文件中提取数据的Python库。它能够通过你喜欢的转换器实现惯用的文档导航,查找,修改文档的方式。Beautiful Soup会帮你节省数小时甚至数天的工作时间。</p>
+<p>Beautiful Soup是一个利用HTML或者XML来对内容进行解析的解析库。</p>
+<p>HTML的属性都具有结构上的层级关系, 而且有css和id属性, Beautiful Soup就是利用这样的关系进行提取</p>
+<p><strong>Beautiful Soup的安装</strong><br><code>pip install bs4</code></p>
+<p><a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html">中文文档</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 尝试运行一个简单的Beautiful Soup例子</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;http://www.shuquge.com/txt/8659/index.html&quot;</span></span><br><span class="line">headers =&#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>:<span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(url,headers=headers)</span><br><span class="line">r.encoding = r.apparent_encoding</span><br><span class="line"> </span><br><span class="line"><span class="built_in">type</span>(r.text)  <span class="comment"># str</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 我们为了在这个字符串中高效的搜索出我们需要的内容</span></span><br><span class="line"><span class="comment"># 利用BeautifulSoup 将这个字符串改变成BeautifulSoup类型</span></span><br><span class="line">bs = BeautifulSoup(r.text,<span class="string">&quot;lxml&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="搜索接口find-all"><a href="#搜索接口find-all" class="headerlink" title="搜索接口find_all"></a>搜索接口find_all</h2><ol>
+<li>find_all 两个一样: 搜索出网页中所有符合你的参数要求的内容,返回的数据类型是列表,即使只有一个符合要求的,也会将这唯一的一个放入到列表中,如果需要还需要从列表中提取,比较麻烦.</li>
+<li>find : 搜索出网页中第一个符合你的参数要求的内容, 一般来说,当你已知只有一个符合参数要求的内容的时候,就直接用find就可以了.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">bs.find_all(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line">bs.find_all(<span class="string">&#x27;title&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># find 这个接口就是搜索出第一个符合要求的结果</span></span><br><span class="line">bs.find(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 搜索出所有的a标签内容 </span></span><br><span class="line">bs.find_all(<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更加精确的定位方法, 配合标签的属性进行定位</span></span><br><span class="line"><span class="comment"># 属性名称 = 属性的值</span></span><br><span class="line"><span class="comment"># 在python中, class是一个关键字, 所有class后面需要加一个_,以便和关键字进行区分</span></span><br><span class="line">bs.find_all(<span class="string">&#x27;a&#x27;</span>, class_ = <span class="string">&#x27;brother&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为我们用的最多的是class, 所以当你搜索的是class的时候, 这个参数可以省略</span></span><br><span class="line">bs.find_all(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;littleboy&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过标签内的文本进行定位</span></span><br><span class="line">bs.find_all(<span class="string">&#x27;a&#x27;</span>,text = <span class="string">&#x27;罗恩&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过limit 参数限制返回的条数</span></span><br><span class="line">bs.find_all(<span class="string">&#x27;a&#x27;</span>,limit = <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">a = bs.find_all(<span class="string">&#x27;a&#x27;</span>,<span class="built_in">id</span>=<span class="string">&#x27;link1&#x27;</span>)[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -326,10 +352,7 @@
     <a href="/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" rel="prev" title="随机森林">
       <i class="fa fa-chevron-left"></i> 随机森林
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021-03-08-%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E7%A8%8B%E5%B8%88/" rel="next" title="安全数据分析工程师">
-      安全数据分析工程师 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -388,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">1. 作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">2. 分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%80%9A%E7%94%A8%E7%88%AC%E8%99%AB"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 通用爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%81%9A%E7%84%A6%E7%88%AC%E8%99%AB"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 聚焦爬虫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%88%AC%E8%99%AB%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">3. 爬虫的知识体系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">4. 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E5%88%A9%E7%94%A8requests%E5%BA%93%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99"><span class="nav-number">5.</span> <span class="nav-text">5. 利用requests库访问网站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Response"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-GET%E6%96%B9%E6%B3%95%E4%BC%A0%E9%80%92url%E5%8F%82%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 GET方法传递url参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%B3%95%E6%89%8B%E5%8A%A8%E6%9E%84%E9%80%A0"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1 用字符串的方法手动构造</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">使用循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E4%BD%BF%E7%94%A8requests%E5%BA%93%E5%B8%A6%E7%9A%84%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E7%BD%91%E5%9D%80%E6%9E%84%E9%80%A0"><span class="nav-number">6.0.1.</span> <span class="nav-text">5.2.2 使用requests库带的方法进行动态网址构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-POST%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">6. POST方法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%A9%E7%94%A8requests%E5%BA%93%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99"><span class="nav-number">2.</span> <span class="nav-text">2. 利用requests库访问网站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Response"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-GET%E6%96%B9%E6%B3%95%E4%BC%A0%E9%80%92url%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 GET方法传递url参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%B3%95%E6%89%8B%E5%8A%A8%E6%9E%84%E9%80%A0"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.2.1 用字符串的方法手动构造</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.</span> <span class="nav-text">使用循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E4%BD%BF%E7%94%A8requests%E5%BA%93%E5%B8%A6%E7%9A%84%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E7%BD%91%E5%9D%80%E6%9E%84%E9%80%A0"><span class="nav-number">3.0.1.</span> <span class="nav-text">2.2.2 使用requests库带的方法进行动态网址构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-POST%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">2.3 POST方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Beautiful-Soup"><span class="nav-number">4.</span> <span class="nav-text">3. Beautiful Soup</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E6%8E%A5%E5%8F%A3find-all"><span class="nav-number">4.1.</span> <span class="nav-text">搜索接口find_all</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -404,7 +427,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
