@@ -46,35 +46,6 @@
       </tags>
   </entry>
   <entry>
-    <title>安全数据分析工程师</title>
-    <url>/2021-03-08-%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E7%A8%8B%E5%B8%88/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
-]]></content>
-      <categories>
-        <category>个人项目</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL常用函数总结</title>
     <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供开窗函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
@@ -358,6 +329,64 @@
       </tags>
   </entry>
   <entry>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
+]]></content>
+      <categories>
+        <category>个人项目</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安全数据分析工程师</title>
+    <url>/2021-03-08-%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E7%A8%8B%E5%B8%88/</url>
+    <content><![CDATA[<p>安全数据分析工程师<br>职位简述：基于海量数据，深入挖掘其中的安全事件，来保护我们的广大用户。<br>职位要求：</p>
+<ul>
+<li>良好的信息安全知识素养，对常见的安全概念有较好的理解，了解各类攻击流程;</li>
+</ul>
+<ul>
+<li><p>良好的数据分析能力，熟练掌握至少一种数据分析工具，包括但不限于：SQL、Pandas、Splunk、Spark、Flink等;</p>
+</li>
+<li><p>熟练掌握至少一种主流数据分析语言，例如 R、Python、Go、Scala或者Java;</p>
+</li>
+<li><p>积极的学习心态，具备学习新领域知识能力;</p>
+</li>
+</ul>
+<p>加分项：</p>
+<ul>
+<li>有安全日志分析相关经验，有安全应急处置经验；</li>
+</ul>
+<h1 id="对操作系统安全攻防有较深入的研究，有逆向分析的相关能力；"><a href="#对操作系统安全攻防有较深入的研究，有逆向分析的相关能力；" class="headerlink" title="对操作系统安全攻防有较深入的研究，有逆向分析的相关能力；"></a>对操作系统安全攻防有较深入的研究，有逆向分析的相关能力；</h1><h1 id="熟练掌握多种数据分析工具，具备较强的大数据分析能力，代码实现能力强；"><a href="#熟练掌握多种数据分析工具，具备较强的大数据分析能力，代码实现能力强；" class="headerlink" title="熟练掌握多种数据分析工具，具备较强的大数据分析能力，代码实现能力强；"></a>熟练掌握多种数据分析工具，具备较强的大数据分析能力，代码实现能力强；</h1><h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><p>开源、支持数据密集型分布式应用、以 Apache 2.0 许可协议发布的开源软件框架，利用服务器集群，根据用户的自定义业务逻辑，对海量数据进行分布式处理。</p>
+<h3 id="Hadoop组成"><a href="#Hadoop组成" class="headerlink" title="Hadoop组成"></a>Hadoop组成</h3><p><img src="../images/2021-03-08-14-23-12.png"></p>
+<h4 id="HDFS：分布式文件系统"><a href="#HDFS：分布式文件系统" class="headerlink" title="HDFS：分布式文件系统"></a>HDFS：分布式文件系统</h4><h4 id="MapReduce：分布式运算框架"><a href="#MapReduce：分布式运算框架" class="headerlink" title="MapReduce：分布式运算框架"></a>MapReduce：分布式运算框架</h4><h4 id="YARN：资源调度"><a href="#YARN：资源调度" class="headerlink" title="YARN：资源调度"></a>YARN：资源调度</h4><h4 id="HIVE-数据仓库"><a href="#HIVE-数据仓库" class="headerlink" title="HIVE 数据仓库"></a>HIVE 数据仓库</h4><ul>
+<li>Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供完整的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。</li>
+<li>Hive是建立在 Hadoop 上的数据仓库基础构架。它提供了一系列的工具，可以用来进行数据提取转化加载（ETL），这是一种可以存储、查询和分析存储在 Hadoop 中的大规模数据的机制。</li>
+<li>Hive 定义了简单的类 SQL 查询语言，称为 HQL，它允许熟悉 SQL 的用户查询数据。同时，这个语言也允许熟悉 MapReduce 开发者的开发自定义的 mapper 和 reducer 来处理内建的 mapper 和 reducer 无法完成的复杂的分析工作。</li>
+</ul>
+<p><strong>了解一下数据库与数据仓库的区别</strong></p>
+<p>实际上就是 OLTP 与 OLAP 的区别</p>
+<ul>
+<li>操作型处理，叫联机事务处理OLTP（On-Line Transaction Processing），也可以称面向交易的处理系统，它是针对具体业务在数据库联机的日常操作，通常对少数记录进行查询、修改。用户较为关心操作的响应时间、数据的安全性、完整性和并发的支持用户数等问题。传统的数据库作为数据管理的主要手段，主要用于操作型处理。</li>
+<li>分析型处理，叫联机分析处理OLAP（On-Line Analytical Processing），支持复杂的分析操作，侧重决策支持，并且提供直观易懂的查询结果。<br><img src="../images/2021-03-08-14-33-12.png"></li>
+</ul>
+<h4 id="Hbase-分布式存储系统"><a href="#Hbase-分布式存储系统" class="headerlink" title="Hbase 分布式存储系统"></a>Hbase 分布式存储系统</h4><h1 id="了解常见机器学习算法，并在安全领域有相关的研究和应用实践；"><a href="#了解常见机器学习算法，并在安全领域有相关的研究和应用实践；" class="headerlink" title="了解常见机器学习算法，并在安全领域有相关的研究和应用实践；"></a>了解常见机器学习算法，并在安全领域有相关的研究和应用实践；</h1>]]></content>
+  </entry>
+  <entry>
     <title>滴滴SQL题</title>
     <url>/2021-01-01-%E6%BB%B4%E6%BB%B4SQL%E9%A2%98/</url>
     <content><![CDATA[<h1 id="滴滴笔试题"><a href="#滴滴笔试题" class="headerlink" title="滴滴笔试题"></a>滴滴笔试题</h1><p>1、 假设某天用户发单量异常，如何分析？</p>
@@ -465,6 +494,86 @@
         <tag>SQL</tag>
         <tag>题解</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>爬虫入门</title>
+    <url>/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>了解一点爬虫</p>
+<h1 id="1-作用"><a href="#1-作用" class="headerlink" title="1. 作用"></a>1. 作用</h1><ul>
+<li>应⽤于搜索引擎中对站点进⾏爬取收录</li>
+<li>应⽤于数据分析与挖掘中对数据进⾏采集</li>
+<li>应⽤于⾦融分析中对⾦融数据进⾏采集</li>
+<li>应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域</li>
+</ul>
+<h1 id="2-分类"><a href="#2-分类" class="headerlink" title="2. 分类"></a>2. 分类</h1><h2 id="2-1-通用爬虫"><a href="#2-1-通用爬虫" class="headerlink" title="2.1 通用爬虫"></a>2.1 通用爬虫</h2><p>通⽤⽹络爬⾍ 是 捜索引擎抓取系统（Baidu、Google、Yahoo等）的重要组成部 分。主要⽬的是将互联⽹上的⽹⻚下载到本地，形成⼀个互联⽹内容的镜像备份。通⽤⽹络爬⾍ 从互联⽹中搜集⽹⻚，采集信息，这些⽹⻚信息⽤于为搜索引擎 建⽴索引从⽽提供⽀持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果。</p>
+<h2 id="2-2-聚焦爬虫"><a href="#2-2-聚焦爬虫" class="headerlink" title="2.2 聚焦爬虫"></a>2.2 聚焦爬虫</h2><p>聚焦爬⾍，是”⾯向特定主题需求”的⼀种⽹络爬⾍程序，它与通⽤搜索引擎爬⾍的区别在于： 聚焦爬⾍在实施⽹⻚抓取时会对内容进⾏处理筛选，尽量保证只抓取与需求相关的⽹⻚信息。</p>
+<h1 id="3-爬虫的知识体系"><a href="#3-爬虫的知识体系" class="headerlink" title="3. 爬虫的知识体系"></a>3. 爬虫的知识体系</h1><ol>
+<li>Python的基本语法</li>
+<li>⽹站开发相关知识：HTTP协议，HTML</li>
+<li>模拟请求库：requests</li>
+<li>⽹⻚内容解析：re(正则表达式)，beautifulsoup，xpath解析返回的HTML响应⻚⾯</li>
+<li>通过API接⼝获取数据</li>
+<li>动态加载⽹⻚采集：Selenium⾃动化测试驱动</li>
+<li>代理的使⽤</li>
+<li>验证码识别</li>
+<li>数据的储存：数据库的连接与使⽤</li>
+<li>爬取APP数据<br>11 多线程爬⾍开发</li>
+<li>Scrapy爬⾍框架的使⽤</li>
+<li>分布式爬⾍</li>
+</ol>
+<h1 id="4-原理"><a href="#4-原理" class="headerlink" title="4. 原理"></a>4. 原理</h1><p>每⼀个我们能够访问的⽹站实际上都是被部署在⼀个带有⽹络连接的服务器中。每⼀个在线的服务器都会有⼀个IP地址，⽽我们将⽹站的域名绑定到这个IP地址上⾯，这样⼀来当我们访问这个域名的时候，实际上就和这个服务器建⽴起了连接。</p>
+<p>首先明白<strong>网络连接</strong>：计算机带着请求头和消息体向服务器发起一次request，相应的服务器会返回本计算机所相应的HTML文件作为response。</p>
+<p>即：计算机⼀次Request请求和服务器端的Response响应。所以对于爬虫来说需要：</p>
+<p>(1) 模拟计算机对服务器发起Request请求<br>(2) 接收服务端的Response内容并解析, 提取所需的消息</p>
+<p><strong>多页面</strong></p>
+<p>多个⻚⾯的⽹⻚结构相同或相似, 这种类型的⽹⻚爬⾍流程为:<br>(1) ⼿动翻⻚并观察各⽹⻚的URL构成特点, 构造出所有⻚⾯的URL存⼊列表中.<br>(2) 根据URL列表依次循环取出URL<br>(3) 定义爬⾍函数<br>(4) 循环调⽤爬⾍函数, 储存数据.<br>(5) 循环完毕, 结束爬⾍程序</p>
+<p><strong>跨页面（页面的URL可能没有具体的规则）</strong></p>
+<ol>
+<li>定义爬取函数爬取列表⻚的所有专题的URL</li>
+<li>将专题URL存⼊列表中(种⼦URL)</li>
+<li>定义爬取详细⻚数据函数</li>
+<li>进⼊专题详细⻚⾯爬取详细⻚数据</li>
+<li>储存数据, 循环完毕, 结束爬取程序</li>
+</ol>
+<h1 id="5-利用requests库访问网站"><a href="#5-利用requests库访问网站" class="headerlink" title="5. 利用requests库访问网站"></a>5. 利用requests库访问网站</h1><p>在此之前，要先了解网页的构成。</p>
+<p>网页大致分为 HTML、CSS、JavaScript 三部分。</p>
+<ol>
+<li>HTML, 是⽹⻚的基础架构, 它⽤各种标签来表示内容,通过标签之间的各种嵌套组合, 组成了我们看到的⽹⻚.在HTML中，把这些标签叫做节点，所有节点构成一个树形的结构，叫做节点数。上级的 parent 节点，下级的 child 节点，同级的 sibling 节点等。</li>
+<li>CSS，全称Cascading StyleSheets，即层叠样式表。“层叠”是指当在 HTML 中引⽤了数个样式⽂件，并且样式发⽣冲突时，浏览器能依据层叠顺序处理。 “样式”指⽹⻚中⽂字⼤⼩ 、 颜⾊ 、元素间距、排列等格式。css 是⽬前唯⼀的⽹⻚⻚⾯排版样式标<br>准。</li>
+<li>JavaScript，简称 JS，是⼀种脚本语⾔ HTML 和 css 配合使⽤， 提供给⽤户的只是⼀种静态信息，缺乏交互性。我们在⽹⻚⾥可能会看到⼀些交互和动画效果，如下载进度条、提示框、轮播图等，这通常就是 JavaScript 的功劳。</li>
+</ol>
+<hr>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># headers是为了模仿使用真实的浏览器访问(伪装客户端)，否则有些网站会识别出是爬虫</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;user-agent&#x27;</span>:<span class="string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># httpbin.org是一个开源的专门用于爬虫测试的网站, 通过这个网站可以获得很多, 爬虫正常访问网站的时候, 无法获取到的信息.</span></span><br><span class="line">url = <span class="string">&quot;http://httpbin.org/get&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GET 方法，发起get请求，返回页面信息</span></span><br><span class="line">r = requests.get(url, headers = headers)</span><br><span class="line">r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将解析网站的语言换成网站编写的语言，预测的不一定都一定准确</span></span><br><span class="line">r.encoding = r.apparent_encoding </span><br><span class="line"></span><br><span class="line"><span class="comment"># 和请求的网页相关的所有内容,都封装在了r中</span></span><br><span class="line">r.url</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问的消息头</span></span><br><span class="line">r.headers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取状态码</span></span><br><span class="line">r.status_code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网页源代码，打印不会改变源码格式</span></span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+<h2 id="5-1-Response"><a href="#5-1-Response" class="headerlink" title="5.1 Response"></a>5.1 Response</h2><p>服务端返回给客户端, 分为三部分:</p>
+<p>响应状态码(Response Status Code) ,<br>响应头(Respongse Headers),<br>和响应体(Respongse body ).<br>响应状态码<br>响应状态码表示服务器的响应状态, 是否正常, 能够找到网页等等.</p>
+<p>最常见的:</p>
+<p>200代表正常,</p>
+<p>301/302网页重定向(迁移)</p>
+<p>404代表没找到页面,</p>
+<p>403 Forbidden：请求资源的访问被服务器拒绝, 例如IP被封了</p>
+<p>500服务器错误(例如服务器宕机了)</p>
+<h2 id="5-2-GET方法传递url参数"><a href="#5-2-GET方法传递url参数" class="headerlink" title="5.2 GET方法传递url参数"></a>5.2 GET方法传递url参数</h2><p>一般来说, 我们访问的网页链接分为两种, 一种是动态网址, 一种是静态网址</p>
+<p>网址中含有问号的符号就是动态网址, 例如: <a href="https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h">https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h</a></p>
+<p>问号后面的是该网址的”参数”,参数是由 key=value的形式进行构造的, 多个参数之间由&amp;符号进行连接.</p>
+<p>不同的参数控制了网页中的内容或者属性有所不同.</p>
+<p>网址中没有问号的就是静态网址, 例如:</p>
+<p><a href="http://top.chinaz.com/Html/site_weibo.com.html">http://top.chinaz.com/Html/site_weibo.com.html</a></p>
+<p>这种网址不管如何访问, 进入的都是固定的页面.</p>
+<h3 id="5-2-1-用字符串的方法手动构造"><a href="#5-2-1-用字符串的方法手动构造" class="headerlink" title="5.2.1 用字符串的方法手动构造"></a>5.2.1 用字符串的方法手动构造</h3><p>不管是动态网址还是静态网址, 我们都可以通过字符串的格式化等方法进行手动构造:</p>
+<p>format方法:</p>
+<ol>
+<li>查询关键字<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">word = <span class="string">&#x27;疫情&#x27;</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&amp;wd=&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(word)</span><br><span class="line">print(url)</span><br><span class="line">r = requests.get(url,headers = headers)</span><br></pre></td></tr></table></figure></li>
+<li>百度贴吧网址页数变化<h1 id="使用循环"><a href="#使用循环" class="headerlink" title="使用循环"></a>使用循环</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">6</span>):</span><br><span class="line">    url = <span class="string">&quot;http://tieba.baidu.com/p/6487024722?pn=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i)</span><br><span class="line">    print(url)</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-2-使用requests库带的方法进行动态网址构造"><a href="#5-2-2-使用requests库带的方法进行动态网址构造" class="headerlink" title="5.2.2 使用requests库带的方法进行动态网址构造"></a>5.2.2 使用requests库带的方法进行动态网址构造</h3>requests库中也带有构造动态网址的方法, 使用的是params参数, 使用字典的数据类型传入参数<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span> <span class="comment"># 静态部分</span></span><br><span class="line">word = <span class="string">&#x27;实时疫情&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;ie&#x27;</span>:<span class="string">&quot;utf-8&quot;</span>,<span class="string">&quot;f&quot;</span>:<span class="string">&quot;8&quot;</span>,<span class="string">&quot;rsv_bp&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&#x27;rsv_idx&#x27;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;tn&quot;</span>:<span class="string">&quot;baidu&quot;</span>,<span class="string">&quot;wd&quot;</span>:word&#125;</span><br><span class="line">r =requests.get(url, params= d , headers= headers)</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
+<h2 id="6-POST方法"><a href="#6-POST方法" class="headerlink" title="6. POST方法"></a>6. POST方法</h2>POST请求大多数在表单提交时发起, 例如我们在登陆一个网站的时候, 需要输入用户名和密码</li>
+</ol>
+<p>用户名和密码不可能作为参数放到网址中去, 因此需要换一个传输方法.</p>
+<p>我们把需要传输的内容, 作为表单传送过去, 而不是作为URL中的参数.</p>
+<p>在Preview中可以查看, 向服务器发送的表单信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">url = <span class="string">&#x27;http://httpbin.org/post&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;haoxueai&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;1234567890&#x27;</span>,<span class="string">&#x27;captcha&#x27;</span>:<span class="string">&#x27;eszr&#x27;</span>&#125;</span><br><span class="line">r = requests.post(url,data = d, headers = headers)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
   </entry>
   <entry>
     <title>随机森林</title>

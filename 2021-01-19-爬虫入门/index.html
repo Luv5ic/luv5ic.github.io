@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/hy.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/hy.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="了解一点爬虫 1. 作用 应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  2. 分类2.1 通用爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫入门">
+<meta property="og:url" content="https://luv5ic.github.io/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="luv5ic&#39;s blog">
+<meta property="og:description" content="了解一点爬虫 1. 作用 应⽤于搜索引擎中对站点进⾏爬取收录 应⽤于数据分析与挖掘中对数据进⾏采集 应⽤于⾦融分析中对⾦融数据进⾏采集 应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域  2. 分类2.1 通用爬虫">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-19T07:13:49.000Z">
+<meta property="article:modified_time" content="2021-03-08T08:04:53.860Z">
+<meta property="article:author" content="luv5ic">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luv5ic.github.io/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>爬虫入门 | luv5ic's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">luv5ic's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tx.jpg">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          爬虫入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-19 15:13:49" itemprop="dateCreated datePublished" datetime="2021-01-19T15:13:49+08:00">2021-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-08 16:04:53" itemprop="dateModified" datetime="2021-03-08T16:04:53+08:00">2021-03-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>了解一点爬虫</p>
+<h1 id="1-作用"><a href="#1-作用" class="headerlink" title="1. 作用"></a>1. 作用</h1><ul>
+<li>应⽤于搜索引擎中对站点进⾏爬取收录</li>
+<li>应⽤于数据分析与挖掘中对数据进⾏采集</li>
+<li>应⽤于⾦融分析中对⾦融数据进⾏采集</li>
+<li>应⽤于舆情监测与分析、⽬标客户数据的收集等各个领域</li>
+</ul>
+<h1 id="2-分类"><a href="#2-分类" class="headerlink" title="2. 分类"></a>2. 分类</h1><h2 id="2-1-通用爬虫"><a href="#2-1-通用爬虫" class="headerlink" title="2.1 通用爬虫"></a>2.1 通用爬虫</h2><p>通⽤⽹络爬⾍ 是 捜索引擎抓取系统（Baidu、Google、Yahoo等）的重要组成部 分。主要⽬的是将互联⽹上的⽹⻚下载到本地，形成⼀个互联⽹内容的镜像备份。通⽤⽹络爬⾍ 从互联⽹中搜集⽹⻚，采集信息，这些⽹⻚信息⽤于为搜索引擎 建⽴索引从⽽提供⽀持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果。</p>
+<h2 id="2-2-聚焦爬虫"><a href="#2-2-聚焦爬虫" class="headerlink" title="2.2 聚焦爬虫"></a>2.2 聚焦爬虫</h2><p>聚焦爬⾍，是”⾯向特定主题需求”的⼀种⽹络爬⾍程序，它与通⽤搜索引擎爬⾍的区别在于： 聚焦爬⾍在实施⽹⻚抓取时会对内容进⾏处理筛选，尽量保证只抓取与需求相关的⽹⻚信息。</p>
+<h1 id="3-爬虫的知识体系"><a href="#3-爬虫的知识体系" class="headerlink" title="3. 爬虫的知识体系"></a>3. 爬虫的知识体系</h1><ol>
+<li>Python的基本语法</li>
+<li>⽹站开发相关知识：HTTP协议，HTML</li>
+<li>模拟请求库：requests</li>
+<li>⽹⻚内容解析：re(正则表达式)，beautifulsoup，xpath解析返回的HTML响应⻚⾯</li>
+<li>通过API接⼝获取数据</li>
+<li>动态加载⽹⻚采集：Selenium⾃动化测试驱动</li>
+<li>代理的使⽤</li>
+<li>验证码识别</li>
+<li>数据的储存：数据库的连接与使⽤</li>
+<li>爬取APP数据<br>11 多线程爬⾍开发</li>
+<li>Scrapy爬⾍框架的使⽤</li>
+<li>分布式爬⾍</li>
+</ol>
+<h1 id="4-原理"><a href="#4-原理" class="headerlink" title="4. 原理"></a>4. 原理</h1><p>每⼀个我们能够访问的⽹站实际上都是被部署在⼀个带有⽹络连接的服务器中。每⼀个在线的服务器都会有⼀个IP地址，⽽我们将⽹站的域名绑定到这个IP地址上⾯，这样⼀来当我们访问这个域名的时候，实际上就和这个服务器建⽴起了连接。</p>
+<p>首先明白<strong>网络连接</strong>：计算机带着请求头和消息体向服务器发起一次request，相应的服务器会返回本计算机所相应的HTML文件作为response。</p>
+<p>即：计算机⼀次Request请求和服务器端的Response响应。所以对于爬虫来说需要：</p>
+<p>(1) 模拟计算机对服务器发起Request请求<br>(2) 接收服务端的Response内容并解析, 提取所需的消息</p>
+<p><strong>多页面</strong></p>
+<p>多个⻚⾯的⽹⻚结构相同或相似, 这种类型的⽹⻚爬⾍流程为:<br>(1) ⼿动翻⻚并观察各⽹⻚的URL构成特点, 构造出所有⻚⾯的URL存⼊列表中.<br>(2) 根据URL列表依次循环取出URL<br>(3) 定义爬⾍函数<br>(4) 循环调⽤爬⾍函数, 储存数据.<br>(5) 循环完毕, 结束爬⾍程序</p>
+<p><strong>跨页面（页面的URL可能没有具体的规则）</strong></p>
+<ol>
+<li>定义爬取函数爬取列表⻚的所有专题的URL</li>
+<li>将专题URL存⼊列表中(种⼦URL)</li>
+<li>定义爬取详细⻚数据函数</li>
+<li>进⼊专题详细⻚⾯爬取详细⻚数据</li>
+<li>储存数据, 循环完毕, 结束爬取程序</li>
+</ol>
+<h1 id="5-利用requests库访问网站"><a href="#5-利用requests库访问网站" class="headerlink" title="5. 利用requests库访问网站"></a>5. 利用requests库访问网站</h1><p>在此之前，要先了解网页的构成。</p>
+<p>网页大致分为 HTML、CSS、JavaScript 三部分。</p>
+<ol>
+<li>HTML, 是⽹⻚的基础架构, 它⽤各种标签来表示内容,通过标签之间的各种嵌套组合, 组成了我们看到的⽹⻚.在HTML中，把这些标签叫做节点，所有节点构成一个树形的结构，叫做节点数。上级的 parent 节点，下级的 child 节点，同级的 sibling 节点等。</li>
+<li>CSS，全称Cascading StyleSheets，即层叠样式表。“层叠”是指当在 HTML 中引⽤了数个样式⽂件，并且样式发⽣冲突时，浏览器能依据层叠顺序处理。 “样式”指⽹⻚中⽂字⼤⼩ 、 颜⾊ 、元素间距、排列等格式。css 是⽬前唯⼀的⽹⻚⻚⾯排版样式标<br>准。</li>
+<li>JavaScript，简称 JS，是⼀种脚本语⾔ HTML 和 css 配合使⽤， 提供给⽤户的只是⼀种静态信息，缺乏交互性。我们在⽹⻚⾥可能会看到⼀些交互和动画效果，如下载进度条、提示框、轮播图等，这通常就是 JavaScript 的功劳。</li>
+</ol>
+<hr>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># headers是为了模仿使用真实的浏览器访问(伪装客户端)，否则有些网站会识别出是爬虫</span></span><br><span class="line">headers = &#123;<span class="string">&#x27;user-agent&#x27;</span>:<span class="string">&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Safari/605.1.15&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># httpbin.org是一个开源的专门用于爬虫测试的网站, 通过这个网站可以获得很多, 爬虫正常访问网站的时候, 无法获取到的信息.</span></span><br><span class="line">url = <span class="string">&quot;http://httpbin.org/get&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># GET 方法，发起get请求，返回页面信息</span></span><br><span class="line">r = requests.get(url, headers = headers)</span><br><span class="line">r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将解析网站的语言换成网站编写的语言，预测的不一定都一定准确</span></span><br><span class="line">r.encoding = r.apparent_encoding </span><br><span class="line"></span><br><span class="line"><span class="comment"># 和请求的网页相关的所有内容,都封装在了r中</span></span><br><span class="line">r.url</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问的消息头</span></span><br><span class="line">r.headers</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取状态码</span></span><br><span class="line">r.status_code</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看网页源代码，打印不会改变源码格式</span></span><br><span class="line">print(r.text)</span><br></pre></td></tr></table></figure>
+<h2 id="5-1-Response"><a href="#5-1-Response" class="headerlink" title="5.1 Response"></a>5.1 Response</h2><p>服务端返回给客户端, 分为三部分:</p>
+<p>响应状态码(Response Status Code) ,<br>响应头(Respongse Headers),<br>和响应体(Respongse body ).<br>响应状态码<br>响应状态码表示服务器的响应状态, 是否正常, 能够找到网页等等.</p>
+<p>最常见的:</p>
+<p>200代表正常,</p>
+<p>301/302网页重定向(迁移)</p>
+<p>404代表没找到页面,</p>
+<p>403 Forbidden：请求资源的访问被服务器拒绝, 例如IP被封了</p>
+<p>500服务器错误(例如服务器宕机了)</p>
+<h2 id="5-2-GET方法传递url参数"><a href="#5-2-GET方法传递url参数" class="headerlink" title="5.2 GET方法传递url参数"></a>5.2 GET方法传递url参数</h2><p>一般来说, 我们访问的网页链接分为两种, 一种是动态网址, 一种是静态网址</p>
+<p>网址中含有问号的符号就是动态网址, 例如: <a target="_blank" rel="noopener" href="https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h">https://movie.douban.com/subject/19971676/comments?start=0&amp;limit=20&amp;sort=new_score&amp;status=P&amp;percent_type=h</a></p>
+<p>问号后面的是该网址的”参数”,参数是由 key=value的形式进行构造的, 多个参数之间由&amp;符号进行连接.</p>
+<p>不同的参数控制了网页中的内容或者属性有所不同.</p>
+<p>网址中没有问号的就是静态网址, 例如:</p>
+<p><a target="_blank" rel="noopener" href="http://top.chinaz.com/Html/site_weibo.com.html">http://top.chinaz.com/Html/site_weibo.com.html</a></p>
+<p>这种网址不管如何访问, 进入的都是固定的页面.</p>
+<h3 id="5-2-1-用字符串的方法手动构造"><a href="#5-2-1-用字符串的方法手动构造" class="headerlink" title="5.2.1 用字符串的方法手动构造"></a>5.2.1 用字符串的方法手动构造</h3><p>不管是动态网址还是静态网址, 我们都可以通过字符串的格式化等方法进行手动构造:</p>
+<p>format方法:</p>
+<ol>
+<li>查询关键字<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">word = <span class="string">&#x27;疫情&#x27;</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&amp;wd=&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(word)</span><br><span class="line">print(url)</span><br><span class="line">r = requests.get(url,headers = headers)</span><br></pre></td></tr></table></figure></li>
+<li>百度贴吧网址页数变化<h1 id="使用循环"><a href="#使用循环" class="headerlink" title="使用循环"></a>使用循环</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">6</span>):</span><br><span class="line">    url = <span class="string">&quot;http://tieba.baidu.com/p/6487024722?pn=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i)</span><br><span class="line">    print(url)</span><br></pre></td></tr></table></figure>
+<h3 id="5-2-2-使用requests库带的方法进行动态网址构造"><a href="#5-2-2-使用requests库带的方法进行动态网址构造" class="headerlink" title="5.2.2 使用requests库带的方法进行动态网址构造"></a>5.2.2 使用requests库带的方法进行动态网址构造</h3>requests库中也带有构造动态网址的方法, 使用的是params参数, 使用字典的数据类型传入参数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s&#x27;</span> <span class="comment"># 静态部分</span></span><br><span class="line">word = <span class="string">&#x27;实时疫情&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;ie&#x27;</span>:<span class="string">&quot;utf-8&quot;</span>,<span class="string">&quot;f&quot;</span>:<span class="string">&quot;8&quot;</span>,<span class="string">&quot;rsv_bp&quot;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&#x27;rsv_idx&#x27;</span>:<span class="string">&quot;1&quot;</span>,<span class="string">&quot;tn&quot;</span>:<span class="string">&quot;baidu&quot;</span>,<span class="string">&quot;wd&quot;</span>:word&#125;</span><br><span class="line">r =requests.get(url, params= d , headers= headers)</span><br><span class="line">r</span><br></pre></td></tr></table></figure>
+<h2 id="6-POST方法"><a href="#6-POST方法" class="headerlink" title="6. POST方法"></a>6. POST方法</h2>POST请求大多数在表单提交时发起, 例如我们在登陆一个网站的时候, 需要输入用户名和密码</li>
+</ol>
+<p>用户名和密码不可能作为参数放到网址中去, 因此需要换一个传输方法.</p>
+<p>我们把需要传输的内容, 作为表单传送过去, 而不是作为URL中的参数.</p>
+<p>在Preview中可以查看, 向服务器发送的表单信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = <span class="string">&#x27;http://httpbin.org/post&#x27;</span></span><br><span class="line">d = &#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;haoxueai&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;1234567890&#x27;</span>,<span class="string">&#x27;captcha&#x27;</span>:<span class="string">&#x27;eszr&#x27;</span>&#125;</span><br><span class="line">r = requests.post(url,data = d, headers = headers)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" rel="prev" title="随机森林">
+      <i class="fa fa-chevron-left"></i> 随机森林
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-03-08-%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B7%A5%E7%A8%8B%E5%B8%88/" rel="next" title="安全数据分析工程师">
+      安全数据分析工程师 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">1. 作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">2. 分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E9%80%9A%E7%94%A8%E7%88%AC%E8%99%AB"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 通用爬虫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%81%9A%E7%84%A6%E7%88%AC%E8%99%AB"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 聚焦爬虫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E7%88%AC%E8%99%AB%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB"><span class="nav-number">3.</span> <span class="nav-text">3. 爬虫的知识体系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%8E%9F%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">4. 原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E5%88%A9%E7%94%A8requests%E5%BA%93%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99"><span class="nav-number">5.</span> <span class="nav-text">5. 利用requests库访问网站</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Response"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 Response</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-GET%E6%96%B9%E6%B3%95%E4%BC%A0%E9%80%92url%E5%8F%82%E6%95%B0"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 GET方法传递url参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%96%B9%E6%B3%95%E6%89%8B%E5%8A%A8%E6%9E%84%E9%80%A0"><span class="nav-number">5.2.1.</span> <span class="nav-text">5.2.1 用字符串的方法手动构造</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">使用循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-%E4%BD%BF%E7%94%A8requests%E5%BA%93%E5%B8%A6%E7%9A%84%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%8A%A8%E6%80%81%E7%BD%91%E5%9D%80%E6%9E%84%E9%80%A0"><span class="nav-number">6.0.1.</span> <span class="nav-text">5.2.2 使用requests库带的方法进行动态网址构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-POST%E6%96%B9%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">6. POST方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="luv5ic"
+      src="/images/tx.jpg">
+  <p class="site-author-name" itemprop="name">luv5ic</p>
+  <div class="site-description" itemprop="description">Practice makes perfect 👩🏻‍💻</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luv5ic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
