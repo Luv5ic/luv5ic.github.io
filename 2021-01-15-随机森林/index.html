@@ -20,24 +20,24 @@
     var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。 什么是集成算法和bagging？—— 集成算法 对于训练集">
+  <meta name="description" content="bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。 什么是集成算法和bagging？—— 集成算法 对于训练">
 <meta property="og:type" content="article">
 <meta property="og:title" content="随机森林">
-<meta property="og:url" content="https://luv5ic.github.io/2021-01-11-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/index.html">
+<meta property="og:url" content="https://luv5ic.github.io/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/index.html">
 <meta property="og:site_name" content="luv5ic&#39;s blog">
-<meta property="og:description" content="bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。 什么是集成算法和bagging？—— 集成算法 对于训练集">
+<meta property="og:description" content="bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。 什么是集成算法和bagging？—— 集成算法 对于训练">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20210210115325040.png">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20210210115737750.png">
-<meta property="article:published_time" content="2021-01-11T03:20:00.000Z">
-<meta property="article:modified_time" content="2021-03-08T05:04:05.153Z">
+<meta property="og:image" content="https://luv5ic.github.io/images/rf/2.png">
+<meta property="og:image" content="https://luv5ic.github.io/images/rf/1.png">
+<meta property="article:published_time" content="2021-01-15T03:20:00.000Z">
+<meta property="article:modified_time" content="2021-03-08T05:29:07.437Z">
 <meta property="article:author" content="luv5ic">
 <meta property="article:tag" content="集成算法">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/image-20210210115325040.png">
+<meta name="twitter:image" content="https://luv5ic.github.io/images/rf/2.png">
 
-<link rel="canonical" href="https://luv5ic.github.io/2021-01-11-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">
+<link rel="canonical" href="https://luv5ic.github.io/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">
 
 
 <script id="page-configurations">
@@ -120,12 +120,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -188,12 +188,12 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-11-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/tx.jpg">
       <meta itemprop="name" content="luv5ic">
-      <meta itemprop="description" content="Work Life Balance">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -211,14 +211,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-01-11 11:20:00" itemprop="dateCreated datePublished" datetime="2021-01-11T11:20:00+08:00">2021-01-11</time>
+              <time title="Created: 2021-01-15 11:20:00" itemprop="dateCreated datePublished" datetime="2021-01-15T11:20:00+08:00">2021-01-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-08 13:04:05" itemprop="dateModified" datetime="2021-03-08T13:04:05+08:00">2021-03-08</time>
+                <time title="Modified: 2021-03-08 13:29:07" itemprop="dateModified" datetime="2021-03-08T13:29:07+08:00">2021-03-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,15 +241,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
+        <p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
 <p>什么是集成算法和bagging？——</p>
 <p><strong>集成算法</strong></p>
 <p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
 <p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
 <p><strong>Bagging</strong></p>
 <p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
-<img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20210210115325040.png" alt="image-20210210115325040" style="zoom: 80%;" />
-
+<p><img src="../images/rf/2.png"></p>
 <h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
 <p>有哪些随机方法</p>
 <h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
@@ -285,12 +284,12 @@
 </tr>
 </tbody></table>
 <h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
-<p>subsample（有放回抽样）、subfeature、低维空间投影</p>
 <h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
 <p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
 <h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
-<img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20210210115737750.png" alt="image-20210210115737750" style="zoom: 80%;" />
+<p><img src="../images/rf/1.png"></p>
+
     </div>
 
     
@@ -309,13 +308,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" rel="prev" title="MySQL常用函数总结">
-      <i class="fa fa-chevron-left"></i> MySQL常用函数总结
+    <a href="/2021-01-12-XGBoost/" rel="prev" title="XGBoost">
+      <i class="fa fa-chevron-left"></i> XGBoost
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021-01-11-Prediction_of_User_Churn/" rel="next" title="酒店预订平台用户流失概率预测">
-      酒店预订平台用户流失概率预测 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -380,15 +376,17 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="luv5ic"
+      src="/images/tx.jpg">
   <p class="site-author-name" itemprop="name">luv5ic</p>
-  <div class="site-description" itemprop="description">Work Life Balance</div>
+  <div class="site-description" itemprop="description">Practice makes perfect 👩🏻‍💻</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
