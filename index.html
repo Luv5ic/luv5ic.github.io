@@ -180,6 +180,147 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tx.jpg">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Pandas数据分析常用函数总结</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-03-11 19:54:41 / Modified: 20:01:52" itemprop="dateCreated datePublished" datetime="2021-03-11T19:54:41+08:00">2021-03-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h1 id="创建数据集并读取"><a href="#创建数据集并读取" class="headerlink" title="创建数据集并读取"></a>创建数据集并读取</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>),                                <span class="comment"># 101~110的id</span></span><br><span class="line">    <span class="string">&quot;date&quot;</span>:pd.date_range(start=<span class="string">&quot;20200310&quot;</span>,periods=<span class="number">10</span>),      <span class="comment"># 输出日期数据，设置周期为10，注意这里的周期数应该与数据条数相等。</span></span><br><span class="line">    <span class="string">&quot;money&quot;</span>:[<span class="number">5</span>,<span class="number">4</span>,<span class="number">65</span>,-<span class="number">10</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">35</span>,<span class="number">16</span>,<span class="number">6</span>,<span class="number">20</span>],                  <span class="comment"># 设置一个-10的坑，下面会填（好惨，自己给自己挖坑，幸亏不准备跳~）</span></span><br><span class="line">    <span class="string">&quot;product&quot;</span>:[<span class="string">&#x27;苏打水&#x27;</span>,<span class="string">&#x27;可乐&#x27;</span>,<span class="string">&#x27;牛肉干&#x27;</span>,<span class="string">&#x27;老干妈&#x27;</span>,<span class="string">&#x27;菠萝&#x27;</span>,<span class="string">&#x27;冰激凌&#x27;</span>,<span class="string">&#x27;洗面奶&#x27;</span>,<span class="string">&#x27;洋葱&#x27;</span>,<span class="string">&#x27;牙膏&#x27;</span>,<span class="string">&#x27;薯片&#x27;</span>],</span><br><span class="line">    <span class="string">&quot;department&quot;</span>:[<span class="string">&#x27;饮料&#x27;</span>,<span class="string">&#x27;饮料&#x27;</span>,<span class="string">&#x27;零食&#x27;</span>,<span class="string">&#x27;调味品&#x27;</span>,<span class="string">&#x27;水果&#x27;</span>,np.nan,<span class="string">&#x27;日用品&#x27;</span>,<span class="string">&#x27;蔬菜&#x27;</span>,<span class="string">&#x27;日用品&#x27;</span>,<span class="string">&#x27;零食&#x27;</span>],                <span class="comment"># 再设置一个空值的坑</span></span><br><span class="line">    <span class="string">&quot;origin&quot;</span>:[<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27; China&#x27;</span>,<span class="string">&#x27;America&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;Thailand&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;america&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;Japan&#x27;</span>]     <span class="comment"># 再再设置一个america的坑</span></span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tx.jpg">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">Python中的单，双，三引号用法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-11 20:05:28" itemprop="dateCreated datePublished" datetime="2021-02-11T20:05:28+08:00">2021-02-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-11 20:22:04" itemprop="dateModified" datetime="2021-03-11T20:22:04+08:00">2021-03-11</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str1 = <span class="string">&#x27;python&#x27;</span></span><br><span class="line">str2 = <span class="string">&quot;python&quot;</span> </span><br><span class="line"><span class="comment"># str1和str2没有任何区别。</span></span><br></pre></td></tr></table></figure>
+<h1 id="字符串中含有单引号"><a href="#字符串中含有单引号" class="headerlink" title="字符串中含有单引号"></a>字符串中含有单引号</h1><p>例如：I’m a big fan of Python.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -843,7 +984,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -854,7 +995,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

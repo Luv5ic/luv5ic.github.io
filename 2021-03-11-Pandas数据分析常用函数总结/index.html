@@ -20,21 +20,19 @@
     var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="“数智教育”可视化分析可视化报表地址 通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。 1、目的项目来源：天池–“数智教育”数据可视化创新大赛">
+  <meta name="description" content="导入模块12import pandas as pdimport numpy as np 创建数据集并读取创建数据集12345678910# 列表和字典均可传入DataFrame，这里用的是字典传入：data&#x3D;pd.DataFrame(&amp;#123;    &quot;id&quot;:np.arange(101,111),                                # 101~1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="“数智教育”可视化分析">
-<meta property="og:url" content="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/index.html">
+<meta property="og:title" content="Pandas数据分析常用函数总结">
+<meta property="og:url" content="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="luv5ic&#39;s blog">
-<meta property="og:description" content="“数智教育”可视化分析可视化报表地址 通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。 1、目的项目来源：天池–“数智教育”数据可视化创新大赛">
+<meta property="og:description" content="导入模块12import pandas as pdimport numpy as np 创建数据集并读取创建数据集12345678910# 列表和字典均可传入DataFrame，这里用的是字典传入：data&#x3D;pd.DataFrame(&amp;#123;    &quot;id&quot;:np.arange(101,111),                                # 101~1">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-01-05T03:39:53.000Z">
-<meta property="article:modified_time" content="2021-03-08T05:28:00.960Z">
+<meta property="article:published_time" content="2021-03-11T11:54:41.000Z">
+<meta property="article:modified_time" content="2021-03-11T12:01:52.392Z">
 <meta property="article:author" content="luv5ic">
-<meta property="article:tag" content="数据分析">
-<meta property="article:tag" content="Tableau">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/">
+<link rel="canonical" href="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
 
 
 <script id="page-configurations">
@@ -47,7 +45,7 @@
   };
 </script>
 
-  <title>“数智教育”可视化分析 | luv5ic's blog</title>
+  <title>Pandas数据分析常用函数总结 | luv5ic's blog</title>
   
 
 
@@ -185,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/tx.jpg">
@@ -198,7 +196,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          “数智教育”可视化分析
+          Pandas数据分析常用函数总结
         </h1>
 
         <div class="post-meta">
@@ -207,24 +205,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2021-01-05 11:39:53" itemprop="dateCreated datePublished" datetime="2021-01-05T11:39:53+08:00">2021-01-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-08 13:28:00" itemprop="dateModified" datetime="2021-03-08T13:28:00+08:00">2021-03-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">个人项目</span></a>
-                </span>
+              <time title="Created: 2021-03-11 19:54:41 / Modified: 20:01:52" itemprop="dateCreated datePublished" datetime="2021-03-11T19:54:41+08:00">2021-03-11</time>
             </span>
 
           
@@ -238,18 +221,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a target="_blank" rel="noopener" href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/1-_?publish=yes">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
+        <h1 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h1 id="创建数据集并读取"><a href="#创建数据集并读取" class="headerlink" title="创建数据集并读取"></a>创建数据集并读取</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>),                                <span class="comment"># 101~110的id</span></span><br><span class="line">    <span class="string">&quot;date&quot;</span>:pd.date_range(start=<span class="string">&quot;20200310&quot;</span>,periods=<span class="number">10</span>),      <span class="comment"># 输出日期数据，设置周期为10，注意这里的周期数应该与数据条数相等。</span></span><br><span class="line">    <span class="string">&quot;money&quot;</span>:[<span class="number">5</span>,<span class="number">4</span>,<span class="number">65</span>,-<span class="number">10</span>,<span class="number">15</span>,<span class="number">20</span>,<span class="number">35</span>,<span class="number">16</span>,<span class="number">6</span>,<span class="number">20</span>],                  <span class="comment"># 设置一个-10的坑，下面会填（好惨，自己给自己挖坑，幸亏不准备跳~）</span></span><br><span class="line">    <span class="string">&quot;product&quot;</span>:[<span class="string">&#x27;苏打水&#x27;</span>,<span class="string">&#x27;可乐&#x27;</span>,<span class="string">&#x27;牛肉干&#x27;</span>,<span class="string">&#x27;老干妈&#x27;</span>,<span class="string">&#x27;菠萝&#x27;</span>,<span class="string">&#x27;冰激凌&#x27;</span>,<span class="string">&#x27;洗面奶&#x27;</span>,<span class="string">&#x27;洋葱&#x27;</span>,<span class="string">&#x27;牙膏&#x27;</span>,<span class="string">&#x27;薯片&#x27;</span>],</span><br><span class="line">    <span class="string">&quot;department&quot;</span>:[<span class="string">&#x27;饮料&#x27;</span>,<span class="string">&#x27;饮料&#x27;</span>,<span class="string">&#x27;零食&#x27;</span>,<span class="string">&#x27;调味品&#x27;</span>,<span class="string">&#x27;水果&#x27;</span>,np.nan,<span class="string">&#x27;日用品&#x27;</span>,<span class="string">&#x27;蔬菜&#x27;</span>,<span class="string">&#x27;日用品&#x27;</span>,<span class="string">&#x27;零食&#x27;</span>],                <span class="comment"># 再设置一个空值的坑</span></span><br><span class="line">    <span class="string">&quot;origin&quot;</span>:[<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27; China&#x27;</span>,<span class="string">&#x27;America&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;Thailand&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;america&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;China&#x27;</span>,<span class="string">&#x27;Japan&#x27;</span>]     <span class="comment"># 再再设置一个america的坑</span></span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
+<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><pre><code class="python"># 写入
+data.to_csv(&quot;XXX.csv&quot;,index=False)
+
+# 读取
+data = pd.read_csv(&#39;XXX.csv&#39;) #单双引号都行</code></pre>
 
     </div>
 
@@ -258,10 +236,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
-              <a href="/tags/Tableau/" rel="tag"># Tableau</a>
-          </div>
 
         
 
@@ -269,13 +243,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021-01-01-%E6%BB%B4%E6%BB%B4SQL%E9%A2%98/" rel="prev" title="滴滴SQL题">
-      <i class="fa fa-chevron-left"></i> 滴滴SQL题
+    <a href="/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/" rel="prev" title="Python中的单，双，三引号用法">
+      <i class="fa fa-chevron-left"></i> Python中的单，双，三引号用法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" rel="next" title="MySQL常用函数总结">
-      MySQL常用函数总结 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -334,7 +305,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">“数智教育”可视化分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">1、目的</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">导入模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B9%B6%E8%AF%BB%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">创建数据集并读取</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">创建数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E4%B8%8E%E8%AF%BB%E5%8F%96"><span class="nav-number">2.2.</span> <span class="nav-text">写入与读取</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
