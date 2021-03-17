@@ -1,82 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Pandas常用函数总结</title>
-    <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
-<h1 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-<h1 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input/Output"></a>Input/Output</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>)                       </span><br><span class="line">   </span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
-<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入</span></span><br><span class="line">data.to_csv(<span class="string">&quot;XXX.csv&quot;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;XXX.csv&#x27;</span>) <span class="comment">#单双引号都行</span></span><br></pre></td></tr></table></figure>
-<p><a href="">Python中的单，双，三引号用法</a></p>
-<h1 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h1><h2 id="数据集基础信息"><a href="#数据集基础信息" class="headerlink" title="数据集基础信息"></a>数据集基础信息</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.shape            <span class="comment"># 行数列数</span></span><br><span class="line">data.dtypes           <span class="comment"># 所有列的数据类型</span></span><br><span class="line">data[<span class="string">&#x27;id&#x27;</span>].dtype      <span class="comment"># 某一列的数据类型</span></span><br><span class="line">data.ndim             <span class="comment"># 数据维度</span></span><br><span class="line">data.index            <span class="comment"># 行索引</span></span><br><span class="line">data.columns          <span class="comment"># 列索引</span></span><br><span class="line">data.values           <span class="comment"># 对象值</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据集整体情况"><a href="#数据集整体情况" class="headerlink" title="数据集整体情况"></a>数据集整体情况</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.head()    <span class="comment"># 显示头部几行（默认5行）</span></span><br><span class="line">data.tail()    <span class="comment"># 显示末尾几行（默认5行）</span></span><br><span class="line">data.info()    <span class="comment"># 数据集相关信息概览：索引情况、列数据类型、非空值、内存使用情况</span></span><br><span class="line">data.describe()    <span class="comment"># 快速综合统计结果</span></span><br></pre></td></tr></table></figure>
-<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><h2 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h2><p>箱线图</p>
-<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><h3 id="空值查询"><a href="#空值查询" class="headerlink" title="空值查询"></a>空值查询</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.isnull()                <span class="comment"># 查看整个数据集的空值</span></span><br><span class="line">data[<span class="string">&#x27;columnA&#x27;</span>].isnull()  <span class="comment"># 查看某一列的空值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常使用mean() 或 sum() 更好地查看空值所占频率和总数</span></span><br><span class="line">data.isnull().mean()</span><br><span class="line">data.isnull().<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后汇总查看，更加直观</span></span><br><span class="line">data.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="空值处理"><a href="#空值处理" class="headerlink" title="空值处理"></a>空值处理</h3><p><code>pandas.DataFrame.fillna（value = None，method = None，inplace = False）</code></p>
-<ul>
-<li>value：用于填充的值，可以是具体值、字典和数组，不能是列表；</li>
-<li>method：填充方法，有 ffill(填充上一个值) 和 bfill(填充下一个值)  等；</li>
-<li>inplace默认无False，如果为True，则将修改此对象上的所有其他视图。</li>
+    <title>Fluent Python Study Notes</title>
+    <url>/2021-01-21-Fluent-Python-Study-Notes/</url>
+    <content><![CDATA[<h1 id="Python-数据模型"><a href="#Python-数据模型" class="headerlink" title="Python 数据模型"></a>Python 数据模型</h1><h2 id="一摞Python风格的纸牌"><a href="#一摞Python风格的纸牌" class="headerlink" title="一摞Python风格的纸牌"></a>一摞Python风格的纸牌</h2><blockquote>
+<p>类中的函数称为方法，特殊方法，也叫魔术方法,与其他方法的差别在于调用方法的方式。比如 <code>__init__()</code>,每次根据类创建实例时，Python都会自动运行它。在这个方法的定义中，形参 self 必不可少，还必须位于其他形参的前面。当 Python调用这个方法来创建一个实例时，将自动传入实参 self 。每个与类相关联的方法调用都自动传递实参 self ，它是一个指向实例本身的引用，让实例能够访问类中的属性和方法。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 一摞有序的纸牌</span></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">Card = collections.namedtuple(<span class="string">&#x27;Card&#x27;</span>, [<span class="string">&#x27;rank&#x27;</span>, <span class="string">&#x27;suit&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">    ranks = [<span class="built_in">str</span>(n) <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">11</span>)] + <span class="built_in">list</span>(<span class="string">&#x27;JQKA&#x27;</span>)</span><br><span class="line">    suits = <span class="string">&#x27;spades diamonds clubs hearts&#x27;</span>.split()</span><br><span class="line"></span><br><span class="line">    def_init_(self):</span><br><span class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits</span><br><span class="line">                                        <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self._cards)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, position</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._cards[position]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一叠牌有多少张</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck = FrenchDeck()   <span class="comment"># 创建实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">len</span>(deck)</span><br><span class="line"><span class="number">52</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抽取特定的一张纸牌</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">0</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[-<span class="number">1</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机抽取一张纸牌 random.choice</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片操作</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[:<span class="number">3</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">12</span>::<span class="number">13</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可迭代</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> deck:</span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">reversed</span>(deck): <span class="comment"># 反向迭代</span></span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;Q&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;hearts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;beasts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对这摞牌升序排序</span></span><br><span class="line">suit_values = <span class="built_in">dict</span>(spades=<span class="number">3</span>, hearts=<span class="number">2</span>, diamonds=<span class="number">1</span>, clubs=<span class="number">0</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spades_high</span>(<span class="params">card</span>):</span></span><br><span class="line">    rank_value = FrenchDeck.ranks.index(card.rank)</span><br><span class="line">    <span class="keyword">return</span> rank_value * <span class="built_in">len</span>(suit_values) + suit_values[card.suit]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">sorted</span>(deck, key=spades_high): </span><br><span class="line"><span class="meta">... </span>     print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">... </span>(<span class="number">46</span> cards ommitted)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>collections.namedtuple 构建了一个名为 Card,只具有属性 rank 和 suit 的类。<br><code>__len__</code> 和 <code>__getitem__</code> 的具体实现可以代理给 self._cards这个 Python 列表（即 list 对象）。</p>
+</blockquote>
+<h2 id="如何使用特殊方法"><a href="#如何使用特殊方法" class="headerlink" title="如何使用特殊方法"></a>如何使用特殊方法</h2><ol>
+<li>特殊方法是为了被 Python 解释器调用的，所以没有<code>my_object.__len__()</code>这种写法，而是<code>len(my_object)</code>。</li>
+<li>如果不是自定义对象，而是 Python 内置类型，比如 list、str 等，Python 会直接调用一种内置的 ob_size 属性。</li>
+<li>通过内置的函数（len、iter、str 等）来构造特殊方法最好。因为对于内置的类来说，速度更快。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 二维向量加法</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> hypot</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x=<span class="number">0</span>, y=<span class="number">0</span></span>):</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Vector(%r, %r)&#x27;</span> % (self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bool</span>(<span class="built_in">abs</span>(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        x = self.x + other.x</span><br><span class="line">        y = self.y + other.y</span><br><span class="line">        <span class="keyword">return</span> Vector(x, y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span>(<span class="params">self, scalar</span>):</span></span><br><span class="line">        <span class="keyword">return</span> Vector(self.x * scalar, self.y * scalar)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = Vector(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 + v2</span><br><span class="line">Vector(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v = Vector(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v)</span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v * <span class="number">3</span></span><br><span class="line">Vector(<span class="number">9</span>, <span class="number">12</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v * <span class="number">3</span>)</span><br><span class="line"><span class="number">15.0</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Python 有一个内置的函数叫 repr，它能把一个对象用字符串的形式表达出来以便辨认，这就是“字符串表示形式”。repr 就是通过<code>__repr__</code>这个特殊方法来得到一个对象的字符串表示形式的。如果没有实现<code>__repr__</code>，当我们在控制台里打印一个向量的实例时，得到的字符串可能会是 <code>&lt;Vector object at 0x10e100070&gt;</code>。</p>
+</blockquote>
+<h2 id="特殊方法一览"><a href="#特殊方法一览" class="headerlink" title="特殊方法一览"></a>特殊方法一览</h2><blockquote>
+<p><a href="https://docs.python.org/3/reference/datamodel.html">Python 语言参考手册中的“DataModel”</a></p>
+</blockquote>
+<p>跟运算符无关的特殊方法：</p>
+<table>
+<thead>
+<tr>
+<th align="left"><code>类别</code></th>
+<th align="left"><code>方法名</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">字符串/字节序列表示形式</td>
+<td align="left">__repr__ 、 __str__ 、 __format__ 、 __bytes__</td>
+</tr>
+<tr>
+<td align="left">数值转换</td>
+<td align="left">__abs__ 、 __bool__ 、 __complex__ 、 __int__ 、 __float__ 、 __hash__ 、 __index__</td>
+</tr>
+<tr>
+<td align="left">集合模拟</td>
+<td align="left">__len__ 、 __getitem__ 、 __setitem__ 、 __delitem__ 、 __contains__</td>
+</tr>
+<tr>
+<td align="left">迭代枚举</td>
+<td align="left">__iter__ 、 __reversed__ 、 __next__</td>
+</tr>
+<tr>
+<td align="left">可调用模拟</td>
+<td align="left">__call__</td>
+</tr>
+<tr>
+<td align="left">上下文管理</td>
+<td align="left">__enter__ 、 __exit__</td>
+</tr>
+<tr>
+<td align="left">实例创建和销毁</td>
+<td align="left">__new__ 、 __init__ 、 __del__</td>
+</tr>
+<tr>
+<td align="left">属性管理</td>
+<td align="left">__getattr__ 、 __getattribute__ 、 __setattr__ 、 __delattr__ 、 __dir__</td>
+</tr>
+<tr>
+<td align="left">属性描述符</td>
+<td align="left">__get__ 、 __set__ 、 __delete__</td>
+</tr>
+<tr>
+<td align="left">跟类相关的服务</td>
+<td align="left">__prepare__ 、 __instancecheck__ 、 __subclasscheck__</td>
+</tr>
+</tbody></table>
+<p>跟运算符相关的特殊方法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类别</th>
+<th align="left">方法名和对应的运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">一元运算符</td>
+<td align="left">__neg__ - 、 __pos__ + 、 __abs__ abs()</td>
+</tr>
+<tr>
+<td align="left">众多比较运算符</td>
+<td align="left">__lt__ &lt; 、 __le__ &lt;= 、 __eq__ == 、 __ne__ != 、 __gt__ &gt; 、 __ge__ &gt;=</td>
+</tr>
+<tr>
+<td align="left">算术运算符</td>
+<td align="left">__add__ + 、 __sub__ - 、 __mul__ * 、 __truediv__ / 、 __floordiv__ // 、 __mod__ % 、 __divmod__ divmod() 、 __pow__ ** 或 pow() 、 __round__ round()</td>
+</tr>
+<tr>
+<td align="left">反向算术运算符</td>
+<td align="left">__radd__ 、 __rsub__ 、 __rmul__ 、 __rtruediv__ 、 __rfloordiv__ 、 __rmod__ 、  __rdivmod__ 、 __rpow__</td>
+</tr>
+<tr>
+<td align="left">增量赋值算术运算符</td>
+<td align="left">__iadd__ 、 __isub__ 、 __imul__ 、 __itruediv__ 、 __ifloordiv__ 、 __imod__ 、 __ipow__</td>
+</tr>
+<tr>
+<td align="left">位运算符</td>
+<td align="left">__invert__ ~ 、 __lshift__ &lt;&lt; 、 __rshift__ &gt;&gt; 、 __and__ &amp; 、 __or__</td>
+</tr>
+<tr>
+<td align="left">反向位运算符</td>
+<td align="left">__rlshift__ 、 __rrshift__ 、 __rand__ 、 __rxor__ 、 __ror__</td>
+</tr>
+<tr>
+<td align="left">增量赋值位算术运算符</td>
+<td align="left">__ilshift__ 、 __irshift__ 、 __iand__ 、 __ixor__ 、 __ior__</td>
+</tr>
+</tbody></table>
+<h1 id="序列构成的数组"><a href="#序列构成的数组" class="headerlink" title="序列构成的数组"></a>序列构成的数组</h1><h2 id="内置序列类型概览"><a href="#内置序列类型概览" class="headerlink" title="内置序列类型概览"></a>内置序列类型概览</h2><ul>
+<li>容器序列：list、tuple 和 collections.deque 这些序列能存放不同类型的数据</li>
+<li>扁平序列：str、bytes、bytearray、memoryview 和 array.array，这类序列只能容纳一种类型</li>
+<li>可变序列：list、bytearray、array.array、collections.deque、memoryview</li>
+<li>不可变序列：tuple、str 和 bytes<br><img src="../images/2021-03-12-14-36-43.png"><blockquote>
+<p>可变序列（MutableSequence）和不可变序列（Sequence）</p>
+</blockquote>
+</li>
 </ul>
+<h2 id="列表推导和生成器表达式"><a href="#列表推导和生成器表达式" class="headerlink" title="列表推导和生成器表达式"></a>列表推导和生成器表达式</h2><p>虽然也可以用列表推导来初始化元组、数组或其他序列类型，但是生成器表达式是更好的选择。这是因为生成器表达式背后遵守了迭代器协议，可以逐个地产出元素，而不是先建立一个完整的列表，然后再把这个列表传递到某个构造函数里。前面那种方式显然能够节省内存。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字符串变成 Unicode 码位</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = [<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols]    <span class="comment"># 列表推导</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">[<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = [<span class="built_in">ord</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> symbols <span class="keyword">if</span> <span class="built_in">ord</span>(s) &gt; <span class="number">127</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> c: c &gt; <span class="number">127</span>, <span class="built_in">map</span>(<span class="built_in">ord</span>, symbols)))         <span class="comment">#    filter和map</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">tuple</span>(<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)  <span class="comment"># 生成器表达式</span></span><br><span class="line">(<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> array</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array.array(<span class="string">&#x27;I&#x27;</span>, (<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)) </span><br><span class="line">array(<span class="string">&#x27;I&#x27;</span>, [<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用生成器表达式计算笛卡尔积</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>colors = [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;white&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sizes = [<span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;L&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> tshirt <span class="keyword">in</span> (<span class="string">&#x27;%s %s&#x27;</span> % (c, s) <span class="keyword">for</span> c <span class="keyword">in</span> colors <span class="keyword">for</span> s <span class="keyword">in</span> sizes): </span><br><span class="line"><span class="meta">... </span>    print(tshirt)</span><br><span class="line">...</span><br><span class="line">black S</span><br><span class="line">black M</span><br><span class="line">black L</span><br><span class="line">white S</span><br><span class="line">white M</span><br><span class="line">white L</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">更多 pandas.DataFrame.fillna()用法</a></p>
+<p>表达式内部的变量和赋值只在局部起作用，表达式的上下文里的同名变量还可以被正常引用。</p>
 </blockquote>
-<h2 id="空格-‘-‘-‘-’-等特殊字符处理"><a href="#空格-‘-‘-‘-’-等特殊字符处理" class="headerlink" title="空格/‘-‘/‘_’ 等特殊字符处理"></a>空格/‘-‘/‘_’ 等特殊字符处理</h2><p>只针对object类型数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:                                  </span><br><span class="line">    <span class="keyword">if</span> pd.api.types.is_object_dtype(data[i]):     </span><br><span class="line">        data[i]=data[i].<span class="built_in">str</span>.strip()  </span><br></pre></td></tr></table></figure>
-<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.<span class="built_in">str</span>.title()         <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.capitalize()    <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.upper()         <span class="comment"># 全部大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.lower()         <span class="comment"># 全部小写</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.title.html">更多 pandas.Series.str 相关用法</a></p>
-</blockquote>
-<h2 id="数据替换"><a href="#数据替换" class="headerlink" title="数据替换"></a>数据替换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.replace(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, inplace=<span class="literal">True</span>)              <span class="comment">#将A替换成B</span></span><br><span class="line"></span><br><span class="line">Series.replace(-<span class="number">10</span>,np.nan,inplace=<span class="literal">True</span>)             <span class="comment"># 将负值替换为空值</span></span><br><span class="line"></span><br><span class="line">Series.replace(np.nan,Series.mean(),inplace=<span class="literal">True</span>)   <span class="comment"># 将空值替换为均值</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h2><p><strong>等值判断</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data1 = data[data.origin != <span class="string">&#x27;American&#x27;</span>] <span class="comment">#去掉origin为American的行</span></span><br><span class="line"></span><br><span class="line">data2=data[(data != <span class="string">&#x27;Japan&#x27;</span>).<span class="built_in">all</span>(<span class="number">1</span>)]    <span class="comment">#去掉所有包含Japan的行。返回True值，即不等于Japan的行</span></span><br></pre></td></tr></table></figure>
-<p><strong>去除重复值</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.drop_duplicates()      <span class="comment"># 默认删除后面出现的重复值，即保留第一次出现的重复值</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html#pandas.DataFrame.drop_duplicates">更多 pandas.DataFrame.drop_duplicates() 用法</a></p>
-</blockquote>
-<h2 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h2><p>将某一列转换为 str 格式<br><code>Series.astype(&#39;str)</code></p>
-<p>常见的数据类型对照<br><img src="../images/2021-03-12-00-01-44.png"></p>
-<blockquote>
-<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">pandas.Series.map</a><br><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply">pandas.DataFrame.apply</a></p>
-</blockquote>
-<h2 id="更改column-name"><a href="#更改column-name" class="headerlink" title="更改column_name"></a>更改column_name</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.rename(columns=&#123;<span class="string">&#x27;id&#x27;</span>:<span class="string">&#x27;ID&#x27;</span>, <span class="string">&#x27;origin&#x27;</span>:<span class="string">&#x27;产地&#x27;</span>&#125;)     <span class="comment"># 将id列改为ID，将origin改为产地。</span></span><br></pre></td></tr></table></figure>
-<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>DataFrame.merge(self，right，how =‘inner’，on = None)</code></p>
-<ul>
-<li>right 指要合并的对象</li>
-<li>on 指要加入的列或索引级别名称，必须在两个 DataFrame 中都可以找到。</li>
-<li>how 决定要执行的合并类型：left（使用左框架中的键）、right、inner（交集，默认）、outer（并集）</li>
-</ul>
-<p><strong>先创建两个df</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: [<span class="number">3</span>, <span class="number">4</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    a  b</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    a  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   baz  <span class="number">4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;inner&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)       </span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;left&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span>  NaN</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;left&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;right&#x27;</span>: [<span class="number">7</span>, <span class="number">8</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    left</span><br><span class="line"><span class="number">0</span>   foo</span><br><span class="line"><span class="number">1</span>   bar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    right</span><br><span class="line"><span class="number">0</span>   <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   <span class="number">8</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;cross&#x27;</span>)</span><br><span class="line">   left  right</span><br><span class="line"><span class="number">0</span>   foo      <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   foo      <span class="number">8</span></span><br><span class="line"><span class="number">2</span>   bar      <span class="number">7</span></span><br><span class="line"><span class="number">3</span>   bar      <span class="number">8</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">更多 pandas.DataFrame.merge() 用法</a></p>
-</blockquote>
-<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><p><strong>在原数据集的下方合并入新的数据集</strong><br><code>df1.append(df2)</code></p>
-<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><p><code>pandas.concat(objs,axis = 0,ignore_index = False,keys = None)</code></p>
-<ul>
-<li>objs:Series，DataFrame或Panel对象的序列或映射。</li>
-<li>axis：串联的轴，默认为0，即以索引串联（竖直拼接）；如果为1，则以列串联（水平拼接）</li>
-<li>ignore_index：清除现有索引并将其重置，默认为False。</li>
-<li>key：在数据的最外层添加层次结构索引。</li>
-</ul>
-<p>比如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_new=pd.concat([data,data2,data3],axis = <span class="number">1</span>,keys=[<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;data2&#x27;</span>,<span class="string">&#x27;data3&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.concat.html">更多 pandas.concat() 用法</a></p>
-</blockquote>
-<h2 id="设置索引列"><a href="#设置索引列" class="headerlink" title="设置索引列"></a>设置索引列</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.set_index(<span class="string">&quot;id&quot;</span>)           <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.reset_index(drop=<span class="literal">True</span>)    <span class="comment"># 重置索引列，并且避免将旧索引添加为列</span></span><br></pre></td></tr></table></figure>
-<h2 id="按照特定列的值排序"><a href="#按照特定列的值排序" class="headerlink" title="按照特定列的值排序"></a>按照特定列的值排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.sort_index()              <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.sort_values(by=<span class="string">&quot;columnA&quot;</span>,ascending = <span class="literal">True</span>)    <span class="comment"># 按照columnA的值排序，默认升序</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">更多 pandas.DataFrame.sort_values()用法</a></p>
-</blockquote>
-<h2 id="分类显示"><a href="#分类显示" class="headerlink" title="分类显示"></a>分类显示</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果money列的值&gt;=10, level列显示high，否则显示low</span></span><br><span class="line">data[<span class="string">&#x27;level&#x27;</span>] = np.where(data[<span class="string">&#x27;money&#x27;</span>]&gt;=<span class="number">10</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="分组标记"><a href="#分组标记" class="headerlink" title="分组标记"></a>分组标记</h2><p>定位到 level 行==high 并且 origin 行==China，sign列的数据。赋值为“棒”<br><code>data.loc[(data[&#39;level&#39;]==&quot;high&quot;) &amp; (data[&#39;origin&#39;]==&quot;China&quot;),&quot;sign&quot;]=&quot;棒&quot;</code></p>
 ]]></content>
+      <categories>
+        <category>Study Notes</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Study Notes</tag>
+      </tags>
   </entry>
   <entry>
     <title>MySQL常用函数总结</title>
@@ -362,96 +419,82 @@
       </tags>
   </entry>
   <entry>
-    <title>Fluent Python Study Notes</title>
-    <url>/2021-01-21-Fluent-Python-Study-Notes/</url>
-    <content><![CDATA[<h1 id="Python-数据模型"><a href="#Python-数据模型" class="headerlink" title="Python 数据模型"></a>Python 数据模型</h1><h2 id="一摞Python风格的纸牌"><a href="#一摞Python风格的纸牌" class="headerlink" title="一摞Python风格的纸牌"></a>一摞Python风格的纸牌</h2><blockquote>
-<p>类中的函数称为方法，特殊方法，也叫魔术方法,与其他方法的差别在于调用方法的方式。比如 <code>__init__()</code>,每次根据类创建实例时，Python都会自动运行它。在这个方法的定义中，形参 self 必不可少，还必须位于其他形参的前面。当 Python调用这个方法来创建一个实例时，将自动传入实参 self 。每个与类相关联的方法调用都自动传递实参 self ，它是一个指向实例本身的引用，让实例能够访问类中的属性和方法。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 一摞有序的纸牌</span></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">Card = collections.namedtuple(<span class="string">&#x27;Card&#x27;</span>, [<span class="string">&#x27;rank&#x27;</span>, <span class="string">&#x27;suit&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">    ranks = [<span class="built_in">str</span>(n) <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">11</span>)] + <span class="built_in">list</span>(<span class="string">&#x27;JQKA&#x27;</span>)</span><br><span class="line">    suits = <span class="string">&#x27;spades diamonds clubs hearts&#x27;</span>.split()</span><br><span class="line"></span><br><span class="line">    def_init_(self):</span><br><span class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits</span><br><span class="line">                                        <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self._cards)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, position</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._cards[position]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一叠牌有多少张</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck = FrenchDeck()   <span class="comment"># 创建实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">len</span>(deck)</span><br><span class="line"><span class="number">52</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抽取特定的一张纸牌</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">0</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[-<span class="number">1</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机抽取一张纸牌 random.choice</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片操作</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[:<span class="number">3</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">12</span>::<span class="number">13</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可迭代</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> deck:</span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">reversed</span>(deck): <span class="comment"># 反向迭代</span></span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;Q&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;hearts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;beasts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对这摞牌升序排序</span></span><br><span class="line">suit_values = <span class="built_in">dict</span>(spades=<span class="number">3</span>, hearts=<span class="number">2</span>, diamonds=<span class="number">1</span>, clubs=<span class="number">0</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spades_high</span>(<span class="params">card</span>):</span></span><br><span class="line">    rank_value = FrenchDeck.ranks.index(card.rank)</span><br><span class="line">    <span class="keyword">return</span> rank_value * <span class="built_in">len</span>(suit_values) + suit_values[card.suit]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">sorted</span>(deck, key=spades_high): </span><br><span class="line"><span class="meta">... </span>     print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">... </span>(<span class="number">46</span> cards ommitted)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>collections.namedtuple 构建了一个名为 Card,只具有属性 rank 和 suit 的类。<br><code>__len__</code> 和 <code>__getitem__</code> 的具体实现可以代理给 self._cards这个 Python 列表（即 list 对象）。</p>
-</blockquote>
-<h2 id="如何使用特殊方法"><a href="#如何使用特殊方法" class="headerlink" title="如何使用特殊方法"></a>如何使用特殊方法</h2><ol>
-<li>特殊方法是为了被 Python 解释器调用的，所以没有<code>my_object.__len__()</code>这种写法，而是<code>len(my_object)</code>。</li>
-<li>如果不是自定义对象，而是 Python 内置类型，比如 list、str 等，Python 会直接调用一种内置的 ob_size 属性。</li>
-<li>通过内置的函数（len、iter、str 等）来构造特殊方法最好。因为对于内置的类来说，速度更快。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 二维向量加法</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> hypot</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x=<span class="number">0</span>, y=<span class="number">0</span></span>):</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Vector(%r, %r)&#x27;</span> % (self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bool</span>(<span class="built_in">abs</span>(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        x = self.x + other.x</span><br><span class="line">        y = self.y + other.y</span><br><span class="line">        <span class="keyword">return</span> Vector(x, y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span>(<span class="params">self, scalar</span>):</span></span><br><span class="line">        <span class="keyword">return</span> Vector(self.x * scalar, self.y * scalar)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = Vector(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 + v2</span><br><span class="line">Vector(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v = Vector(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v)</span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v * <span class="number">3</span></span><br><span class="line">Vector(<span class="number">9</span>, <span class="number">12</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v * <span class="number">3</span>)</span><br><span class="line"><span class="number">15.0</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Python 有一个内置的函数叫 repr，它能把一个对象用字符串的形式表达出来以便辨认，这就是“字符串表示形式”。repr 就是通过<code>__repr__</code>这个特殊方法来得到一个对象的字符串表示形式的。如果没有实现<code>__repr__</code>，当我们在控制台里打印一个向量的实例时，得到的字符串可能会是 <code>&lt;Vector object at 0x10e100070&gt;</code>。</p>
-</blockquote>
-<h2 id="特殊方法一览"><a href="#特殊方法一览" class="headerlink" title="特殊方法一览"></a>特殊方法一览</h2><blockquote>
-<p><a href="https://docs.python.org/3/reference/datamodel.html">Python 语言参考手册中的“DataModel”</a></p>
-</blockquote>
-<p>跟运算符无关的特殊方法：<br>|类别|方法名|<br>|:-|:-|<br>|字符串/字节序列表示形式|__repr__ 、 __str__ 、 __format__ 、 __bytes__|<br>|数值转换|__abs__ 、 __bool__ 、 __complex__ 、 __int__ 、 __float__ 、 __hash__ 、 __index__|<br>|集合模拟|__len__ 、 __getitem__ 、 __setitem__ 、 __delitem__ 、 __contains__|<br>|迭代枚举|__iter__ 、 __reversed__ 、 __next__|<br>|可调用模拟|__call__|<br>|上下文管理|__enter__ 、 __exit__|<br>|实例创建和销毁|__new__ 、 __init__ 、 __del__|<br>|属性管理|__getattr__ 、 __getattribute__ 、 __setattr__ 、 __delattr__ 、 __dir__|<br>|属性描述符|__get__ 、 __set__ 、 __delete__|<br>|跟类相关的服务|__prepare__ 、 __instancecheck__ 、 __subclasscheck__|</p>
-<p>跟运算符相关的特殊方法：<br>|类别|方法名和对应的运算符|<br>|:-|:-|<br>|一元运算符|__neg__ - 、 __pos__ + 、 __abs__ abs()|<br>|众多比较运算符|__lt__ &lt; 、 __le__ &lt;= 、 __eq__ == 、 __ne__ != 、 __gt__ &gt; 、 __ge__ &gt;=|<br>|算术运算符|__add__ + 、 __sub__ - 、 __mul__ * 、 __truediv__ / 、 __floordiv__ // 、 __mod__ % 、 __divmod__ divmod() 、 __pow__ ** 或 pow() 、 __round__ round()|<br>|反向算术运算符|__radd__ 、 __rsub__ 、 __rmul__ 、 __rtruediv__ 、 __rfloordiv__ 、 __rmod__ 、  __rdivmod__ 、 __rpow__|<br>|增量赋值算术运算符|__iadd__ 、 __isub__ 、 __imul__ 、 __itruediv__ 、 __ifloordiv__ 、 __imod__ 、 __ipow__|<br>|位运算符|__invert__ ~ 、 __lshift__ &lt;&lt; 、 __rshift__ &gt;&gt; 、 __and__ &amp; 、 __or__ | 、 __xor__ ^|<br>|反向位运算符|__rlshift__ 、 __rrshift__ 、 __rand__ 、 __rxor__ 、 __ror__|<br>|增量赋值位算术运算符|__ilshift__ 、 __irshift__ 、 __iand__ 、 __ixor__ 、 __ior__|</p>
-<h1 id="序列构成的数组"><a href="#序列构成的数组" class="headerlink" title="序列构成的数组"></a>序列构成的数组</h1><h2 id="内置序列类型概览"><a href="#内置序列类型概览" class="headerlink" title="内置序列类型概览"></a>内置序列类型概览</h2><ul>
-<li>容器序列：list、tuple 和 collections.deque 这些序列能存放不同类型的数据</li>
-<li>扁平序列：str、bytes、bytearray、memoryview 和 array.array，这类序列只能容纳一种类型</li>
-<li>可变序列：list、bytearray、array.array、collections.deque、memoryview</li>
-<li>不可变序列：tuple、str 和 bytes<br><img src="../images/2021-03-12-14-36-43.png"><blockquote>
-<p>可变序列（MutableSequence）和不可变序列（Sequence）</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="列表推导和生成器表达式"><a href="#列表推导和生成器表达式" class="headerlink" title="列表推导和生成器表达式"></a>列表推导和生成器表达式</h2><p>虽然也可以用列表推导来初始化元组、数组或其他序列类型，但是生成器表达式是更好的选择。这是因为生成器表达式背后遵守了迭代器协议，可以逐个地产出元素，而不是先建立一个完整的列表，然后再把这个列表传递到某个构造函数里。前面那种方式显然能够节省内存。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字符串变成 Unicode 码位</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = [<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols]    <span class="comment"># 列表推导</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">[<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = [<span class="built_in">ord</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> symbols <span class="keyword">if</span> <span class="built_in">ord</span>(s) &gt; <span class="number">127</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> c: c &gt; <span class="number">127</span>, <span class="built_in">map</span>(<span class="built_in">ord</span>, symbols)))         <span class="comment">#    filter和map</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">tuple</span>(<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)  <span class="comment"># 生成器表达式</span></span><br><span class="line">(<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> array</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array.array(<span class="string">&#x27;I&#x27;</span>, (<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)) </span><br><span class="line">array(<span class="string">&#x27;I&#x27;</span>, [<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用生成器表达式计算笛卡尔积</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>colors = [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;white&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sizes = [<span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;L&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> tshirt <span class="keyword">in</span> (<span class="string">&#x27;%s %s&#x27;</span> % (c, s) <span class="keyword">for</span> c <span class="keyword">in</span> colors <span class="keyword">for</span> s <span class="keyword">in</span> sizes): </span><br><span class="line"><span class="meta">... </span>    print(tshirt)</span><br><span class="line">...</span><br><span class="line">black S</span><br><span class="line">black M</span><br><span class="line">black L</span><br><span class="line">white S</span><br><span class="line">white M</span><br><span class="line">white L</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>表达式内部的变量和赋值只在局部起作用，表达式的上下文里的同名变量还可以被正常引用。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Study Notes</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Study Notes</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>XGBoost</title>
-    <url>/2021-01-12-XGBoost/</url>
-    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
-<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
-<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
-<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
-<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
-<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
-<p><img src="../images/xgboost/1.png"></p>
-<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
-<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
+    <title>Pandas常用函数总结</title>
+    <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
+<h1 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h1 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input/Output"></a>Input/Output</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>)                       </span><br><span class="line">   </span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
+<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入</span></span><br><span class="line">data.to_csv(<span class="string">&quot;XXX.csv&quot;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;XXX.csv&#x27;</span>) <span class="comment">#单双引号都行</span></span><br></pre></td></tr></table></figure>
+<p><a href="">Python中的单，双，三引号用法</a></p>
+<h1 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h1><h2 id="数据集基础信息"><a href="#数据集基础信息" class="headerlink" title="数据集基础信息"></a>数据集基础信息</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.shape            <span class="comment"># 行数列数</span></span><br><span class="line">data.dtypes           <span class="comment"># 所有列的数据类型</span></span><br><span class="line">data[<span class="string">&#x27;id&#x27;</span>].dtype      <span class="comment"># 某一列的数据类型</span></span><br><span class="line">data.ndim             <span class="comment"># 数据维度</span></span><br><span class="line">data.index            <span class="comment"># 行索引</span></span><br><span class="line">data.columns          <span class="comment"># 列索引</span></span><br><span class="line">data.values           <span class="comment"># 对象值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据集整体情况"><a href="#数据集整体情况" class="headerlink" title="数据集整体情况"></a>数据集整体情况</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.head()    <span class="comment"># 显示头部几行（默认5行）</span></span><br><span class="line">data.tail()    <span class="comment"># 显示末尾几行（默认5行）</span></span><br><span class="line">data.info()    <span class="comment"># 数据集相关信息概览：索引情况、列数据类型、非空值、内存使用情况</span></span><br><span class="line">data.describe()    <span class="comment"># 快速综合统计结果</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><h2 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h2><p>箱线图</p>
+<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><h3 id="空值查询"><a href="#空值查询" class="headerlink" title="空值查询"></a>空值查询</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.isnull()                <span class="comment"># 查看整个数据集的空值</span></span><br><span class="line">data[<span class="string">&#x27;columnA&#x27;</span>].isnull()  <span class="comment"># 查看某一列的空值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常使用mean() 或 sum() 更好地查看空值所占频率和总数</span></span><br><span class="line">data.isnull().mean()</span><br><span class="line">data.isnull().<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后汇总查看，更加直观</span></span><br><span class="line">data.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="空值处理"><a href="#空值处理" class="headerlink" title="空值处理"></a>空值处理</h3><p><code>pandas.DataFrame.fillna（value = None，method = None，inplace = False）</code></p>
 <ul>
-<li>损失函数，可以是平方损失或逻辑损失</li>
-<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
+<li>value：用于填充的值，可以是具体值、字典和数组，不能是列表；</li>
+<li>method：填充方法，有 ffill(填充上一个值) 和 bfill(填充下一个值)  等；</li>
+<li>inplace默认无False，如果为True，则将修改此对象上的所有其他视图。</li>
 </ul>
-<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
-<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
-<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
-<p><img src="../images/xgboost/4.png"></p>
-<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
-<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
-<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
-<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
-<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
-<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
-<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
-<p>回归预测：均方误差RMSE</p>
-<p>分类预测：错误率error 或者 对数损失 log_loss</p>
-<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
-<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
-<p><img src="../images/xgboost/5.png"></p>
-<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
-<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
-<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
-<p><img src="../images/xgboost/6.png"></p>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">更多 pandas.DataFrame.fillna()用法</a></p>
+</blockquote>
+<h2 id="空格-‘-‘-‘-’-等特殊字符处理"><a href="#空格-‘-‘-‘-’-等特殊字符处理" class="headerlink" title="空格/‘-‘/‘_’ 等特殊字符处理"></a>空格/‘-‘/‘_’ 等特殊字符处理</h2><p>只针对object类型数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:                                  </span><br><span class="line">    <span class="keyword">if</span> pd.api.types.is_object_dtype(data[i]):     </span><br><span class="line">        data[i]=data[i].<span class="built_in">str</span>.strip()  </span><br></pre></td></tr></table></figure>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.<span class="built_in">str</span>.title()         <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.capitalize()    <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.upper()         <span class="comment"># 全部大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.lower()         <span class="comment"># 全部小写</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.title.html">更多 pandas.Series.str 相关用法</a></p>
+</blockquote>
+<h2 id="数据替换"><a href="#数据替换" class="headerlink" title="数据替换"></a>数据替换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.replace(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, inplace=<span class="literal">True</span>)              <span class="comment">#将A替换成B</span></span><br><span class="line"></span><br><span class="line">Series.replace(-<span class="number">10</span>,np.nan,inplace=<span class="literal">True</span>)             <span class="comment"># 将负值替换为空值</span></span><br><span class="line"></span><br><span class="line">Series.replace(np.nan,Series.mean(),inplace=<span class="literal">True</span>)   <span class="comment"># 将空值替换为均值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h2><p><strong>等值判断</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data1 = data[data.origin != <span class="string">&#x27;American&#x27;</span>] <span class="comment">#去掉origin为American的行</span></span><br><span class="line"></span><br><span class="line">data2=data[(data != <span class="string">&#x27;Japan&#x27;</span>).<span class="built_in">all</span>(<span class="number">1</span>)]    <span class="comment">#去掉所有包含Japan的行。返回True值，即不等于Japan的行</span></span><br></pre></td></tr></table></figure>
+<p><strong>去除重复值</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.drop_duplicates()      <span class="comment"># 默认删除后面出现的重复值，即保留第一次出现的重复值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html#pandas.DataFrame.drop_duplicates">更多 pandas.DataFrame.drop_duplicates() 用法</a></p>
+</blockquote>
+<h2 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h2><p>将某一列转换为 str 格式<br><code>Series.astype(&#39;str)</code></p>
+<p>常见的数据类型对照<br><img src="../images/2021-03-12-00-01-44.png"></p>
+<blockquote>
+<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">pandas.Series.map</a><br><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply">pandas.DataFrame.apply</a></p>
+</blockquote>
+<h2 id="更改column-name"><a href="#更改column-name" class="headerlink" title="更改column_name"></a>更改column_name</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.rename(columns=&#123;<span class="string">&#x27;id&#x27;</span>:<span class="string">&#x27;ID&#x27;</span>, <span class="string">&#x27;origin&#x27;</span>:<span class="string">&#x27;产地&#x27;</span>&#125;)     <span class="comment"># 将id列改为ID，将origin改为产地。</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>DataFrame.merge(self，right，how =‘inner’，on = None)</code></p>
+<ul>
+<li>right 指要合并的对象</li>
+<li>on 指要加入的列或索引级别名称，必须在两个 DataFrame 中都可以找到。</li>
+<li>how 决定要执行的合并类型：left（使用左框架中的键）、right、inner（交集，默认）、outer（并集）</li>
+</ul>
+<p><strong>先创建两个df</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: [<span class="number">3</span>, <span class="number">4</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    a  b</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    a  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   baz  <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;inner&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)       </span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;left&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span>  NaN</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;left&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;right&#x27;</span>: [<span class="number">7</span>, <span class="number">8</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    left</span><br><span class="line"><span class="number">0</span>   foo</span><br><span class="line"><span class="number">1</span>   bar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    right</span><br><span class="line"><span class="number">0</span>   <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;cross&#x27;</span>)</span><br><span class="line">   left  right</span><br><span class="line"><span class="number">0</span>   foo      <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   foo      <span class="number">8</span></span><br><span class="line"><span class="number">2</span>   bar      <span class="number">7</span></span><br><span class="line"><span class="number">3</span>   bar      <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">更多 pandas.DataFrame.merge() 用法</a></p>
+</blockquote>
+<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><p><strong>在原数据集的下方合并入新的数据集</strong><br><code>df1.append(df2)</code></p>
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><p><code>pandas.concat(objs,axis = 0,ignore_index = False,keys = None)</code></p>
+<ul>
+<li>objs:Series，DataFrame或Panel对象的序列或映射。</li>
+<li>axis：串联的轴，默认为0，即以索引串联（竖直拼接）；如果为1，则以列串联（水平拼接）</li>
+<li>ignore_index：清除现有索引并将其重置，默认为False。</li>
+<li>key：在数据的最外层添加层次结构索引。</li>
+</ul>
+<p>比如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_new=pd.concat([data,data2,data3],axis = <span class="number">1</span>,keys=[<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;data2&#x27;</span>,<span class="string">&#x27;data3&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.concat.html">更多 pandas.concat() 用法</a></p>
+</blockquote>
+<h2 id="设置索引列"><a href="#设置索引列" class="headerlink" title="设置索引列"></a>设置索引列</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.set_index(<span class="string">&quot;id&quot;</span>)           <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.reset_index(drop=<span class="literal">True</span>)    <span class="comment"># 重置索引列，并且避免将旧索引添加为列</span></span><br></pre></td></tr></table></figure>
+<h2 id="按照特定列的值排序"><a href="#按照特定列的值排序" class="headerlink" title="按照特定列的值排序"></a>按照特定列的值排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.sort_index()              <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.sort_values(by=<span class="string">&quot;columnA&quot;</span>,ascending = <span class="literal">True</span>)    <span class="comment"># 按照columnA的值排序，默认升序</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">更多 pandas.DataFrame.sort_values()用法</a></p>
+</blockquote>
+<h2 id="分类显示"><a href="#分类显示" class="headerlink" title="分类显示"></a>分类显示</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果money列的值&gt;=10, level列显示high，否则显示low</span></span><br><span class="line">data[<span class="string">&#x27;level&#x27;</span>] = np.where(data[<span class="string">&#x27;money&#x27;</span>]&gt;=<span class="number">10</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="分组标记"><a href="#分组标记" class="headerlink" title="分组标记"></a>分组标记</h2><p>定位到 level 行==high 并且 origin 行==China，sign列的数据。赋值为“棒”<br><code>data.loc[(data[&#39;level&#39;]==&quot;high&quot;) &amp; (data[&#39;origin&#39;]==&quot;China&quot;),&quot;sign&quot;]=&quot;棒&quot;</code></p>
 ]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
   </entry>
   <entry>
     <title>Python中的单，双，三引号用法</title>
@@ -468,30 +511,6 @@
 ]]></content>
       <tags>
         <tag>Elegant_python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
-]]></content>
-      <categories>
-        <category>个人项目</category>
-      </categories>
-      <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
       </tags>
   </entry>
   <entry>
@@ -604,6 +623,135 @@
       </tags>
   </entry>
   <entry>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
+]]></content>
+      <categories>
+        <category>个人项目</category>
+      </categories>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XGBoost</title>
+    <url>/2021-01-12-XGBoost/</url>
+    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
+<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
+<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
+<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
+<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
+<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
+<p><img src="../images/xgboost/1.png"></p>
+<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
+<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
+<ul>
+<li>损失函数，可以是平方损失或逻辑损失</li>
+<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
+</ul>
+<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
+<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
+<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
+<p><img src="../images/xgboost/4.png"></p>
+<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
+<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
+<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
+<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
+<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
+<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
+<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
+<p>回归预测：均方误差RMSE</p>
+<p>分类预测：错误率error 或者 对数损失 log_loss</p>
+<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
+<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
+<p><img src="../images/xgboost/5.png"></p>
+<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
+<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
+<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
+<p><img src="../images/xgboost/6.png"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>随机森林</title>
+    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
+    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
+<p>什么是集成算法和bagging？——</p>
+<p><strong>集成算法</strong></p>
+<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
+<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
+<p><strong>Bagging</strong></p>
+<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
+<p><img src="../images/rf/2.png"></p>
+<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
+<p>有哪些随机方法</p>
+<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>criterion</td>
+<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
+</tr>
+<tr>
+<td>max_depth</td>
+<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
+</tr>
+<tr>
+<td>min_samples_leaf</td>
+<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>min_samples_split</td>
+<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>max_features</td>
+<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
+</tr>
+<tr>
+<td>min_impurity_decrease</td>
+<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
+<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
+<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
+<p><img src="../images/rf/1.png"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>爬虫入门</title>
     <url>/2021-01-19-%E7%88%AC%E8%99%AB%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>了解一点爬虫</p>
@@ -700,66 +848,6 @@
       <categories>
         <category>爬虫</category>
       </categories>
-  </entry>
-  <entry>
-    <title>随机森林</title>
-    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
-    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
-<p>什么是集成算法和bagging？——</p>
-<p><strong>集成算法</strong></p>
-<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
-<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
-<p><strong>Bagging</strong></p>
-<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
-<p><img src="../images/rf/2.png"></p>
-<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
-<p>有哪些随机方法</p>
-<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>criterion</td>
-<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
-</tr>
-<tr>
-<td>max_depth</td>
-<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
-</tr>
-<tr>
-<td>min_samples_leaf</td>
-<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>min_samples_split</td>
-<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>max_features</td>
-<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
-</tr>
-<tr>
-<td>min_impurity_decrease</td>
-<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
-</tr>
-</tbody></table>
-<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
-<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
-<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
-<p><img src="../images/rf/1.png"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
   </entry>
   <entry>
     <title>酒店预订平台用户流失概率预测</title>
@@ -999,8 +1087,8 @@
         <category>个人项目</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>数据分析</tag>
+        <tag>机器学习</tag>
         <tag>特征工程</tag>
       </tags>
   </entry>
