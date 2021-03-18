@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="开窗函数注：hive、oracle提供开窗函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
+  <meta name="description" content="窗口函数注：hive、oracle提供窗口函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL常用函数总结">
 <meta property="og:url" content="https://luv5ic.github.io/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="luv5ic&#39;s blog">
-<meta property="og:description" content="开窗函数注：hive、oracle提供开窗函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
+<meta property="og:description" content="窗口函数注：hive、oracle提供窗口函数，mysql8之前版本不提供，但Oracle发布的 MySQL 8.0版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！ 窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。  静态窗口函数：随着记录不同，窗口大小都是固定的 动态窗口函数：不同的记录对应着不">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-07T02:59:23.000Z">
-<meta property="article:modified_time" content="2021-03-17T07:42:40.121Z">
+<meta property="article:modified_time" content="2021-03-17T09:54:55.250Z">
 <meta property="article:author" content="luv5ic">
 <meta property="article:tag" content="SQL">
 <meta property="article:tag" content="函数">
@@ -215,7 +215,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-17 15:42:40" itemprop="dateModified" datetime="2021-03-17T15:42:40+08:00">2021-03-17</time>
+                <time title="Modified: 2021-03-17 17:54:55" itemprop="dateModified" datetime="2021-03-17T17:54:55+08:00">2021-03-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -238,26 +238,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供开窗函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
-<p>开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
+        <h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供窗口函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
+<p>窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
 <ul>
 <li>静态窗口函数：随着记录不同，窗口大小都是固定的</li>
 <li>动态窗口函数：不同的记录对应着不同的窗口。</li>
 </ul>
-<p>开窗函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
+<p>窗口函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
 <p><strong>语法</strong></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">开窗函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
-<p>开窗函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，开窗函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">窗口函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+<p>窗口函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，窗口函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
 <ul>
-<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，开窗函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
-<li>order by子句：按照指定字段进行排序，开窗函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
+<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，窗口函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
+<li>order by子句：按照指定字段进行排序，窗口函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
 <li>frame子句：当前分区的一个子集，用来定义子集的规则，通常用来作为滑动窗口使用。</li>
 </ul>
 <p>对于滑动窗口的范围指定，通常使用 between frame_start and frame_end 语法来表示行范围，frame_start和frame_end可以支持如下关键字，来确定不同的动态行记录：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">current row 边界是当前行，一般和其他范围关键字一起使用</span><br><span class="line">unbounded preceding 边界是分区中的第一行</span><br><span class="line">unbounded following 边界是分区中的最后一行</span><br><span class="line">expr preceding 边界是当前行减去expr的值</span><br><span class="line">expr following 边界是当前行加上expr的值</span><br></pre></td></tr></table></figure>
 <p>比如，下面都是合法的范围：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、前一行、后一行一共三行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的前一行、当前行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、后一行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> unbounded preceding 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> unbounded following 窗口范围是分区中的当前行到最后一行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following 窗口范围是当前分区中所有行。</span><br></pre></td></tr></table></figure>
-<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于开窗</p>
+<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于窗口</p>
 <ul>
 <li>如没有指定排序和滑动窗口范围，默认计算的是分区内的所有记录。</li>
 <li>指定分区和排序后，如没有指定滑动窗口范围，默认计算的是分区内的第一行到当前行。</li>
@@ -270,10 +270,10 @@
 <ul>
 <li>不管是否指定滑动窗口范围，窗口都是固定的，所以指定的滑动窗口范围无效。</li>
 </ul>
-<p>开窗函数和普通聚合函数的区别：</p>
+<p>窗口函数和普通聚合函数的区别：</p>
 <ul>
-<li>聚合函数是将多条记录聚合为一条；而开窗函数是每条记录都会执行，有几条记录执行完还是几条。</li>
-<li>聚合函数也可以用于开窗函数中。</li>
+<li>聚合函数是将多条记录聚合为一条；而窗口函数是每条记录都会执行，有几条记录执行完还是几条。</li>
+<li>聚合函数也可以用于窗口函数中。</li>
 </ul>
 <h3 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h3><ul>
 <li>rank()：重复间断的组内排序，例如 1，1，3，4，4，6</li>
@@ -593,7 +593,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">开窗函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">动态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIRST-VALUE-%E5%92%8C-LAST-VALUE%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">FIRST_VALUE 和 LAST_VALUE函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">静态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cume-dist"><span class="nav-number">1.2.2.</span> <span class="nav-text">cume_dist()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PERCENT-RANK-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">PERCENT_RANK 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">前后函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTILE-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.5.</span> <span class="nav-text">NTILE 函数</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">动态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FIRST-VALUE-%E5%92%8C-LAST-VALUE%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">FIRST_VALUE 和 LAST_VALUE函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E7%AA%97%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">静态窗口函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cume-dist"><span class="nav-number">1.2.2.</span> <span class="nav-text">cume_dist()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PERCENT-RANK-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.3.</span> <span class="nav-text">PERCENT_RANK 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.4.</span> <span class="nav-text">前后函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTILE-%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.5.</span> <span class="nav-text">NTILE 函数</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -609,7 +609,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -620,7 +620,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

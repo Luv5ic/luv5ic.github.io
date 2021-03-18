@@ -26,8 +26,8 @@
 <table>
 <thead>
 <tr>
-<th align="left"><code>类别</code></th>
-<th align="left"><code>方法名</code></th>
+<th align="left">类别</th>
+<th align="left">方法名</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -136,106 +136,28 @@
       </tags>
   </entry>
   <entry>
-    <title>Pandas常用函数总结</title>
-    <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
-<h1 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-<h1 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input/Output"></a>Input/Output</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>)                       </span><br><span class="line">   </span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
-<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入</span></span><br><span class="line">data.to_csv(<span class="string">&quot;XXX.csv&quot;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;XXX.csv&#x27;</span>) <span class="comment">#单双引号都行</span></span><br></pre></td></tr></table></figure>
-<p><a href="">Python中的单，双，三引号用法</a></p>
-<h1 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h1><h2 id="数据集基础信息"><a href="#数据集基础信息" class="headerlink" title="数据集基础信息"></a>数据集基础信息</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.shape            <span class="comment"># 行数列数</span></span><br><span class="line">data.dtypes           <span class="comment"># 所有列的数据类型</span></span><br><span class="line">data[<span class="string">&#x27;id&#x27;</span>].dtype      <span class="comment"># 某一列的数据类型</span></span><br><span class="line">data.ndim             <span class="comment"># 数据维度</span></span><br><span class="line">data.index            <span class="comment"># 行索引</span></span><br><span class="line">data.columns          <span class="comment"># 列索引</span></span><br><span class="line">data.values           <span class="comment"># 对象值</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据集整体情况"><a href="#数据集整体情况" class="headerlink" title="数据集整体情况"></a>数据集整体情况</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.head()    <span class="comment"># 显示头部几行（默认5行）</span></span><br><span class="line">data.tail()    <span class="comment"># 显示末尾几行（默认5行）</span></span><br><span class="line">data.info()    <span class="comment"># 数据集相关信息概览：索引情况、列数据类型、非空值、内存使用情况</span></span><br><span class="line">data.describe()    <span class="comment"># 快速综合统计结果</span></span><br></pre></td></tr></table></figure>
-<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><h2 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h2><p>箱线图</p>
-<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><h3 id="空值查询"><a href="#空值查询" class="headerlink" title="空值查询"></a>空值查询</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.isnull()                <span class="comment"># 查看整个数据集的空值</span></span><br><span class="line">data[<span class="string">&#x27;columnA&#x27;</span>].isnull()  <span class="comment"># 查看某一列的空值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常使用mean() 或 sum() 更好地查看空值所占频率和总数</span></span><br><span class="line">data.isnull().mean()</span><br><span class="line">data.isnull().<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后汇总查看，更加直观</span></span><br><span class="line">data.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="空值处理"><a href="#空值处理" class="headerlink" title="空值处理"></a>空值处理</h3><p><code>pandas.DataFrame.fillna（value = None，method = None，inplace = False）</code></p>
-<ul>
-<li>value：用于填充的值，可以是具体值、字典和数组，不能是列表；</li>
-<li>method：填充方法，有 ffill(填充上一个值) 和 bfill(填充下一个值)  等；</li>
-<li>inplace默认无False，如果为True，则将修改此对象上的所有其他视图。</li>
-</ul>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">更多 pandas.DataFrame.fillna()用法</a></p>
-</blockquote>
-<h2 id="空格-‘-‘-‘-’-等特殊字符处理"><a href="#空格-‘-‘-‘-’-等特殊字符处理" class="headerlink" title="空格/‘-‘/‘_’ 等特殊字符处理"></a>空格/‘-‘/‘_’ 等特殊字符处理</h2><p>只针对object类型数据</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:                                  </span><br><span class="line">    <span class="keyword">if</span> pd.api.types.is_object_dtype(data[i]):     </span><br><span class="line">        data[i]=data[i].<span class="built_in">str</span>.strip()  </span><br></pre></td></tr></table></figure>
-<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.<span class="built_in">str</span>.title()         <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.capitalize()    <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.upper()         <span class="comment"># 全部大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.lower()         <span class="comment"># 全部小写</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.title.html">更多 pandas.Series.str 相关用法</a></p>
-</blockquote>
-<h2 id="数据替换"><a href="#数据替换" class="headerlink" title="数据替换"></a>数据替换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.replace(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, inplace=<span class="literal">True</span>)              <span class="comment">#将A替换成B</span></span><br><span class="line"></span><br><span class="line">Series.replace(-<span class="number">10</span>,np.nan,inplace=<span class="literal">True</span>)             <span class="comment"># 将负值替换为空值</span></span><br><span class="line"></span><br><span class="line">Series.replace(np.nan,Series.mean(),inplace=<span class="literal">True</span>)   <span class="comment"># 将空值替换为均值</span></span><br></pre></td></tr></table></figure>
-<h2 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h2><p><strong>等值判断</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data1 = data[data.origin != <span class="string">&#x27;American&#x27;</span>] <span class="comment">#去掉origin为American的行</span></span><br><span class="line"></span><br><span class="line">data2=data[(data != <span class="string">&#x27;Japan&#x27;</span>).<span class="built_in">all</span>(<span class="number">1</span>)]    <span class="comment">#去掉所有包含Japan的行。返回True值，即不等于Japan的行</span></span><br></pre></td></tr></table></figure>
-<p><strong>去除重复值</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.drop_duplicates()      <span class="comment"># 默认删除后面出现的重复值，即保留第一次出现的重复值</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html#pandas.DataFrame.drop_duplicates">更多 pandas.DataFrame.drop_duplicates() 用法</a></p>
-</blockquote>
-<h2 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h2><p>将某一列转换为 str 格式<br><code>Series.astype(&#39;str)</code></p>
-<p>常见的数据类型对照<br><img src="../images/2021-03-12-00-01-44.png"></p>
-<blockquote>
-<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">pandas.Series.map</a><br><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply">pandas.DataFrame.apply</a></p>
-</blockquote>
-<h2 id="更改column-name"><a href="#更改column-name" class="headerlink" title="更改column_name"></a>更改column_name</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.rename(columns=&#123;<span class="string">&#x27;id&#x27;</span>:<span class="string">&#x27;ID&#x27;</span>, <span class="string">&#x27;origin&#x27;</span>:<span class="string">&#x27;产地&#x27;</span>&#125;)     <span class="comment"># 将id列改为ID，将origin改为产地。</span></span><br></pre></td></tr></table></figure>
-<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>DataFrame.merge(self，right，how =‘inner’，on = None)</code></p>
-<ul>
-<li>right 指要合并的对象</li>
-<li>on 指要加入的列或索引级别名称，必须在两个 DataFrame 中都可以找到。</li>
-<li>how 决定要执行的合并类型：left（使用左框架中的键）、right、inner（交集，默认）、outer（并集）</li>
-</ul>
-<p><strong>先创建两个df</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: [<span class="number">3</span>, <span class="number">4</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    a  b</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    a  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   baz  <span class="number">4</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;inner&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)       </span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;left&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span>  NaN</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;left&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;right&#x27;</span>: [<span class="number">7</span>, <span class="number">8</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    left</span><br><span class="line"><span class="number">0</span>   foo</span><br><span class="line"><span class="number">1</span>   bar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    right</span><br><span class="line"><span class="number">0</span>   <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   <span class="number">8</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;cross&#x27;</span>)</span><br><span class="line">   left  right</span><br><span class="line"><span class="number">0</span>   foo      <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   foo      <span class="number">8</span></span><br><span class="line"><span class="number">2</span>   bar      <span class="number">7</span></span><br><span class="line"><span class="number">3</span>   bar      <span class="number">8</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">更多 pandas.DataFrame.merge() 用法</a></p>
-</blockquote>
-<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><p><strong>在原数据集的下方合并入新的数据集</strong><br><code>df1.append(df2)</code></p>
-<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><p><code>pandas.concat(objs,axis = 0,ignore_index = False,keys = None)</code></p>
-<ul>
-<li>objs:Series，DataFrame或Panel对象的序列或映射。</li>
-<li>axis：串联的轴，默认为0，即以索引串联（竖直拼接）；如果为1，则以列串联（水平拼接）</li>
-<li>ignore_index：清除现有索引并将其重置，默认为False。</li>
-<li>key：在数据的最外层添加层次结构索引。</li>
-</ul>
-<p>比如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_new=pd.concat([data,data2,data3],axis = <span class="number">1</span>,keys=[<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;data2&#x27;</span>,<span class="string">&#x27;data3&#x27;</span>])</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.concat.html">更多 pandas.concat() 用法</a></p>
-</blockquote>
-<h2 id="设置索引列"><a href="#设置索引列" class="headerlink" title="设置索引列"></a>设置索引列</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.set_index(<span class="string">&quot;id&quot;</span>)           <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.reset_index(drop=<span class="literal">True</span>)    <span class="comment"># 重置索引列，并且避免将旧索引添加为列</span></span><br></pre></td></tr></table></figure>
-<h2 id="按照特定列的值排序"><a href="#按照特定列的值排序" class="headerlink" title="按照特定列的值排序"></a>按照特定列的值排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.sort_index()              <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.sort_values(by=<span class="string">&quot;columnA&quot;</span>,ascending = <span class="literal">True</span>)    <span class="comment"># 按照columnA的值排序，默认升序</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">更多 pandas.DataFrame.sort_values()用法</a></p>
-</blockquote>
-<h2 id="分类显示"><a href="#分类显示" class="headerlink" title="分类显示"></a>分类显示</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果money列的值&gt;=10, level列显示high，否则显示low</span></span><br><span class="line">data[<span class="string">&#x27;level&#x27;</span>] = np.where(data[<span class="string">&#x27;money&#x27;</span>]&gt;=<span class="number">10</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="分组标记"><a href="#分组标记" class="headerlink" title="分组标记"></a>分组标记</h2><p>定位到 level 行==high 并且 origin 行==China，sign列的数据。赋值为“棒”<br><code>data.loc[(data[&#39;level&#39;]==&quot;high&quot;) &amp; (data[&#39;origin&#39;]==&quot;China&quot;),&quot;sign&quot;]=&quot;棒&quot;</code></p>
-]]></content>
-  </entry>
-  <entry>
     <title>MySQL常用函数总结</title>
     <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="开窗函数"><a href="#开窗函数" class="headerlink" title="开窗函数"></a>开窗函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供开窗函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
-<p>开窗函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
+    <content><![CDATA[<h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供窗口函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
+<p>窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
 <ul>
 <li>静态窗口函数：随着记录不同，窗口大小都是固定的</li>
 <li>动态窗口函数：不同的记录对应着不同的窗口。</li>
 </ul>
-<p>开窗函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
+<p>窗口函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
 <p><strong>语法</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">开窗函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
-<p>开窗函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，开窗函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">窗口函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+<p>窗口函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，窗口函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
 <ul>
-<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，开窗函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
-<li>order by子句：按照指定字段进行排序，开窗函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
+<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，窗口函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
+<li>order by子句：按照指定字段进行排序，窗口函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
 <li>frame子句：当前分区的一个子集，用来定义子集的规则，通常用来作为滑动窗口使用。</li>
 </ul>
 <p>对于滑动窗口的范围指定，通常使用 between frame_start and frame_end 语法来表示行范围，frame_start和frame_end可以支持如下关键字，来确定不同的动态行记录：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">current row 边界是当前行，一般和其他范围关键字一起使用</span><br><span class="line">unbounded preceding 边界是分区中的第一行</span><br><span class="line">unbounded following 边界是分区中的最后一行</span><br><span class="line">expr preceding 边界是当前行减去expr的值</span><br><span class="line">expr following 边界是当前行加上expr的值</span><br></pre></td></tr></table></figure>
 <p>比如，下面都是合法的范围：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、前一行、后一行一共三行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的前一行、当前行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、后一行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> unbounded preceding 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> unbounded following 窗口范围是分区中的当前行到最后一行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following 窗口范围是当前分区中所有行。</span><br></pre></td></tr></table></figure>
-<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于开窗</p>
+<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于窗口</p>
 <ul>
 <li>如没有指定排序和滑动窗口范围，默认计算的是分区内的所有记录。</li>
 <li>指定分区和排序后，如没有指定滑动窗口范围，默认计算的是分区内的第一行到当前行。</li>
@@ -248,10 +170,10 @@
 <ul>
 <li>不管是否指定滑动窗口范围，窗口都是固定的，所以指定的滑动窗口范围无效。</li>
 </ul>
-<p>开窗函数和普通聚合函数的区别：</p>
+<p>窗口函数和普通聚合函数的区别：</p>
 <ul>
-<li>聚合函数是将多条记录聚合为一条；而开窗函数是每条记录都会执行，有几条记录执行完还是几条。</li>
-<li>聚合函数也可以用于开窗函数中。</li>
+<li>聚合函数是将多条记录聚合为一条；而窗口函数是每条记录都会执行，有几条记录执行完还是几条。</li>
+<li>聚合函数也可以用于窗口函数中。</li>
 </ul>
 <h3 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h3><ul>
 <li>rank()：重复间断的组内排序，例如 1，1，3，4，4，6</li>
@@ -497,28 +419,595 @@
       </tags>
   </entry>
   <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
+    <title>Nowcoder_SQL_Practice</title>
+    <url>/2021-01-03-Nowcoder_SQL_Practice/</url>
+    <content><![CDATA[<h1 id="牛客每个人最近的登录日期-1-0"><a href="#牛客每个人最近的登录日期-1-0" class="headerlink" title="牛客每个人最近的登录日期 1.0"></a>牛客每个人最近的登录日期 1.0</h1><h2 id="description"><a href="#description" class="headerlink" title="description"></a>description</h2><p>牛客每天有很多人登录，请你统计一下牛客每个用户最近登录是哪一天，用的是什么设备.</p>
+<p><strong>login记录表</strong>，简况如下:</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">user_id</th>
+<th align="center">client_id</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">2020-10-14</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">2020-10-14</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">2020-10-15</td>
+</tr>
+</tbody></table>
+<p><strong>user表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">tm</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">fh</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">wangchao</td>
+</tr>
+</tbody></table>
+<p><strong>client表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">u_n</th>
+<th align="center">c_n</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fh</td>
+<td align="center">ios</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">wangchao</td>
+<td align="center">ios</td>
+<td align="center">2020-10-13</td>
+</tr>
+</tbody></table>
+<h1 id="牛客每个人最近的登录日期-5-0"><a href="#牛客每个人最近的登录日期-5-0" class="headerlink" title="牛客每个人最近的登录日期 5.0"></a>牛客每个人最近的登录日期 5.0</h1><h2 id="description-1"><a href="#description-1" class="headerlink" title="description"></a>description</h2><p>统计牛客每个日期新用户的次日留存率。</p>
+<p><strong>login表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">user_id</th>
+<th align="center">client_id</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">2020-10-14</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">2020-10-14</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">2020-10-15</td>
+</tr>
+</tbody></table>
+<h2 id="key"><a href="#key" class="headerlink" title="key"></a>key</h2><ul>
+<li>每个日期的新用户数<ul>
+<li>先求一个日期的新用户数:找到用户A对应的所有日期，最小的日期B就是用户第一次登陆的日期，即日期B的新用户就是用户A。<strong>自连接查询</strong>。</li>
+<li>再联立主表，得到每个日期的新用户数<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- first_login:</span></span><br><span class="line"><span class="keyword">select</span> login.date, ifnull(n1.new_num,<span class="number">0</span>) first_num</span><br><span class="line"><span class="keyword">from</span> login</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span> l1.date, <span class="built_in">count</span>(<span class="keyword">distinct</span> l1.user_id) new_num</span><br><span class="line"><span class="keyword">from</span> login l1</span><br><span class="line"><span class="keyword">where</span> l1.date <span class="operator">=</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="built_in">min</span>(<span class="type">date</span>) <span class="keyword">from</span> login <span class="keyword">where</span> user_id <span class="operator">=</span> l1.user_id)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> l1.date) n1</span><br><span class="line"><span class="keyword">on</span> login.date <span class="operator">=</span> n1.date</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> login.date;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+<li>每个日期新用户次日还登陆的用户数<ul>
+<li>得到日期B的新用户数后，再去查找基于日期B用户A的记录上，用户A的对应日期为日期B后一天的记录。也就是这两条记录主键是用户A，日期满足后一天的条件。<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- second_login:</span></span><br><span class="line"><span class="keyword">select</span> login.date, ifnull(n2.second_num,<span class="number">0</span>) second_num</span><br><span class="line"><span class="keyword">from</span> login</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span> l1.date, <span class="built_in">count</span>(<span class="keyword">distinct</span> l1.user_id) second_num</span><br><span class="line"><span class="keyword">from</span> login  l1 </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> login l2</span><br><span class="line"><span class="keyword">on</span> l1.id <span class="operator">=</span> l2.id <span class="keyword">and</span> l2.date <span class="operator">=</span> adddate(l1.date, <span class="type">interval</span> <span class="number">1</span> <span class="keyword">day</span>)</span><br><span class="line"><span class="keyword">where</span> l1.date <span class="operator">=</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="built_in">min</span>(<span class="type">date</span>) <span class="keyword">from</span> login <span class="keyword">where</span> user_id <span class="operator">=</span> l1.user_id)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> l1.date) n2</span><br><span class="line"><span class="keyword">on</span> login.date <span class="operator">=</span> n2.date</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> login.date;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+<li>联立这两个表，注意 second_login 表应为主表。<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> second_login.date, round(ifnull(second_login.second_num <span class="operator">*</span><span class="number">1.0</span><span class="operator">/</span> first_login.first_num,<span class="number">0</span>),<span class="number">3</span>) p</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> login.date, ifnull(n2.second_num,<span class="number">0</span>) second_num</span><br><span class="line"><span class="keyword">from</span> login</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span> l1.date, <span class="built_in">count</span>(<span class="keyword">distinct</span> l1.user_id) second_num</span><br><span class="line"><span class="keyword">from</span> login  l1 </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> login l2</span><br><span class="line"><span class="keyword">on</span> l1.id <span class="operator">=</span> l2.id <span class="keyword">and</span> l2.date <span class="operator">=</span> adddate(l1.date, <span class="type">interval</span> <span class="number">1</span> <span class="keyword">day</span>)</span><br><span class="line"><span class="keyword">where</span> l1.date <span class="operator">=</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="built_in">min</span>(<span class="type">date</span>) <span class="keyword">from</span> login <span class="keyword">where</span> user_id <span class="operator">=</span> l1.user_id)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> l1.date) n2</span><br><span class="line"><span class="keyword">on</span> login.date <span class="operator">=</span> n2.date</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> login.date) second_login</span><br><span class="line"><span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span> login.date, ifnull(n1.new_num,<span class="number">0</span>) first_num</span><br><span class="line"><span class="keyword">from</span> login</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span></span><br><span class="line">(<span class="keyword">select</span> l1.date, <span class="built_in">count</span>(<span class="keyword">distinct</span> l1.user_id) new_num</span><br><span class="line"><span class="keyword">from</span> login l1</span><br><span class="line"><span class="keyword">where</span> l1.date <span class="operator">=</span> </span><br><span class="line">(<span class="keyword">select</span> <span class="built_in">min</span>(<span class="type">date</span>) <span class="keyword">from</span> login <span class="keyword">where</span> user_id <span class="operator">=</span> l1.user_id)</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> l1.date) n1</span><br><span class="line"><span class="keyword">on</span> login.date <span class="operator">=</span> n1.date</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> login.date) first_login</span><br><span class="line"><span class="keyword">on</span> second_login.date<span class="operator">=</span>first_login.date;</span><br></pre></td></tr></table></figure>
+
 </li>
-</ol>
-<p>待更新。。。</p>
+</ul>
+<h1 id="牛客每个人最近的登录日期-6-0"><a href="#牛客每个人最近的登录日期-6-0" class="headerlink" title="牛客每个人最近的登录日期 6.0"></a>牛客每个人最近的登录日期 6.0</h1><h2 id="description-2"><a href="#description-2" class="headerlink" title="description"></a>description</h2><p>统计牛客每个用户的刷题信息。</p>
+<p><strong>login表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">user_id</th>
+<th align="center">client_id</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">2020-10-13</td>
+</tr>
+</tbody></table>
+<p><strong>passing_number表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">user_id</th>
+<th align="center">number</th>
+<th align="center">date</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">2020-10-12</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">2020-10-13</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">2020-10-13</td>
+</tr>
+</tbody></table>
+<p><strong>user表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">tm</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">fh</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">wangchao</td>
+</tr>
+</tbody></table>
+<p><strong>输出表</strong>如下，包括：用户姓名，截止到某天，累计通过了多少题，查询结果先按照日期升序排序，再按照姓名升序排序。不包括登陆但未刷题的记录。</p>
+<table>
+<thead>
+<tr>
+<th align="center">u_n</th>
+<th align="center">date</th>
+<th align="center">ps_num</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">fh</td>
+<td align="center">2020-10-12</td>
+<td align="center">4</td>
+</tr>
+<tr>
+<td align="center">wangchao</td>
+<td align="center">2020-10-12</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center">tm</td>
+<td align="center">2020-10-13</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">wangchao</td>
+<td align="center">2020-10-13</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+<h2 id="key-1"><a href="#key-1" class="headerlink" title="key"></a>key</h2><p>首先，不需要登陆但未刷题的记录，所以不需要 login 表。</p>
+<ul>
+<li><strong>窗口函数</strong>，将数据按照 user_id 分组，date 排序，在每个分区内计算每一行的刷题总数。</li>
+<li>与 user 表联立查询得到结果。<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> name u_n, <span class="type">date</span>, <span class="built_in">sum</span>(number) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>) ps_num  <span class="comment">-- 因为是求累计结果，所以按照日期排序很关键</span></span><br><span class="line"><span class="keyword">from</span> passing_number pn</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> <span class="keyword">user</span></span><br><span class="line"><span class="keyword">on</span> pn.user_id <span class="operator">=</span> user.id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>, name;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="考试分数-1-0"><a href="#考试分数-1-0" class="headerlink" title="考试分数 1.0"></a>考试分数 1.0</h1><h2 id="description-3"><a href="#description-3" class="headerlink" title="description"></a>description</h2><p>每个用户参加相关语言岗位的笔试后会有不同的分数。<br><strong>grade表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">language_id</th>
+<th align="center">grade</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">12000</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">13000</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">11000</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">10000</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">3</td>
+<td align="center">11000</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">1</td>
+<td align="center">11000</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">2</td>
+<td align="center">11000</td>
+</tr>
+</tbody></table>
+<p>不同语言岗位 <strong>language表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">C++</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">JAVA</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">Python</td>
+</tr>
+</tbody></table>
+<p><strong>输出表</strong>如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">name</th>
+<th align="center">score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">C++</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">JAVA</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">Python</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h2 id="key-2"><a href="#key-2" class="headerlink" title="key"></a>key</h2><ul>
+<li>利用窗口函数，得到按 language 分组的区间重复不间断排序</li>
+<li>再联立表得到 language 的 name，筛选出名次为第1和第2名的记录。<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.id, l.name, t1.score</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">(<span class="keyword">select</span> <span class="operator">*</span>, <span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> language_id <span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">desc</span>) ranking</span><br><span class="line"><span class="keyword">from</span> grade) t1</span><br><span class="line"><span class="keyword">join</span> <span class="keyword">language</span> l </span><br><span class="line"><span class="keyword">on</span> t1.language_id <span class="operator">=</span> l.id</span><br><span class="line"><span class="keyword">where</span> t1.ranking <span class="operator">=</span> <span class="number">1</span> <span class="keyword">or</span> t1.ranking <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> l.name, t1.score <span class="keyword">desc</span>, t1.id;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>other</strong><br>主要思路是利用自连接得到排序值</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.id, name, score</span><br><span class="line"><span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> g1</span><br><span class="line">    <span class="keyword">from</span> grade g1, grade g2</span><br><span class="line">    <span class="keyword">where</span> g1.score <span class="operator">&lt;=</span> g2.score</span><br><span class="line">    <span class="keyword">and</span> g1.language_id <span class="operator">=</span> g2.language_id</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> g1.language_id, g1.id</span><br><span class="line">    <span class="keyword">having</span> <span class="built_in">count</span>(<span class="keyword">distinct</span> g2.score) <span class="operator">&lt;=</span> <span class="number">2</span>) t1</span><br><span class="line"><span class="keyword">inner</span> <span class="keyword">join</span> <span class="keyword">language</span></span><br><span class="line"><span class="keyword">on</span> t1.language_id <span class="operator">=</span> language.id</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> name, score <span class="keyword">desc</span>, t1.id;</span><br></pre></td></tr></table></figure>
+<h1 id="考试分数-2-0"><a href="#考试分数-2-0" class="headerlink" title="考试分数 2.0"></a>考试分数 2.0</h1><h2 id="description-4"><a href="#description-4" class="headerlink" title="description"></a>description</h2><p><strong>grade表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">job</th>
+<th align="center">score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">C++</td>
+<td align="center">11001</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">C++</td>
+<td align="center">10000</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">C++</td>
+<td align="center">9000</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">Java</td>
+<td align="center">12000</td>
+</tr>
+</tbody></table>
+<p>查询各个岗位分数升序排列之后的中位数位置的范围，并且按job升序排序，结果如下:</p>
+<p>|job|start|end|<br>|B|2|2|<br>|C++|2|2|<br>|Java|1|2|</p>
+<p>第1行表示C++岗位的中位数位置范围为[2,2]，也就是2。因为C++岗位总共3个人，是奇数，所以中位数位置为2是正确的(即位置为2的10000是中位数)<br>第2行表示Java岗位的中位数位置范围为[1,2]。因为Java岗位总共2个人，是偶数，所以中位数位置为[1,2]是正确的(即需要知道位置为1的12000与位置为2的13000才能计算出中位数为12500</p>
+<h2 id="key-3"><a href="#key-3" class="headerlink" title="key"></a>key</h2><p>常规思路就是先判断奇偶。<br><strong>best</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> job,</span><br><span class="line">    <span class="built_in">floor</span>((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">1</span>) <span class="operator">/</span> <span class="number">2</span>) <span class="keyword">start</span>,</span><br><span class="line">    <span class="built_in">floor</span>((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">2</span>) <span class="operator">/</span> <span class="number">2</span>) <span class="keyword">end</span></span><br><span class="line"><span class="keyword">from</span> grade</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> job;</span><br></pre></td></tr></table></figure>
+<p>我自己的蹩脚做法：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> job, if(<span class="built_in">count</span>(<span class="operator">*</span>)<span class="operator">%</span><span class="number">2</span><span class="operator">&gt;</span><span class="number">0</span>, (<span class="built_in">count</span>(<span class="operator">*</span>) div <span class="number">2</span>)<span class="operator">+</span><span class="number">1</span>,<span class="built_in">count</span>(<span class="operator">*</span>) div <span class="number">2</span>) <span class="keyword">start</span>,</span><br><span class="line">            if(<span class="built_in">count</span>(<span class="operator">*</span>)<span class="operator">%</span><span class="number">2</span><span class="operator">&gt;</span><span class="number">0</span>, (<span class="built_in">count</span>(<span class="operator">*</span>) div <span class="number">2</span>)<span class="operator">+</span><span class="number">1</span>,(<span class="built_in">count</span>(<span class="operator">*</span>) div <span class="number">2</span>)<span class="operator">+</span><span class="number">1</span>)<span class="keyword">end</span></span><br><span class="line"><span class="keyword">from</span> grade</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> job;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 可以优化一下</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> job, ((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">1</span>) div <span class="number">2</span>) <span class="keyword">start</span>,</span><br><span class="line">            ((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">2</span>) div <span class="number">2</span>) <span class="keyword">end</span></span><br><span class="line"><span class="keyword">from</span> grade</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> job</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> job;</span><br></pre></td></tr></table></figure>
+<p>顺带复习了几种计算除法的函数。<br>求余：<code>select a % b</code>, <code>select a mod b</code><br>求模：<code>select a div b</code><br>求整：floor()函数向下取整，ceiling()向上取整</p>
+<h1 id="考试分数-3-0"><a href="#考试分数-3-0" class="headerlink" title="考试分数 3.0"></a>考试分数 3.0</h1><h2 id="description-5"><a href="#description-5" class="headerlink" title="description"></a>description</h2><p><strong>grade表</strong>，简况如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">id</th>
+<th align="center">job</th>
+<th align="center">score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">C++</td>
+<td align="center">11001</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">C++</td>
+<td align="center">10000</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">C++</td>
+<td align="center">9000</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">Java</td>
+<td align="center">12000</td>
+</tr>
+</tbody></table>
+<p>查询各个岗位分数的中位数位置上的所有grade信息，并且按id升序排序，结果如下:</p>
+<p>|id|job|score|t_rank|<br>|2|C++|10000|2|<br>|4|Java|12000|2|<br>|5|Java|13000|1|<br>|7|B|11000|2|</p>
+<h2 id="key-4"><a href="#key-4" class="headerlink" title="key"></a>key</h2><ul>
+<li>按照岗位分组，得到分组内的排名</li>
+<li>将排名表和中位数表按 job 连接，查询排名等于中位数位置的记录<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> t1.id, t1.job, t1.score, t1.t_rank</span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">    <span class="keyword">select</span> id, job, score,</span><br><span class="line">    (<span class="built_in">row_number</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> job <span class="keyword">order</span> <span class="keyword">by</span> score <span class="keyword">desc</span>)) <span class="keyword">as</span> t_rank</span><br><span class="line">    <span class="keyword">from</span> grade)t1</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> (</span><br><span class="line">    <span class="keyword">select</span> job,</span><br><span class="line">    <span class="built_in">floor</span>((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">1</span>) <span class="operator">/</span> <span class="number">2</span>) <span class="keyword">start</span>,</span><br><span class="line">    <span class="built_in">floor</span>((<span class="built_in">count</span>(<span class="operator">*</span>) <span class="operator">+</span> <span class="number">2</span>) <span class="operator">/</span> <span class="number">2</span>) <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">from</span> grade</span><br><span class="line">    <span class="keyword">group</span> <span class="keyword">by</span> job</span><br><span class="line">    <span class="keyword">order</span> <span class="keyword">by</span> job)t2</span><br><span class="line"><span class="keyword">on</span> t1.job <span class="operator">=</span> t2.job</span><br><span class="line"><span class="keyword">where</span> t1.t_rank <span class="operator">=</span> t2.start <span class="keyword">or</span> t1.t_rank <span class="operator">=</span> t2.end</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t1.id;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="牛客的课程订单分析-1-0"><a href="#牛客的课程订单分析-1-0" class="headerlink" title="牛客的课程订单分析 1.0"></a>牛客的课程订单分析 1.0</h1><h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p><strong>order_info 订单信息表</strong>，简况如下：<br><img src="../images/2021-03-18-13-23-37.png"></p>
+<p>查询在2025-10-15以后，同一个用户下单2个以及2个以上状态为购买成功的C++课程或Java课程或Python课程的订单信息，并且按照order_info的id升序排序。如下：<br><img src="../images/2021-03-18-13-24-14.png"></p>
+<h2 id="Key"><a href="#Key" class="headerlink" title="Key"></a>Key</h2><p><strong>重点</strong>，不能直接对筛选后的结果进行分组，count(id)&gt;=2 的筛选，这样只会得到每个分组内的第一条记录。也就是要真正明白聚合函数的意义，所以这里要用到窗口函数。</p>
+<ul>
+<li>对初步筛选后的记录，用窗口函数计算每一行的所在分组（同一个用户）的总订单数</li>
+<li>再筛选出订单数&gt;=2的记录<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> id, user_id, product_name, status, client_id, <span class="type">date</span></span><br><span class="line"><span class="keyword">from</span>(</span><br><span class="line">    <span class="keyword">select</span> <span class="operator">*</span>, <span class="built_in">count</span>(id) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id) id_num</span><br><span class="line">    <span class="keyword">from</span> order_info</span><br><span class="line">    <span class="keyword">where</span> <span class="type">date</span><span class="operator">&gt;</span><span class="string">&#x27;2025-10-15&#x27;</span></span><br><span class="line">    <span class="keyword">and</span> status <span class="operator">=</span> <span class="string">&#x27;completed&#x27;</span></span><br><span class="line">    <span class="keyword">and</span> product_name <span class="keyword">in</span> (<span class="string">&#x27;C++&#x27;</span>,<span class="string">&#x27;Java&#x27;</span>,<span class="string">&#x27;Python&#x27;</span>)) t1</span><br><span class="line"><span class="keyword">where</span> id_num <span class="operator">&gt;=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> id;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="牛客的课程订单分析-2-0"><a href="#牛客的课程订单分析-2-0" class="headerlink" title="牛客的课程订单分析 2.0"></a>牛客的课程订单分析 2.0</h1><h2 id="description-6"><a href="#description-6" class="headerlink" title="description"></a>description</h2><p>基于 order_info 表，查询在2025-10-15以后，如果有一个用户下单2个以及2个以上状态为购买成功的C++课程或Java课程或Python课程，那么输出这个用户的user_id，以及满足前面条件的第一次购买成功的C++课程或Java课程或Python课程的日期first_buy_date，以及满足前面条件的第二次购买成功的C++课程或Java课程或Python课程的日期second_buy_date，以及购买成功的C++课程或Java课程或Python课程的次数cnt，并且输出结果按照user_id升序排序，结果如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">user_id</th>
+<th align="center">first_buy_date</th>
+<th align="center">second_buy_date</th>
+<th align="center">cnt</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">57</td>
+<td align="center">2025-10-23</td>
+<td align="center">2025-10-24</td>
+<td align="center">2</td>
+</tr>
+<tr>
+<td align="center">557336</td>
+<td align="center">2025-10-23</td>
+<td align="center">2025-10-25</td>
+<td align="center">3</td>
+</tr>
+</tbody></table>
+<h2 id="Key-1"><a href="#Key-1" class="headerlink" title="Key"></a>Key</h2><ul>
+<li>对初步筛选后的记录，用窗口函数计算每个按用户分组的区间按 date 排序的排序值，再用窗口函数计算每个按用户分组的区间的总订单数记为 cnt。得到t1</li>
+<li>从 t1 中筛选出排序值 &lt;= 2 的且 cnt &gt; 2的记录<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span></span><br><span class="line"> t1.user_id,</span><br><span class="line"> <span class="built_in">min</span>(t1.date) <span class="keyword">as</span> first_buy_date,</span><br><span class="line"> <span class="built_in">max</span>(t1.date) <span class="keyword">as</span> second_buy_date,</span><br><span class="line"> t1.cnt</span><br><span class="line"><span class="keyword">from</span></span><br><span class="line">    (<span class="keyword">select</span> </span><br><span class="line">     user_id, <span class="type">date</span>,</span><br><span class="line">     <span class="built_in">dense_rank</span>() <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id <span class="keyword">order</span> <span class="keyword">by</span> <span class="type">date</span>) d_rank, </span><br><span class="line">     <span class="built_in">count</span>(id) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> user_id) cnt</span><br><span class="line">     <span class="keyword">from</span> order_info</span><br><span class="line">     <span class="keyword">where</span> <span class="type">date</span><span class="operator">&gt;</span><span class="string">&#x27;2025-10-15&#x27;</span></span><br><span class="line">       <span class="keyword">and</span> status <span class="operator">=</span> <span class="string">&#x27;completed&#x27;</span></span><br><span class="line">       <span class="keyword">and</span> product_name <span class="keyword">in</span> (<span class="string">&#x27;C++&#x27;</span>,<span class="string">&#x27;Java&#x27;</span>,<span class="string">&#x27;Python&#x27;</span>)</span><br><span class="line">    ) t1</span><br><span class="line"><span class="keyword">where</span> t1.d_rank <span class="operator">&lt;=</span><span class="number">2</span> <span class="keyword">and</span> t1.cnt <span class="operator">&gt;=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> t1.user_id, t1.cnt</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> t1.user_id;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
-        <category>个人项目</category>
+        <category>SQL</category>
       </categories>
       <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
+        <tag>SQL</tag>
+        <tag>题解</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Pandas常用函数总结</title>
+    <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
+<h1 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h1 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input/Output"></a>Input/Output</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>)                       </span><br><span class="line">   </span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
+<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入</span></span><br><span class="line">data.to_csv(<span class="string">&quot;XXX.csv&quot;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;XXX.csv&#x27;</span>) <span class="comment">#单双引号都行</span></span><br></pre></td></tr></table></figure>
+<p><a href="">Python中的单，双，三引号用法</a></p>
+<h1 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h1><h2 id="数据集基础信息"><a href="#数据集基础信息" class="headerlink" title="数据集基础信息"></a>数据集基础信息</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.shape            <span class="comment"># 行数列数</span></span><br><span class="line">data.dtypes           <span class="comment"># 所有列的数据类型</span></span><br><span class="line">data[<span class="string">&#x27;id&#x27;</span>].dtype      <span class="comment"># 某一列的数据类型</span></span><br><span class="line">data.ndim             <span class="comment"># 数据维度</span></span><br><span class="line">data.index            <span class="comment"># 行索引</span></span><br><span class="line">data.columns          <span class="comment"># 列索引</span></span><br><span class="line">data.values           <span class="comment"># 对象值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据集整体情况"><a href="#数据集整体情况" class="headerlink" title="数据集整体情况"></a>数据集整体情况</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.head()    <span class="comment"># 显示头部几行（默认5行）</span></span><br><span class="line">data.tail()    <span class="comment"># 显示末尾几行（默认5行）</span></span><br><span class="line">data.info()    <span class="comment"># 数据集相关信息概览：索引情况、列数据类型、非空值、内存使用情况</span></span><br><span class="line">data.describe()    <span class="comment"># 快速综合统计结果</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><h2 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h2><p>箱线图</p>
+<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><h3 id="空值查询"><a href="#空值查询" class="headerlink" title="空值查询"></a>空值查询</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.isnull()                <span class="comment"># 查看整个数据集的空值</span></span><br><span class="line">data[<span class="string">&#x27;columnA&#x27;</span>].isnull()  <span class="comment"># 查看某一列的空值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常使用mean() 或 sum() 更好地查看空值所占频率和总数</span></span><br><span class="line">data.isnull().mean()</span><br><span class="line">data.isnull().<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后汇总查看，更加直观</span></span><br><span class="line">data.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="空值处理"><a href="#空值处理" class="headerlink" title="空值处理"></a>空值处理</h3><p><code>pandas.DataFrame.fillna（value = None，method = None，inplace = False）</code></p>
+<ul>
+<li>value：用于填充的值，可以是具体值、字典和数组，不能是列表；</li>
+<li>method：填充方法，有 ffill(填充上一个值) 和 bfill(填充下一个值)  等；</li>
+<li>inplace默认无False，如果为True，则将修改此对象上的所有其他视图。</li>
+</ul>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">更多 pandas.DataFrame.fillna()用法</a></p>
+</blockquote>
+<h2 id="空格-‘-‘-‘-’-等特殊字符处理"><a href="#空格-‘-‘-‘-’-等特殊字符处理" class="headerlink" title="空格/‘-‘/‘_’ 等特殊字符处理"></a>空格/‘-‘/‘_’ 等特殊字符处理</h2><p>只针对object类型数据</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:                                  </span><br><span class="line">    <span class="keyword">if</span> pd.api.types.is_object_dtype(data[i]):     </span><br><span class="line">        data[i]=data[i].<span class="built_in">str</span>.strip()  </span><br></pre></td></tr></table></figure>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.<span class="built_in">str</span>.title()         <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.capitalize()    <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.upper()         <span class="comment"># 全部大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.lower()         <span class="comment"># 全部小写</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.title.html">更多 pandas.Series.str 相关用法</a></p>
+</blockquote>
+<h2 id="数据替换"><a href="#数据替换" class="headerlink" title="数据替换"></a>数据替换</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.replace(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, inplace=<span class="literal">True</span>)              <span class="comment">#将A替换成B</span></span><br><span class="line"></span><br><span class="line">Series.replace(-<span class="number">10</span>,np.nan,inplace=<span class="literal">True</span>)             <span class="comment"># 将负值替换为空值</span></span><br><span class="line"></span><br><span class="line">Series.replace(np.nan,Series.mean(),inplace=<span class="literal">True</span>)   <span class="comment"># 将空值替换为均值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h2><p><strong>等值判断</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data1 = data[data.origin != <span class="string">&#x27;American&#x27;</span>] <span class="comment">#去掉origin为American的行</span></span><br><span class="line"></span><br><span class="line">data2=data[(data != <span class="string">&#x27;Japan&#x27;</span>).<span class="built_in">all</span>(<span class="number">1</span>)]    <span class="comment">#去掉所有包含Japan的行。返回True值，即不等于Japan的行</span></span><br></pre></td></tr></table></figure>
+<p><strong>去除重复值</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Series.drop_duplicates()      <span class="comment"># 默认删除后面出现的重复值，即保留第一次出现的重复值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html#pandas.DataFrame.drop_duplicates">更多 pandas.DataFrame.drop_duplicates() 用法</a></p>
+</blockquote>
+<h2 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h2><p>将某一列转换为 str 格式<br><code>Series.astype(&#39;str)</code></p>
+<p>常见的数据类型对照<br><img src="../images/2021-03-12-00-01-44.png"></p>
+<blockquote>
+<p><a href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">pandas.Series.map</a><br><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply">pandas.DataFrame.apply</a></p>
+</blockquote>
+<h2 id="更改column-name"><a href="#更改column-name" class="headerlink" title="更改column_name"></a>更改column_name</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.rename(columns=&#123;<span class="string">&#x27;id&#x27;</span>:<span class="string">&#x27;ID&#x27;</span>, <span class="string">&#x27;origin&#x27;</span>:<span class="string">&#x27;产地&#x27;</span>&#125;)     <span class="comment"># 将id列改为ID，将origin改为产地。</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>DataFrame.merge(self，right，how =‘inner’，on = None)</code></p>
+<ul>
+<li>right 指要合并的对象</li>
+<li>on 指要加入的列或索引级别名称，必须在两个 DataFrame 中都可以找到。</li>
+<li>how 决定要执行的合并类型：left（使用左框架中的键）、right、inner（交集，默认）、outer（并集）</li>
+</ul>
+<p><strong>先创建两个df</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: [<span class="number">3</span>, <span class="number">4</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    a  b</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    a  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   baz  <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;inner&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)       </span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;left&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span>  NaN</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;left&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;right&#x27;</span>: [<span class="number">7</span>, <span class="number">8</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    left</span><br><span class="line"><span class="number">0</span>   foo</span><br><span class="line"><span class="number">1</span>   bar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    right</span><br><span class="line"><span class="number">0</span>   <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;cross&#x27;</span>)</span><br><span class="line">   left  right</span><br><span class="line"><span class="number">0</span>   foo      <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   foo      <span class="number">8</span></span><br><span class="line"><span class="number">2</span>   bar      <span class="number">7</span></span><br><span class="line"><span class="number">3</span>   bar      <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">更多 pandas.DataFrame.merge() 用法</a></p>
+</blockquote>
+<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><p><strong>在原数据集的下方合并入新的数据集</strong><br><code>df1.append(df2)</code></p>
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><p><code>pandas.concat(objs,axis = 0,ignore_index = False,keys = None)</code></p>
+<ul>
+<li>objs:Series，DataFrame或Panel对象的序列或映射。</li>
+<li>axis：串联的轴，默认为0，即以索引串联（竖直拼接）；如果为1，则以列串联（水平拼接）</li>
+<li>ignore_index：清除现有索引并将其重置，默认为False。</li>
+<li>key：在数据的最外层添加层次结构索引。</li>
+</ul>
+<p>比如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data_new=pd.concat([data,data2,data3],axis = <span class="number">1</span>,keys=[<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;data2&#x27;</span>,<span class="string">&#x27;data3&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.concat.html">更多 pandas.concat() 用法</a></p>
+</blockquote>
+<h2 id="设置索引列"><a href="#设置索引列" class="headerlink" title="设置索引列"></a>设置索引列</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.set_index(<span class="string">&quot;id&quot;</span>)           <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.reset_index(drop=<span class="literal">True</span>)    <span class="comment"># 重置索引列，并且避免将旧索引添加为列</span></span><br></pre></td></tr></table></figure>
+<h2 id="按照特定列的值排序"><a href="#按照特定列的值排序" class="headerlink" title="按照特定列的值排序"></a>按照特定列的值排序</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">data.sort_index()              <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.sort_values(by=<span class="string">&quot;columnA&quot;</span>,ascending = <span class="literal">True</span>)    <span class="comment"># 按照columnA的值排序，默认升序</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">更多 pandas.DataFrame.sort_values()用法</a></p>
+</blockquote>
+<h2 id="分类显示"><a href="#分类显示" class="headerlink" title="分类显示"></a>分类显示</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果money列的值&gt;=10, level列显示high，否则显示low</span></span><br><span class="line">data[<span class="string">&#x27;level&#x27;</span>] = np.where(data[<span class="string">&#x27;money&#x27;</span>]&gt;=<span class="number">10</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="分组标记"><a href="#分组标记" class="headerlink" title="分组标记"></a>分组标记</h2><p>定位到 level 行==high 并且 origin 行==China，sign列的数据。赋值为“棒”<br><code>data.loc[(data[&#39;level&#39;]==&quot;high&quot;) &amp; (data[&#39;origin&#39;]==&quot;China&quot;),&quot;sign&quot;]=&quot;棒&quot;</code></p>
+]]></content>
   </entry>
   <entry>
     <title>Python中的单，双，三引号用法</title>
@@ -535,6 +1024,68 @@
 ]]></content>
       <tags>
         <tag>Elegant_python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XGBoost</title>
+    <url>/2021-01-12-XGBoost/</url>
+    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
+<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
+<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
+<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
+<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
+<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
+<p><img src="../images/xgboost/1.png"></p>
+<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
+<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
+<ul>
+<li>损失函数，可以是平方损失或逻辑损失</li>
+<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
+</ul>
+<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
+<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
+<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
+<p><img src="../images/xgboost/4.png"></p>
+<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
+<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
+<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
+<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
+<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
+<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
+<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
+<p>回归预测：均方误差RMSE</p>
+<p>分类预测：错误率error 或者 对数损失 log_loss</p>
+<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
+<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
+<p><img src="../images/xgboost/5.png"></p>
+<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
+<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
+<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
+<p><img src="../images/xgboost/6.png"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字节 数据分析实习生 飞书 面经</title>
+    <url>/2021-03-16-%E5%AD%97%E8%8A%82%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E4%B9%A0%E7%94%9F%20%E9%A3%9E%E4%B9%A6%20%E9%9D%A2%E7%BB%8F/</url>
+    <content><![CDATA[<p>1、自我介绍</p>
+<p>2、挑一个做过的项目介绍</p>
+<p>3、得出什么？</p>
+<p>4、SQL两道<br><img src="../images/2021-03-18-17-20-20.png"></p>
+<p>5、怎么样得出是否要上线一个新功能</p>
+<p>—— ABtest</p>
+<p>6、得到结果跟预测结果不一样怎么办？</p>
+<p>7、对飞书的了解</p>
+<p>8、反问。</p>
+]]></content>
+      <tags>
+        <tag>面经</tag>
       </tags>
   </entry>
   <entry>
@@ -647,108 +1198,27 @@
       </tags>
   </entry>
   <entry>
-    <title>XGBoost</title>
-    <url>/2021-01-12-XGBoost/</url>
-    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
-<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
-<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
-<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
-<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
-<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
-<p><img src="../images/xgboost/1.png"></p>
-<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
-<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
-<ul>
-<li>损失函数，可以是平方损失或逻辑损失</li>
-<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
-</ul>
-<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
-<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
-<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
-<p><img src="../images/xgboost/4.png"></p>
-<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
-<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
-<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
-<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
-<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
-<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
-<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
-<p>回归预测：均方误差RMSE</p>
-<p>分类预测：错误率error 或者 对数损失 log_loss</p>
-<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
-<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
-<p><img src="../images/xgboost/5.png"></p>
-<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
-<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
-<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
-<p><img src="../images/xgboost/6.png"></p>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
 ]]></content>
       <categories>
-        <category>机器学习</category>
+        <category>个人项目</category>
       </categories>
       <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>随机森林</title>
-    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
-    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
-<p>什么是集成算法和bagging？——</p>
-<p><strong>集成算法</strong></p>
-<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
-<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
-<p><strong>Bagging</strong></p>
-<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
-<p><img src="../images/rf/2.png"></p>
-<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
-<p>有哪些随机方法</p>
-<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>criterion</td>
-<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
-</tr>
-<tr>
-<td>max_depth</td>
-<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
-</tr>
-<tr>
-<td>min_samples_leaf</td>
-<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>min_samples_split</td>
-<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>max_features</td>
-<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
-</tr>
-<tr>
-<td>min_impurity_decrease</td>
-<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
-</tr>
-</tbody></table>
-<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
-<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
-<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
-<p><img src="../images/rf/1.png"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
       </tags>
   </entry>
   <entry>
@@ -848,6 +1318,66 @@
       <categories>
         <category>爬虫</category>
       </categories>
+  </entry>
+  <entry>
+    <title>随机森林</title>
+    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
+    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
+<p>什么是集成算法和bagging？——</p>
+<p><strong>集成算法</strong></p>
+<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
+<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
+<p><strong>Bagging</strong></p>
+<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
+<p><img src="../images/rf/2.png"></p>
+<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
+<p>有哪些随机方法</p>
+<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>criterion</td>
+<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
+</tr>
+<tr>
+<td>max_depth</td>
+<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
+</tr>
+<tr>
+<td>min_samples_leaf</td>
+<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>min_samples_split</td>
+<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>max_features</td>
+<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
+</tr>
+<tr>
+<td>min_impurity_decrease</td>
+<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
+<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
+<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
+<p><img src="../images/rf/1.png"></p>
+]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
   </entry>
   <entry>
     <title>酒店预订平台用户流失概率预测</title>
@@ -1087,8 +1617,8 @@
         <category>个人项目</category>
       </categories>
       <tags>
-        <tag>数据分析</tag>
         <tag>机器学习</tag>
+        <tag>数据分析</tag>
         <tag>特征工程</tag>
       </tags>
   </entry>
