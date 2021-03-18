@@ -932,6 +932,23 @@
       </tags>
   </entry>
   <entry>
+    <title>Python中的单，双，三引号用法</title>
+    <url>/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">&#x27;python&#x27;</span></span><br><span class="line">str2 = <span class="string">&quot;python&quot;</span> </span><br><span class="line"><span class="comment"># str1和str2没有任何区别。</span></span><br></pre></td></tr></table></figure>
+<h1 id="字符串中含有单引号"><a href="#字符串中含有单引号" class="headerlink" title="字符串中含有单引号"></a>字符串中含有单引号</h1><p>例如：I’m a big fan of Python.</p>
+<p><strong>1、单引号版本：</strong><br><code>str3 = &#39;I\&#39;m a big fan of Python.&#39;</code><br>字符串中间的’必须用转移字符\才可以。如果数量多写法就不优雅，可以使用双引号。</p>
+<p><strong>2、双引号版本：</strong><br><code>str4_ = &quot;We all know that &#39;A&#39; and &#39;B&#39; are two capital letters.&quot;</code></p>
+<h1 id="字符串中有双引号"><a href="#字符串中有双引号" class="headerlink" title="字符串中有双引号"></a>字符串中有双引号</h1><p>为了避免使用转义符，使用单引号来定义这个字符串。<br>比如：<br><code>str5 = &#39;The teacher said: &quot;Practice makes perfect&quot; is a very famous proverb.&#39;</code></p>
+<h1 id="3个单引号"><a href="#3个单引号" class="headerlink" title="3个单引号"></a>3个单引号</h1><p><strong>1、换行输出</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1 = <span class="string">&quot;&quot;&quot;List of name:</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Hua Li</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Chao Deng</span></span><br><span class="line"><span class="string"><span class="meta">... </span>&quot;&quot;&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line">List of name:</span><br><span class="line">Hua Li</span><br><span class="line">Chao Deng</span><br></pre></td></tr></table></figure>
+<p><strong>2、多段文字注释</strong></p>
+]]></content>
+      <tags>
+        <tag>Elegant_python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Pandas常用函数总结</title>
     <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
@@ -1010,20 +1027,20 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Python中的单，双，三引号用法</title>
-    <url>/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">&#x27;python&#x27;</span></span><br><span class="line">str2 = <span class="string">&quot;python&quot;</span> </span><br><span class="line"><span class="comment"># str1和str2没有任何区别。</span></span><br></pre></td></tr></table></figure>
-<h1 id="字符串中含有单引号"><a href="#字符串中含有单引号" class="headerlink" title="字符串中含有单引号"></a>字符串中含有单引号</h1><p>例如：I’m a big fan of Python.</p>
-<p><strong>1、单引号版本：</strong><br><code>str3 = &#39;I\&#39;m a big fan of Python.&#39;</code><br>字符串中间的’必须用转移字符\才可以。如果数量多写法就不优雅，可以使用双引号。</p>
-<p><strong>2、双引号版本：</strong><br><code>str4_ = &quot;We all know that &#39;A&#39; and &#39;B&#39; are two capital letters.&quot;</code></p>
-<h1 id="字符串中有双引号"><a href="#字符串中有双引号" class="headerlink" title="字符串中有双引号"></a>字符串中有双引号</h1><p>为了避免使用转义符，使用单引号来定义这个字符串。<br>比如：<br><code>str5 = &#39;The teacher said: &quot;Practice makes perfect&quot; is a very famous proverb.&#39;</code></p>
-<h1 id="3个单引号"><a href="#3个单引号" class="headerlink" title="3个单引号"></a>3个单引号</h1><p><strong>1、换行输出</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1 = <span class="string">&quot;&quot;&quot;List of name:</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Hua Li</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Chao Deng</span></span><br><span class="line"><span class="string"><span class="meta">... </span>&quot;&quot;&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line">List of name:</span><br><span class="line">Hua Li</span><br><span class="line">Chao Deng</span><br></pre></td></tr></table></figure>
-<p><strong>2、多段文字注释</strong></p>
+    <title>字节 数据分析实习生 飞书 面经</title>
+    <url>/2021-03-16-%E5%AD%97%E8%8A%82%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E4%B9%A0%E7%94%9F%20%E9%A3%9E%E4%B9%A6%20%E9%9D%A2%E7%BB%8F/</url>
+    <content><![CDATA[<p>1、自我介绍</p>
+<p>2、挑一个做过的项目介绍</p>
+<p>3、得出什么？</p>
+<p>4、SQL两道<br><img src="../images/2021-03-18-17-20-20.png"></p>
+<p>5、怎么样得出是否要上线一个新功能</p>
+<p>—— ABtest</p>
+<p>6、得到结果跟预测结果不一样怎么办？</p>
+<p>7、对飞书的了解</p>
+<p>8、反问。</p>
 ]]></content>
       <tags>
-        <tag>Elegant_python</tag>
+        <tag>面经</tag>
       </tags>
   </entry>
   <entry>
@@ -1072,20 +1089,27 @@
       </tags>
   </entry>
   <entry>
-    <title>字节 数据分析实习生 飞书 面经</title>
-    <url>/2021-03-16-%E5%AD%97%E8%8A%82%20%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%AE%9E%E4%B9%A0%E7%94%9F%20%E9%A3%9E%E4%B9%A6%20%E9%9D%A2%E7%BB%8F/</url>
-    <content><![CDATA[<p>1、自我介绍</p>
-<p>2、挑一个做过的项目介绍</p>
-<p>3、得出什么？</p>
-<p>4、SQL两道<br><img src="../images/2021-03-18-17-20-20.png"></p>
-<p>5、怎么样得出是否要上线一个新功能</p>
-<p>—— ABtest</p>
-<p>6、得到结果跟预测结果不一样怎么办？</p>
-<p>7、对飞书的了解</p>
-<p>8、反问。</p>
+    <title>“数智教育”可视化分析</title>
+    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
+<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
+<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
+<ol>
+<li><p>设计分析体系。</p>
+</li>
+<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
+</li>
+<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
+</li>
+</ol>
+<p>待更新。。。</p>
 ]]></content>
+      <categories>
+        <category>个人项目</category>
+      </categories>
       <tags>
-        <tag>面经</tag>
+        <tag>数据分析</tag>
+        <tag>Tableau</tag>
       </tags>
   </entry>
   <entry>
@@ -1198,27 +1222,63 @@
       </tags>
   </entry>
   <entry>
-    <title>“数智教育”可视化分析</title>
-    <url>/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
-<p>通过某学校教育数据的数据分析和可视化，探索面向学生、校园的数据分析体系，从而更好服务精细化教学管理工作。</p>
-<h2 id="1、目的"><a href="#1、目的" class="headerlink" title="1、目的"></a>1、目的</h2><p>项目来源：<a href="https://tianchi.aliyun.com/competition/entrance/231704/introduction">天池–“数智教育”数据可视化创新大赛</a></p>
-<ol>
-<li><p>设计分析体系。</p>
-</li>
-<li><p>使用Navicat, MySQL对数据进行清洗，梳理纬度、新建指标值。</p>
-</li>
-<li><p>基于分析体系，利用Tableau建立仪表盘组成的动态可视化报表，能够使学校、年级、班级相关人员高效、准确地获取精细信息，从而实施管理或学习。</p>
-</li>
-</ol>
-<p>待更新。。。</p>
+    <title>随机森林</title>
+    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
+    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
+<p>什么是集成算法和bagging？——</p>
+<p><strong>集成算法</strong></p>
+<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
+<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
+<p><strong>Bagging</strong></p>
+<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
+<p><img src="../images/rf/2.png"></p>
+<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
+<p>有哪些随机方法</p>
+<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>criterion</td>
+<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
+</tr>
+<tr>
+<td>max_depth</td>
+<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
+</tr>
+<tr>
+<td>min_samples_leaf</td>
+<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>min_samples_split</td>
+<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
+</tr>
+<tr>
+<td>max_features</td>
+<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
+</tr>
+<tr>
+<td>min_impurity_decrease</td>
+<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
+<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
+<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
+<p><img src="../images/rf/1.png"></p>
 ]]></content>
       <categories>
-        <category>个人项目</category>
+        <category>机器学习</category>
       </categories>
       <tags>
-        <tag>数据分析</tag>
-        <tag>Tableau</tag>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1318,66 +1378,6 @@
       <categories>
         <category>爬虫</category>
       </categories>
-  </entry>
-  <entry>
-    <title>随机森林</title>
-    <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
-    <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
-<p>什么是集成算法和bagging？——</p>
-<p><strong>集成算法</strong></p>
-<p>对于训练集数据，我们通过训练若⼲个弱评估器，通过⼀定的结合策略，就可以最终形成⼀个强评估器，这个强分类器的效果就是汇总之前多个模型的结果，来获取最优的表现结果。</p>
-<p>它可以⽤来做市场营销模拟的建模，统计客户来源，保留和流失，也可⽤来预测疾病的⻛险和病患者的易感性。</p>
-<p><strong>Bagging</strong></p>
-<p><strong>原理</strong>：每次均匀地、有放回地随机选取与原数据集样本量相等的样本，得到若干个新数据集。再用若干个若评估器分别训练这些数据集，最终对每个评估器预测的结果根据平均或多数表决原则选取最优的预测结果。</p>
-<p><img src="../images/rf/2.png"></p>
-<h1 id="一、随机森林分类器"><a href="#一、随机森林分类器" class="headerlink" title="一、随机森林分类器"></a>一、随机森林分类器</h1><p>通过构造多个决策树，做bagging以提高泛化能力 </p>
-<p>有哪些随机方法</p>
-<h2 id="1-重要参数"><a href="#1-重要参数" class="headerlink" title="1. 重要参数"></a>1. 重要参数</h2><h3 id="1-1-控制基评估器的参数"><a href="#1-1-控制基评估器的参数" class="headerlink" title="1.1 控制基评估器的参数"></a>1.1 控制基评估器的参数</h3><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>criterion</td>
-<td><strong>不纯度的衡量指标</strong>，有基尼系数和信息熵两种选择</td>
-</tr>
-<tr>
-<td>max_depth</td>
-<td>树的最大深度，超过最⼤深度的树枝都会被剪掉</td>
-</tr>
-<tr>
-<td>min_samples_leaf</td>
-<td>⼀个节点<strong>在分枝后的每个⼦节点</strong>都必须包含⾄少min_samples_leaf个训练样本，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>min_samples_split</td>
-<td><strong>⼀个节点必须要包含</strong>⾄少min_samples_split个训练样本，这个节点才允许被分枝，否则分枝就不会发⽣</td>
-</tr>
-<tr>
-<td>max_features</td>
-<td>max_features限制分枝时考虑的特征个数，超过限制个数的特征都会被舍弃，<strong>默认值为总特征个数开平⽅取整</strong></td>
-</tr>
-<tr>
-<td>min_impurity_decrease</td>
-<td>限制信息增益的⼤⼩，信息增益⼩于设定数值的分枝不会发⽣</td>
-</tr>
-</tbody></table>
-<h3 id="1-2-n-estimators"><a href="#1-2-n-estimators" class="headerlink" title="1.2 n_estimators"></a>1.2 n_estimators</h3><p>森林中树⽊的数量，即基评估器的数量。这个参数对随机森林模型的精确性影响是单调的，n_estimators越⼤，模型的效果往往越好。但是达到⼀定的程度之后，随机森林的精确性往往不再上升或开始波动，并且，n_estimators越⼤，需要的计算量和内存也越⼤，训练的时间也会越来越⻓。对于这个参数，目标是尽量在训练难度和模型效果之间取得平衡。</p>
-<h3 id="1-3-random-state"><a href="#1-3-random-state" class="headerlink" title="1.3 random_state"></a>1.3 random_state</h3><p>sklearn中的分类树DecisionTreeClassifier自带随机性，所以随机森林中的树天⽣就都是不⼀样的。分类树中的参数数random_state是 从最重要的特征中随机选择出⼀个特征来进⾏分枝，因此每次⽣成的决策树都不⼀样。随机森林⽤法和分类树中相似，只不过在分类树中，⼀个random_state只<br>控制⽣成⼀棵树，⽽随机森林中的random_state控制的是⽣成森林的模式，⽽⾮让⼀个森林中有⼀<br>棵树。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#随机森林中的random_state控制的是⽣成森林的模式</span></span><br><span class="line">rfc = RandomForestClassifier(n_estimators=<span class="number">20</span>,random_state=<span class="number">2</span>)</span><br><span class="line">rfc = rfc.fit(Xtrain, Ytrain)</span><br><span class="line"><span class="comment">#随机森林的重要属性之⼀：estimators，查看森林中树的状况</span></span><br><span class="line">rfc.estimators_[<span class="number">0</span>].random_state</span><br><span class="line"><span class="comment">#打印出森林中所有树的随机模式</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(rfc.estimators_)):</span><br><span class="line">    print(rfc.estimators_[i].random_state)</span><br></pre></td></tr></table></figure>
-<p>当我们需要成千上万棵树的时候，数据不⼀定能够提供成千上万的特征来让我们构筑尽量多尽量不同的树。因此，除了random_state。我们还需要其他的随机性，比如max_features。</p>
-<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><p>给每一个训练样本赋予一个等量的初始权重，在每一轮训练结束时自动地调整权重。</p>
-<p><img src="../images/rf/1.png"></p>
-]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
   </entry>
   <entry>
     <title>酒店预订平台用户流失概率预测</title>
