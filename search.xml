@@ -1,6 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Fluent Python Study Notes</title>
+    <url>/2021-01-21-Fluent-Python-Study-Notes/</url>
+    <content><![CDATA[<h1 id="Python-数据模型"><a href="#Python-数据模型" class="headerlink" title="Python 数据模型"></a>Python 数据模型</h1><h2 id="一摞Python风格的纸牌"><a href="#一摞Python风格的纸牌" class="headerlink" title="一摞Python风格的纸牌"></a>一摞Python风格的纸牌</h2><blockquote>
+<p>类中的函数称为方法，特殊方法，也叫魔术方法,与其他方法的差别在于调用方法的方式。比如 <code>__init__()</code>,每次根据类创建实例时，Python都会自动运行它。在这个方法的定义中，形参 self 必不可少，还必须位于其他形参的前面。当 Python调用这个方法来创建一个实例时，将自动传入实参 self 。每个与类相关联的方法调用都自动传递实参 self ，它是一个指向实例本身的引用，让实例能够访问类中的属性和方法。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 一摞有序的纸牌</span></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">Card = collections.namedtuple(<span class="string">&#x27;Card&#x27;</span>, [<span class="string">&#x27;rank&#x27;</span>, <span class="string">&#x27;suit&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">    ranks = [<span class="built_in">str</span>(n) <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">11</span>)] + <span class="built_in">list</span>(<span class="string">&#x27;JQKA&#x27;</span>)</span><br><span class="line">    suits = <span class="string">&#x27;spades diamonds clubs hearts&#x27;</span>.split()</span><br><span class="line"></span><br><span class="line">    def_init_(self):</span><br><span class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits</span><br><span class="line">                                        <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self._cards)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, position</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._cards[position]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一叠牌有多少张</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck = FrenchDeck()   <span class="comment"># 创建实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">len</span>(deck)</span><br><span class="line"><span class="number">52</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抽取特定的一张纸牌</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">0</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[-<span class="number">1</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机抽取一张纸牌 random.choice</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片操作</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[:<span class="number">3</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">12</span>::<span class="number">13</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可迭代</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> deck:</span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">reversed</span>(deck): <span class="comment"># 反向迭代</span></span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;Q&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;hearts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;beasts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对这摞牌升序排序</span></span><br><span class="line">suit_values = <span class="built_in">dict</span>(spades=<span class="number">3</span>, hearts=<span class="number">2</span>, diamonds=<span class="number">1</span>, clubs=<span class="number">0</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spades_high</span>(<span class="params">card</span>):</span></span><br><span class="line">    rank_value = FrenchDeck.ranks.index(card.rank)</span><br><span class="line">    <span class="keyword">return</span> rank_value * <span class="built_in">len</span>(suit_values) + suit_values[card.suit]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">sorted</span>(deck, key=spades_high): </span><br><span class="line"><span class="meta">... </span>     print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">... </span>(<span class="number">46</span> cards ommitted)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>collections.namedtuple 构建了一个名为 Card,只具有属性 rank 和 suit 的类。<br><code>__len__</code> 和 <code>__getitem__</code> 的具体实现可以代理给 self._cards这个 Python 列表（即 list 对象）。</p>
+</blockquote>
+<h2 id="如何使用特殊方法"><a href="#如何使用特殊方法" class="headerlink" title="如何使用特殊方法"></a>如何使用特殊方法</h2><ol>
+<li>特殊方法是为了被 Python 解释器调用的，所以没有<code>my_object.__len__()</code>这种写法，而是<code>len(my_object)</code>。</li>
+<li>如果不是自定义对象，而是 Python 内置类型，比如 list、str 等，Python 会直接调用一种内置的 ob_size 属性。</li>
+<li>通过内置的函数（len、iter、str 等）来构造特殊方法最好。因为对于内置的类来说，速度更快。</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 二维向量加法</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> hypot</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x=<span class="number">0</span>, y=<span class="number">0</span></span>):</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Vector(%r, %r)&#x27;</span> % (self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bool</span>(<span class="built_in">abs</span>(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        x = self.x + other.x</span><br><span class="line">        y = self.y + other.y</span><br><span class="line">        <span class="keyword">return</span> Vector(x, y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span>(<span class="params">self, scalar</span>):</span></span><br><span class="line">        <span class="keyword">return</span> Vector(self.x * scalar, self.y * scalar)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = Vector(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 + v2</span><br><span class="line">Vector(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v = Vector(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v)</span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v * <span class="number">3</span></span><br><span class="line">Vector(<span class="number">9</span>, <span class="number">12</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v * <span class="number">3</span>)</span><br><span class="line"><span class="number">15.0</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Python 有一个内置的函数叫 repr，它能把一个对象用字符串的形式表达出来以便辨认，这就是“字符串表示形式”。repr 就是通过<code>__repr__</code>这个特殊方法来得到一个对象的字符串表示形式的。如果没有实现<code>__repr__</code>，当我们在控制台里打印一个向量的实例时，得到的字符串可能会是 <code>&lt;Vector object at 0x10e100070&gt;</code>。</p>
+</blockquote>
+<h2 id="特殊方法一览"><a href="#特殊方法一览" class="headerlink" title="特殊方法一览"></a>特殊方法一览</h2><blockquote>
+<p><a href="https://docs.python.org/3/reference/datamodel.html">Python 语言参考手册中的“DataModel”</a></p>
+</blockquote>
+<p>跟运算符无关的特殊方法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类别</th>
+<th align="left">方法名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">字符串/字节序列表示形式</td>
+<td align="left">__repr__ 、 __str__ 、 __format__ 、 __bytes__</td>
+</tr>
+<tr>
+<td align="left">数值转换</td>
+<td align="left">__abs__ 、 __bool__ 、 __complex__ 、 __int__ 、 __float__ 、 __hash__ 、 __index__</td>
+</tr>
+<tr>
+<td align="left">集合模拟</td>
+<td align="left">__len__ 、 __getitem__ 、 __setitem__ 、 __delitem__ 、 __contains__</td>
+</tr>
+<tr>
+<td align="left">迭代枚举</td>
+<td align="left">__iter__ 、 __reversed__ 、 __next__</td>
+</tr>
+<tr>
+<td align="left">可调用模拟</td>
+<td align="left">__call__</td>
+</tr>
+<tr>
+<td align="left">上下文管理</td>
+<td align="left">__enter__ 、 __exit__</td>
+</tr>
+<tr>
+<td align="left">实例创建和销毁</td>
+<td align="left">__new__ 、 __init__ 、 __del__</td>
+</tr>
+<tr>
+<td align="left">属性管理</td>
+<td align="left">__getattr__ 、 __getattribute__ 、 __setattr__ 、 __delattr__ 、 __dir__</td>
+</tr>
+<tr>
+<td align="left">属性描述符</td>
+<td align="left">__get__ 、 __set__ 、 __delete__</td>
+</tr>
+<tr>
+<td align="left">跟类相关的服务</td>
+<td align="left">__prepare__ 、 __instancecheck__ 、 __subclasscheck__</td>
+</tr>
+</tbody></table>
+<p>跟运算符相关的特殊方法：</p>
+<table>
+<thead>
+<tr>
+<th align="left">类别</th>
+<th align="left">方法名和对应的运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">一元运算符</td>
+<td align="left">__neg__ - 、 __pos__ + 、 __abs__ abs()</td>
+</tr>
+<tr>
+<td align="left">众多比较运算符</td>
+<td align="left">__lt__ &lt; 、 __le__ &lt;= 、 __eq__ == 、 __ne__ != 、 __gt__ &gt; 、 __ge__ &gt;=</td>
+</tr>
+<tr>
+<td align="left">算术运算符</td>
+<td align="left">__add__ + 、 __sub__ - 、 __mul__ * 、 __truediv__ / 、 __floordiv__ // 、 __mod__ % 、 __divmod__ divmod() 、 __pow__ ** 或 pow() 、 __round__ round()</td>
+</tr>
+<tr>
+<td align="left">反向算术运算符</td>
+<td align="left">__radd__ 、 __rsub__ 、 __rmul__ 、 __rtruediv__ 、 __rfloordiv__ 、 __rmod__ 、  __rdivmod__ 、 __rpow__</td>
+</tr>
+<tr>
+<td align="left">增量赋值算术运算符</td>
+<td align="left">__iadd__ 、 __isub__ 、 __imul__ 、 __itruediv__ 、 __ifloordiv__ 、 __imod__ 、 __ipow__</td>
+</tr>
+<tr>
+<td align="left">位运算符</td>
+<td align="left">__invert__ ~ 、 __lshift__ &lt;&lt; 、 __rshift__ &gt;&gt; 、 __and__ &amp; 、 __or__</td>
+</tr>
+<tr>
+<td align="left">反向位运算符</td>
+<td align="left">__rlshift__ 、 __rrshift__ 、 __rand__ 、 __rxor__ 、 __ror__</td>
+</tr>
+<tr>
+<td align="left">增量赋值位算术运算符</td>
+<td align="left">__ilshift__ 、 __irshift__ 、 __iand__ 、 __ixor__ 、 __ior__</td>
+</tr>
+</tbody></table>
+<h1 id="序列构成的数组"><a href="#序列构成的数组" class="headerlink" title="序列构成的数组"></a>序列构成的数组</h1><h2 id="内置序列类型概览"><a href="#内置序列类型概览" class="headerlink" title="内置序列类型概览"></a>内置序列类型概览</h2><ul>
+<li>容器序列：list、tuple 和 collections.deque 这些序列能存放不同类型的数据</li>
+<li>扁平序列：str、bytes、bytearray、memoryview 和 array.array，这类序列只能容纳一种类型</li>
+<li>可变序列：list、bytearray、array.array、collections.deque、memoryview</li>
+<li>不可变序列：tuple、str 和 bytes<br><img src="../images/2021-03-12-14-36-43.png"><blockquote>
+<p>可变序列（MutableSequence）和不可变序列（Sequence）</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="列表推导和生成器表达式"><a href="#列表推导和生成器表达式" class="headerlink" title="列表推导和生成器表达式"></a>列表推导和生成器表达式</h2><p>虽然也可以用列表推导来初始化元组、数组或其他序列类型，但是生成器表达式是更好的选择。这是因为生成器表达式背后遵守了迭代器协议，可以逐个地产出元素，而不是先建立一个完整的列表，然后再把这个列表传递到某个构造函数里。前面那种方式显然能够节省内存。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字符串变成 Unicode 码位</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = [<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols]    <span class="comment"># 列表推导</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">[<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = [<span class="built_in">ord</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> symbols <span class="keyword">if</span> <span class="built_in">ord</span>(s) &gt; <span class="number">127</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> c: c &gt; <span class="number">127</span>, <span class="built_in">map</span>(<span class="built_in">ord</span>, symbols)))         <span class="comment">#    filter和map</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">tuple</span>(<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)  <span class="comment"># 生成器表达式</span></span><br><span class="line">(<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> array</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array.array(<span class="string">&#x27;I&#x27;</span>, (<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)) </span><br><span class="line">array(<span class="string">&#x27;I&#x27;</span>, [<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用生成器表达式计算笛卡尔积</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>colors = [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;white&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sizes = [<span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;L&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> tshirt <span class="keyword">in</span> (<span class="string">&#x27;%s %s&#x27;</span> % (c, s) <span class="keyword">for</span> c <span class="keyword">in</span> colors <span class="keyword">for</span> s <span class="keyword">in</span> sizes): </span><br><span class="line"><span class="meta">... </span>    print(tshirt)</span><br><span class="line">...</span><br><span class="line">black S</span><br><span class="line">black M</span><br><span class="line">black L</span><br><span class="line">white S</span><br><span class="line">white M</span><br><span class="line">white L</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>表达式内部的变量和赋值只在局部起作用，表达式的上下文里的同名变量还可以被正常引用。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Study Notes</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Study Notes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MySQL常用函数总结</title>
     <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供窗口函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
@@ -281,141 +416,6 @@
       <tags>
         <tag>SQL</tag>
         <tag>函数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Fluent Python Study Notes</title>
-    <url>/2021-01-21-Fluent-Python-Study-Notes/</url>
-    <content><![CDATA[<h1 id="Python-数据模型"><a href="#Python-数据模型" class="headerlink" title="Python 数据模型"></a>Python 数据模型</h1><h2 id="一摞Python风格的纸牌"><a href="#一摞Python风格的纸牌" class="headerlink" title="一摞Python风格的纸牌"></a>一摞Python风格的纸牌</h2><blockquote>
-<p>类中的函数称为方法，特殊方法，也叫魔术方法,与其他方法的差别在于调用方法的方式。比如 <code>__init__()</code>,每次根据类创建实例时，Python都会自动运行它。在这个方法的定义中，形参 self 必不可少，还必须位于其他形参的前面。当 Python调用这个方法来创建一个实例时，将自动传入实参 self 。每个与类相关联的方法调用都自动传递实参 self ，它是一个指向实例本身的引用，让实例能够访问类中的属性和方法。</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 一摞有序的纸牌</span></span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"></span><br><span class="line">Card = collections.namedtuple(<span class="string">&#x27;Card&#x27;</span>, [<span class="string">&#x27;rank&#x27;</span>, <span class="string">&#x27;suit&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FrenchDeck</span>:</span></span><br><span class="line">    ranks = [<span class="built_in">str</span>(n) <span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">11</span>)] + <span class="built_in">list</span>(<span class="string">&#x27;JQKA&#x27;</span>)</span><br><span class="line">    suits = <span class="string">&#x27;spades diamonds clubs hearts&#x27;</span>.split()</span><br><span class="line"></span><br><span class="line">    def_init_(self):</span><br><span class="line">        self._cards = [Card(rank, suit) <span class="keyword">for</span> suit <span class="keyword">in</span> self.suits</span><br><span class="line">                                        <span class="keyword">for</span> rank <span class="keyword">in</span> self.ranks]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self._cards)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span>(<span class="params">self, position</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self._cards[position]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一叠牌有多少张</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck = FrenchDeck()   <span class="comment"># 创建实例</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">len</span>(deck)</span><br><span class="line"><span class="number">52</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 抽取特定的一张纸牌</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">0</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[-<span class="number">1</span>]</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机抽取一张纸牌 random.choice</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> random <span class="keyword">import</span> choice</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>choice(deck)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切片操作</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[:<span class="number">3</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>deck[<span class="number">12</span>::<span class="number">13</span>]</span><br><span class="line">[Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>),</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>), Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可迭代</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> deck:</span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;3&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;4&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">reversed</span>(deck): <span class="comment"># 反向迭代</span></span><br><span class="line"><span class="meta">... </span>  print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;K&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;Q&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;Q&#x27;</span>, <span class="string">&#x27;hearts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>Card(<span class="string">&#x27;7&#x27;</span>, <span class="string">&#x27;beasts&#x27;</span>) <span class="keyword">in</span> deck</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对这摞牌升序排序</span></span><br><span class="line">suit_values = <span class="built_in">dict</span>(spades=<span class="number">3</span>, hearts=<span class="number">2</span>, diamonds=<span class="number">1</span>, clubs=<span class="number">0</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">spades_high</span>(<span class="params">card</span>):</span></span><br><span class="line">    rank_value = FrenchDeck.ranks.index(card.rank)</span><br><span class="line">    <span class="keyword">return</span> rank_value * <span class="built_in">len</span>(suit_values) + suit_values[card.suit]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> card <span class="keyword">in</span> <span class="built_in">sorted</span>(deck, key=spades_high): </span><br><span class="line"><span class="meta">... </span>     print(card)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;clubs&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;2&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line"><span class="meta">... </span>(<span class="number">46</span> cards ommitted)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;diamonds&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;hearts&#x27;</span>)</span><br><span class="line">Card(rank=<span class="string">&#x27;A&#x27;</span>, suit=<span class="string">&#x27;spades&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>collections.namedtuple 构建了一个名为 Card,只具有属性 rank 和 suit 的类。<br><code>__len__</code> 和 <code>__getitem__</code> 的具体实现可以代理给 self._cards这个 Python 列表（即 list 对象）。</p>
-</blockquote>
-<h2 id="如何使用特殊方法"><a href="#如何使用特殊方法" class="headerlink" title="如何使用特殊方法"></a>如何使用特殊方法</h2><ol>
-<li>特殊方法是为了被 Python 解释器调用的，所以没有<code>my_object.__len__()</code>这种写法，而是<code>len(my_object)</code>。</li>
-<li>如果不是自定义对象，而是 Python 内置类型，比如 list、str 等，Python 会直接调用一种内置的 ob_size 属性。</li>
-<li>通过内置的函数（len、iter、str 等）来构造特殊方法最好。因为对于内置的类来说，速度更快。</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 二维向量加法</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> hypot</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, x=<span class="number">0</span>, y=<span class="number">0</span></span>):</span></span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Vector(%r, %r)&#x27;</span> % (self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__abs__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> hypot(self.x, self.y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__bool__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bool</span>(<span class="built_in">abs</span>(self))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add__</span>(<span class="params">self, other</span>):</span></span><br><span class="line">        x = self.x + other.x</span><br><span class="line">        y = self.y + other.y</span><br><span class="line">        <span class="keyword">return</span> Vector(x, y)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__mul__</span>(<span class="params">self, scalar</span>):</span></span><br><span class="line">        <span class="keyword">return</span> Vector(self.x * scalar, self.y * scalar)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 = Vector(<span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v2 = Vector(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v1 + v2</span><br><span class="line">Vector(<span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v = Vector(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v)</span><br><span class="line"><span class="number">5.0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>v * <span class="number">3</span></span><br><span class="line">Vector(<span class="number">9</span>, <span class="number">12</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">abs</span>(v * <span class="number">3</span>)</span><br><span class="line"><span class="number">15.0</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Python 有一个内置的函数叫 repr，它能把一个对象用字符串的形式表达出来以便辨认，这就是“字符串表示形式”。repr 就是通过<code>__repr__</code>这个特殊方法来得到一个对象的字符串表示形式的。如果没有实现<code>__repr__</code>，当我们在控制台里打印一个向量的实例时，得到的字符串可能会是 <code>&lt;Vector object at 0x10e100070&gt;</code>。</p>
-</blockquote>
-<h2 id="特殊方法一览"><a href="#特殊方法一览" class="headerlink" title="特殊方法一览"></a>特殊方法一览</h2><blockquote>
-<p><a href="https://docs.python.org/3/reference/datamodel.html">Python 语言参考手册中的“DataModel”</a></p>
-</blockquote>
-<p>跟运算符无关的特殊方法：</p>
-<table>
-<thead>
-<tr>
-<th align="left">类别</th>
-<th align="left">方法名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">字符串/字节序列表示形式</td>
-<td align="left">__repr__ 、 __str__ 、 __format__ 、 __bytes__</td>
-</tr>
-<tr>
-<td align="left">数值转换</td>
-<td align="left">__abs__ 、 __bool__ 、 __complex__ 、 __int__ 、 __float__ 、 __hash__ 、 __index__</td>
-</tr>
-<tr>
-<td align="left">集合模拟</td>
-<td align="left">__len__ 、 __getitem__ 、 __setitem__ 、 __delitem__ 、 __contains__</td>
-</tr>
-<tr>
-<td align="left">迭代枚举</td>
-<td align="left">__iter__ 、 __reversed__ 、 __next__</td>
-</tr>
-<tr>
-<td align="left">可调用模拟</td>
-<td align="left">__call__</td>
-</tr>
-<tr>
-<td align="left">上下文管理</td>
-<td align="left">__enter__ 、 __exit__</td>
-</tr>
-<tr>
-<td align="left">实例创建和销毁</td>
-<td align="left">__new__ 、 __init__ 、 __del__</td>
-</tr>
-<tr>
-<td align="left">属性管理</td>
-<td align="left">__getattr__ 、 __getattribute__ 、 __setattr__ 、 __delattr__ 、 __dir__</td>
-</tr>
-<tr>
-<td align="left">属性描述符</td>
-<td align="left">__get__ 、 __set__ 、 __delete__</td>
-</tr>
-<tr>
-<td align="left">跟类相关的服务</td>
-<td align="left">__prepare__ 、 __instancecheck__ 、 __subclasscheck__</td>
-</tr>
-</tbody></table>
-<p>跟运算符相关的特殊方法：</p>
-<table>
-<thead>
-<tr>
-<th align="left">类别</th>
-<th align="left">方法名和对应的运算符</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">一元运算符</td>
-<td align="left">__neg__ - 、 __pos__ + 、 __abs__ abs()</td>
-</tr>
-<tr>
-<td align="left">众多比较运算符</td>
-<td align="left">__lt__ &lt; 、 __le__ &lt;= 、 __eq__ == 、 __ne__ != 、 __gt__ &gt; 、 __ge__ &gt;=</td>
-</tr>
-<tr>
-<td align="left">算术运算符</td>
-<td align="left">__add__ + 、 __sub__ - 、 __mul__ * 、 __truediv__ / 、 __floordiv__ // 、 __mod__ % 、 __divmod__ divmod() 、 __pow__ ** 或 pow() 、 __round__ round()</td>
-</tr>
-<tr>
-<td align="left">反向算术运算符</td>
-<td align="left">__radd__ 、 __rsub__ 、 __rmul__ 、 __rtruediv__ 、 __rfloordiv__ 、 __rmod__ 、  __rdivmod__ 、 __rpow__</td>
-</tr>
-<tr>
-<td align="left">增量赋值算术运算符</td>
-<td align="left">__iadd__ 、 __isub__ 、 __imul__ 、 __itruediv__ 、 __ifloordiv__ 、 __imod__ 、 __ipow__</td>
-</tr>
-<tr>
-<td align="left">位运算符</td>
-<td align="left">__invert__ ~ 、 __lshift__ &lt;&lt; 、 __rshift__ &gt;&gt; 、 __and__ &amp; 、 __or__</td>
-</tr>
-<tr>
-<td align="left">反向位运算符</td>
-<td align="left">__rlshift__ 、 __rrshift__ 、 __rand__ 、 __rxor__ 、 __ror__</td>
-</tr>
-<tr>
-<td align="left">增量赋值位算术运算符</td>
-<td align="left">__ilshift__ 、 __irshift__ 、 __iand__ 、 __ixor__ 、 __ior__</td>
-</tr>
-</tbody></table>
-<h1 id="序列构成的数组"><a href="#序列构成的数组" class="headerlink" title="序列构成的数组"></a>序列构成的数组</h1><h2 id="内置序列类型概览"><a href="#内置序列类型概览" class="headerlink" title="内置序列类型概览"></a>内置序列类型概览</h2><ul>
-<li>容器序列：list、tuple 和 collections.deque 这些序列能存放不同类型的数据</li>
-<li>扁平序列：str、bytes、bytearray、memoryview 和 array.array，这类序列只能容纳一种类型</li>
-<li>可变序列：list、bytearray、array.array、collections.deque、memoryview</li>
-<li>不可变序列：tuple、str 和 bytes<br><img src="../images/2021-03-12-14-36-43.png"><blockquote>
-<p>可变序列（MutableSequence）和不可变序列（Sequence）</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="列表推导和生成器表达式"><a href="#列表推导和生成器表达式" class="headerlink" title="列表推导和生成器表达式"></a>列表推导和生成器表达式</h2><p>虽然也可以用列表推导来初始化元组、数组或其他序列类型，但是生成器表达式是更好的选择。这是因为生成器表达式背后遵守了迭代器协议，可以逐个地产出元素，而不是先建立一个完整的列表，然后再把这个列表传递到某个构造函数里。前面那种方式显然能够节省内存。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 字符串变成 Unicode 码位</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes = [<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols]    <span class="comment"># 列表推导</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>codes</span><br><span class="line">[<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = [<span class="built_in">ord</span>(s) <span class="keyword">for</span> s <span class="keyword">in</span> symbols <span class="keyword">if</span> <span class="built_in">ord</span>(s) &gt; <span class="number">127</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii = <span class="built_in">list</span>(<span class="built_in">filter</span>(<span class="keyword">lambda</span> c: c &gt; <span class="number">127</span>, <span class="built_in">map</span>(<span class="built_in">ord</span>, symbols)))         <span class="comment">#    filter和map</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>beyond_ascii</span><br><span class="line">[<span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>symbols = <span class="string">&#x27;$¢£¥€¤&#x27;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="built_in">tuple</span>(<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)  <span class="comment"># 生成器表达式</span></span><br><span class="line">(<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> array</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>array.array(<span class="string">&#x27;I&#x27;</span>, (<span class="built_in">ord</span>(symbol) <span class="keyword">for</span> symbol <span class="keyword">in</span> symbols)) </span><br><span class="line">array(<span class="string">&#x27;I&#x27;</span>, [<span class="number">36</span>, <span class="number">162</span>, <span class="number">163</span>, <span class="number">165</span>, <span class="number">8364</span>, <span class="number">164</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用生成器表达式计算笛卡尔积</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>colors = [<span class="string">&#x27;black&#x27;</span>, <span class="string">&#x27;white&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sizes = [<span class="string">&#x27;S&#x27;</span>, <span class="string">&#x27;M&#x27;</span>, <span class="string">&#x27;L&#x27;</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> tshirt <span class="keyword">in</span> (<span class="string">&#x27;%s %s&#x27;</span> % (c, s) <span class="keyword">for</span> c <span class="keyword">in</span> colors <span class="keyword">for</span> s <span class="keyword">in</span> sizes): </span><br><span class="line"><span class="meta">... </span>    print(tshirt)</span><br><span class="line">...</span><br><span class="line">black S</span><br><span class="line">black M</span><br><span class="line">black L</span><br><span class="line">white S</span><br><span class="line">white M</span><br><span class="line">white L</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>表达式内部的变量和赋值只在局部起作用，表达式的上下文里的同名变量还可以被正常引用。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Study Notes</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Study Notes</tag>
       </tags>
   </entry>
   <entry>
@@ -1027,15 +1027,49 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
-    <url>/2021-03-31-hexo-%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2-debug/</url>
-    <content><![CDATA[<p>YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at …</p>
-<p>无论是配置文件还是自己编写的md文档，<code>key: value</code>这样的形式，冒号后面必须有空格。我这里报错是因为在写文档题头—YAML格式，tags：</p>
-<p>每次git提交时候报错</p>
-<p>The file will have its original line endings in your working directory</p>
-<p>warning: LF will be replaced by CRLF in js/schemes/muse.js.<br>The file will have its original line endings in your working directory</p>
-<p> Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)<br>(node:18448) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency</p>
+    <title>XGBoost</title>
+    <url>/2021-01-12-XGBoost/</url>
+    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
+<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
+<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
+<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
+<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
+<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
+<p><img src="../images/xgboost/1.png"></p>
+<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
+<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
+<ul>
+<li>损失函数，可以是平方损失或逻辑损失</li>
+<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
+</ul>
+<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
+<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
+<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
+<p><img src="../images/xgboost/4.png"></p>
+<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
+<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
+<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
+<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
+<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
+<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
+<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
+<p>回归预测：均方误差RMSE</p>
+<p>分类预测：错误率error 或者 对数损失 log_loss</p>
+<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
+<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
+<p><img src="../images/xgboost/5.png"></p>
+<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
+<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
+<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
+<p><img src="../images/xgboost/6.png"></p>
 ]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>集成算法</tag>
+        <tag>机器学习</tag>
+      </tags>
   </entry>
   <entry>
     <title>“数智教育”可视化分析</title>
@@ -1171,49 +1205,15 @@
       </tags>
   </entry>
   <entry>
-    <title>XGBoost</title>
-    <url>/2021-01-12-XGBoost/</url>
-    <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
-<h2 id="xgboost库"><a href="#xgboost库" class="headerlink" title="xgboost库"></a>xgboost库</h2><p>xgboost是一个独立的、开源的，专门提供梯度提升树以及XGBoost算法应用的算法库。和sklearn相似，有一个详细的官方网站可供查看，并且可以与 C，Python，R， Julia等语言连用，需要单独下载安装。</p>
-<h1 id="二、基本思想"><a href="#二、基本思想" class="headerlink" title="二、基本思想"></a>二、基本思想</h1><p>XGBoost是Boosting算法中的一种。Boosting算法的思想是将许多弱分类器集成在一起形成一个强分类器。因为XGBoost是一种提升树模型，所以它是将许多树模型集成在一起。所用到的树模型是CART回归树模型。</p>
-<h2 id="1-CART回归树"><a href="#1-CART回归树" class="headerlink" title="1. CART回归树"></a>1. CART回归树</h2><p>CART回归树是假设树为二叉树，不断将特征进行分裂。实质上就是在该特征维度对样本空间进行划分。</p>
-<p>目标：遍历所有特征的所有切分点，找到最优的切分特征和切分点。最终得到一颗回归树。</p>
-<h2 id="2-XGBoost算法思想"><a href="#2-XGBoost算法思想" class="headerlink" title="2. XGBoost算法思想"></a>2. XGBoost算法思想</h2><p>算法思想就是不断地不断进行特征分裂来添加树，每次添加一个树，其实是学习一个新函数，去拟合上次预测的残差。当我们训练完成得到k棵树，要预测一个样本的分数就根据这个样本的特征，在每棵树中会落到对应的一个叶子节点，每个叶子节点对应一个分数，最后只需要将每棵树对应的分数加起来就是该样本的预测值。</p>
-<p><img src="../images/xgboost/1.png"></p>
-<p><img src="../images/2021-03-08-14-12-10.png"><br>就这样，训练出了2棵树tree1和tree2，两棵树的结论累加起来便是最终的结论，所以小孩的预测分数就是两棵树中小孩所落到的结点的分数相加∶2+0.9=2.9。爷爷的预测分数同理:-1＋(-0.9) =-1.9。具体如下图所示:<br><img src="../images/2021-03-08-14-13-34.png"></p>
-<h1 id="三、XGBoost基本原理"><a href="#三、XGBoost基本原理" class="headerlink" title="三、XGBoost基本原理"></a>三、XGBoost基本原理</h1><h2 id="1-目标函数"><a href="#1-目标函数" class="headerlink" title="1. 目标函数"></a>1. 目标函数</h2><p><img src="../images/xgboost/2.png"></p>
-<ul>
-<li>损失函数，可以是平方损失或逻辑损失</li>
-<li>正则项，加入正则项的好处是防止过拟合。一是预剪枝，：T代表叶子节点数，γ可以控制叶子节点的个数。二是leaf score的L2模平方系数对leaf score做了平滑：ω代表叶子节点的分数(leaf score)，λ可以控制leaf score不会过大。</li>
-</ul>
-<p>所以，当生成t棵树后，总体目标就是一方面要最小化Loss 函数，一方面要让树模型更精简。<strong>由此衍生了一个结构分数</strong>，代表了当我们指定一个树的结构时，我们在目标上面最多减多少。类似Gini系数一样的对树结构打分的函数。</p>
-<h2 id="2-寻找最佳分支：结构分数之差-Gain"><a href="#2-寻找最佳分支：结构分数之差-Gain" class="headerlink" title="2. 寻找最佳分支：结构分数之差(Gain)"></a>2. 寻找最佳分支：结构分数之差(Gain)</h2><p><img src="../images/xgboost/3.png"></p>
-<p>所以在XGB的运行过程中，会根据结构分数寻找最佳的树。</p>
-<p><img src="../images/xgboost/4.png"></p>
-<h1 id="四、参数简要说明"><a href="#四、参数简要说明" class="headerlink" title="四、参数简要说明"></a>四、参数简要说明</h1><h2 id="1-有放回的随机抽样：参数subsample"><a href="#1-有放回的随机抽样：参数subsample" class="headerlink" title="1. 有放回的随机抽样：参数subsample"></a>1. 有放回的随机抽样：参数subsample</h2><p>在梯度提升树中，每构建一个评估器，都让模型更加集中于数据集中那些容易被判错的样本，加大它们的权重。持续反馈。。。</p>
-<h2 id="2-迭代决策树：参数eta"><a href="#2-迭代决策树：参数eta" class="headerlink" title="2. 迭代决策树：参数eta"></a>2. 迭代决策树：参数eta</h2><p>因为模型会更加倾向于攻克那些难以判断的样本，那么，如何构造更好的树？——</p>
-<p>除了保证模型逐渐倾向于困难样本的方向，还必须控制新弱分类器的生成，然后让新添加的树是对这个新数据集预测效果最优的那一棵树。</p>
-<p>eta是迭代决策树时的步长，又叫做学习率。和逻辑回归里的类型，步长越大，迭代速度越快，很快达到算法极限，有可能无法收敛到真正的最佳，步长越小，越有可能找到更精确的最佳值，但速度会比较慢。</p>
-<h2 id="3-选择弱分类器：参数booster"><a href="#3-选择弱分类器：参数booster" class="headerlink" title="3. 选择弱分类器：参数booster"></a>3. 选择弱分类器：参数booster</h2><p>booster可以选择使用什么样的弱评估器，树模型gbtree、线性模型gblinear，</p>
-<p>每种评估器对应的params也不同，都有自己的params列表，评估器必须有param参数相匹配。</p>
-<h2 id="4-XGB的目标函数：参数objective"><a href="#4-XGB的目标函数：参数objective" class="headerlink" title="4. XGB的目标函数：参数objective"></a>4. XGB的目标函数：参数objective</h2><p>选择不同的损失函数取决于要解决什么问题 ——</p>
-<p>回归预测：均方误差RMSE</p>
-<p>分类预测：错误率error 或者 对数损失 log_loss</p>
-<p>只要选出的函数可微，能够代表某种损失的函数，就可以。</p>
-<p>损失函数的核心是衡量模型的泛化能力，即模型在未知数据上的预测的准确与否。XGB是实现了模型表现和运算速度的平衡的算法，因此引入了模型复杂度来衡量算法的运算效率，所以XGB的目标函数被写作：传统损失函数 + 模型复杂度</p>
-<p><img src="../images/xgboost/5.png"></p>
-<h2 id="5-参数化决策树：参数lambda"><a href="#5-参数化决策树：参数lambda" class="headerlink" title="5. 参数化决策树：参数lambda"></a>5. 参数化决策树：参数lambda</h2><p>调节lambda越大，惩罚越重，正则项比例越大，可以让模型的复杂度变低，对于天生过拟合的XGB来说，可以一定程度上提升模型效果。可以使用网格搜索调整。</p>
-<h2 id="6-让树停止生长：参数gamma"><a href="#6-让树停止生长：参数gamma" class="headerlink" title="6. 让树停止生长：参数gamma"></a>6. 让树停止生长：参数gamma</h2><p>gamma可以控制叶子节点的个数，也叫“复杂性控制”，是防止过拟合的重要参数。如何让树停止生长——</p>
-<p>在XGB中，我们规定，只要结构分数之差Gain是大于0的，即只要目标函数还能够继续减小，我们就允许树继续进行分支，可以直接通过设定gamma的大小来让XGB中树停止生长，所以gamma也叫：在树的叶子节点上进行进一步分支所需的最小目标函数减少量。gamma越大，算法就越保守，树的叶子数量就越少，模型的复杂度就越低。</p>
-<p><img src="../images/xgboost/6.png"></p>
+    <title></title>
+    <url>/2021-03-31-hexo-%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2-debug/</url>
+    <content><![CDATA[<p>YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at …</p>
+<p>无论是配置文件还是自己编写的md文档，<code>key: value</code>这样的形式，冒号后面必须有空格。我这里报错是因为在写文档题头—YAML格式，tags：</p>
+<p>每次git提交时候报错</p>
+<p>The file will have its original line endings in your working directory</p>
+<p>warning: LF will be replaced by CRLF in js/schemes/muse.js.<br>The file will have its original line endings in your working directory</p>
+<p> Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)<br>(node:18448) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:18448) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency</p>
 ]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>集成算法</tag>
-        <tag>机器学习</tag>
-      </tags>
   </entry>
   <entry>
     <title>爬虫入门</title>
