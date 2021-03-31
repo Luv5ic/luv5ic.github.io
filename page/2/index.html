@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-03-31 21:31:33" itemprop="dateModified" datetime="2021-03-31T21:31:33+08:00">2021-03-31</time>
+                <time title="Modified: 2021-03-31 22:42:55" itemprop="dateModified" datetime="2021-03-31T22:42:55+08:00">2021-03-31</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,11 +234,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>YAML段落里缺少空格<br>关键词：<strong>YAMLException: can not read a block mapping entry</strong></p>
+          <h1 id="YAML段落里缺少空格"><a href="#YAML段落里缺少空格" class="headerlink" title="YAML段落里缺少空格"></a>YAML段落里缺少空格</h1><p>关键词：<strong>YAMLException: can not read a block mapping entry</strong><br>报错内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ERROR &#123;</span><br><span class="line">  err: YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1:</span><br><span class="line">...</span><br><span class="line">reason: &#39;can not read a block mapping entry; a multiline key may not be an implicit key&#39;,</span><br><span class="line">mark: Mark </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>无论是配置文件还是自己编写的md文档，含有<code>key: value</code>这样的形式，冒号后面必须有空格。<br>我这里报错是因为在写文档题头的时候，tags后面没注意。<br><img src="../images/2021-03-31-20-47-24.png"></p>
-<p>git提交时候报‘CRLF’错误<br>关键词：<strong>LF will be replaced by CRLF in …</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">The file will have its original line endings in your working directory</span><br><span class="line">....</span><br><span class="line">warning: LF will be replaced by CRLF in js&#x2F;schemes&#x2F;muse.js.</span><br><span class="line">The file will have its original line endings in your working directory</span><br></pre></td></tr></table></figure>
+<p>解决办法：<br>无论是配置文件还是自己编写的md文档，含有<code>key: value</code>这样的形式，冒号后面必须有空格。<br>我这里报错是因为在写文档题头的时候，tags后面没注意。<br><img src="../images/2021-03-31-20-47-24.png"></p>
+<h1 id="git提交时候报‘CRLF’错误"><a href="#git提交时候报‘CRLF’错误" class="headerlink" title="git提交时候报‘CRLF’错误"></a>git提交时候报‘CRLF’错误</h1>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021-01-04-hexo-%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2-debug/#more" rel="contents">
