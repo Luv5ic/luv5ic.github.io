@@ -1010,6 +1010,23 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Python中的单，双，三引号用法</title>
+    <url>/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">&#x27;python&#x27;</span></span><br><span class="line">str2 = <span class="string">&quot;python&quot;</span> </span><br><span class="line"><span class="comment"># str1和str2没有任何区别。</span></span><br></pre></td></tr></table></figure>
+<h1 id="字符串中含有单引号"><a href="#字符串中含有单引号" class="headerlink" title="字符串中含有单引号"></a>字符串中含有单引号</h1><p>例如：I’m a big fan of Python.</p>
+<p><strong>1、单引号版本：</strong><br><code>str3 = &#39;I\&#39;m a big fan of Python.&#39;</code><br>字符串中间的’必须用转移字符\才可以。如果数量多写法就不优雅，可以使用双引号。</p>
+<p><strong>2、双引号版本：</strong><br><code>str4_ = &quot;We all know that &#39;A&#39; and &#39;B&#39; are two capital letters.&quot;</code></p>
+<h1 id="字符串中有双引号"><a href="#字符串中有双引号" class="headerlink" title="字符串中有双引号"></a>字符串中有双引号</h1><p>为了避免使用转义符，使用单引号来定义这个字符串。<br>比如：<br><code>str5 = &#39;The teacher said: &quot;Practice makes perfect&quot; is a very famous proverb.&#39;</code></p>
+<h1 id="3个单引号"><a href="#3个单引号" class="headerlink" title="3个单引号"></a>3个单引号</h1><p><strong>1、换行输出</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1 = <span class="string">&quot;&quot;&quot;List of name:</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Hua Li</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Chao Deng</span></span><br><span class="line"><span class="string"><span class="meta">... </span>&quot;&quot;&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line">List of name:</span><br><span class="line">Hua Li</span><br><span class="line">Chao Deng</span><br></pre></td></tr></table></figure>
+<p><strong>2、多段文字注释</strong></p>
+]]></content>
+      <tags>
+        <tag>Elegant_python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>XGBoost</title>
     <url>/2021-01-12-XGBoost/</url>
     <content><![CDATA[<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>XGBoost全称是 etreme gradient boosting，可译为极限梯度提升算法。它由陈天奇所设计，致力于让提升树突破自身的计算极限，以实现运算快速、性能优秀的工程目标。和传统的梯度提升算法相比，XGBoost进行了许多改进，它能够比其他使用梯度提升的集成算法更加快速，并且已经被认为是在分类和回归上都拥有超高性能的先进评估器。</p>
@@ -1052,23 +1069,6 @@
       <tags>
         <tag>集成算法</tag>
         <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python中的单，双，三引号用法</title>
-    <url>/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str1 = <span class="string">&#x27;python&#x27;</span></span><br><span class="line">str2 = <span class="string">&quot;python&quot;</span> </span><br><span class="line"><span class="comment"># str1和str2没有任何区别。</span></span><br></pre></td></tr></table></figure>
-<h1 id="字符串中含有单引号"><a href="#字符串中含有单引号" class="headerlink" title="字符串中含有单引号"></a>字符串中含有单引号</h1><p>例如：I’m a big fan of Python.</p>
-<p><strong>1、单引号版本：</strong><br><code>str3 = &#39;I\&#39;m a big fan of Python.&#39;</code><br>字符串中间的’必须用转移字符\才可以。如果数量多写法就不优雅，可以使用双引号。</p>
-<p><strong>2、双引号版本：</strong><br><code>str4_ = &quot;We all know that &#39;A&#39; and &#39;B&#39; are two capital letters.&quot;</code></p>
-<h1 id="字符串中有双引号"><a href="#字符串中有双引号" class="headerlink" title="字符串中有双引号"></a>字符串中有双引号</h1><p>为了避免使用转义符，使用单引号来定义这个字符串。<br>比如：<br><code>str5 = &#39;The teacher said: &quot;Practice makes perfect&quot; is a very famous proverb.&#39;</code></p>
-<h1 id="3个单引号"><a href="#3个单引号" class="headerlink" title="3个单引号"></a>3个单引号</h1><p><strong>1、换行输出</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>str1 = <span class="string">&quot;&quot;&quot;List of name:</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Hua Li</span></span><br><span class="line"><span class="string"><span class="meta">... </span>Chao Deng</span></span><br><span class="line"><span class="string"><span class="meta">... </span>&quot;&quot;&quot;</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>print(str1)</span><br><span class="line">List of name:</span><br><span class="line">Hua Li</span><br><span class="line">Chao Deng</span><br></pre></td></tr></table></figure>
-<p><strong>2、多段文字注释</strong></p>
-]]></content>
-      <tags>
-        <tag>Elegant_python</tag>
       </tags>
   </entry>
   <entry>
@@ -1203,138 +1203,6 @@
         <tag>SQL</tag>
         <tag>题解</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>记录第一次群面-神策-数据分析师</title>
-    <url>/2021-03-31-%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%BE%A4%E9%9D%A2-%E7%A5%9E%E7%AD%96-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88/</url>
-    <content><![CDATA[<p>记录第一次群面</p>
-<p>2020-03-30</p>
-<p>第一次接触群面。提前有搜到一些情报有：无领导、小组讨论、选一个组长和记录员、选一个汇报员给面试官汇报讨论内容。</p>
-<p><strong>本次记录的内容：群面概况、两次讨论主题（小红书&amp;指标设计）、补充思考、反思与收获。</strong></p>
-<p>我们小组是4个人，都是女生，除了我都是研究生，有两个分别是大连理工、北京理工的应用统计学研究生。没太听清她们是研几，希望我的自我介绍让面试官听清了【捂脸】。</p>
-<p>自我介绍，面试官一开始让自愿，大家沉默了一会，她挑了一个人。然后我申请第二个。有两个同学介绍了自己的研究内容，一大堆也没听懂说的什么，然后最后一名同学就应该是吸取了经验，也点出来自己就不再介绍那些研究内容了，也跟我一样提了对数据分析的热爱与了解，所以最让我觉得有点竞争力的也就是这位同学了，整场面试下来，她给我最大的印象就是，学霸、说话很有条理、沉着冷静（比较让人有信服感）、气质也是比较沉稳挂的。我要向她学习 ！</p>
-<p>一共两次小组讨论。每次讨论半小时左右。</p>
-<p>我先提出想当记录员（后来我觉得我应该去争取小组长orz）</p>
-<h1 id="Round-1-小红书-amp-指标体系"><a href="#Round-1-小红书-amp-指标体系" class="headerlink" title="Round 1. 小红书&amp;指标体系"></a>Round 1. 小红书&amp;指标体系</h1><p>主题：为小红书这个产品设计一套指标体系。</p>
-<p>内容：先给5min了解这个产品，然后讨论30min，总结发言。</p>
-<p>我自己大概用小红书前前后后的时间有一个月，其他人表示不了解这个产品。</p>
-<p>（个人认为，即使平时不用这个APP，但作为一名想从业数据分析方向的人，对一些比较火热的互联网产品还是要有认知的。就像我不是抖音快手用户 ，但也会被潮流裹挟着了解一二，并且站在数据分析的角度更要有学习和思考。）</p>
-<h2 id="小组讨论"><a href="#小组讨论" class="headerlink" title="小组讨论"></a>小组讨论</h2><p>挑出当时记录的一些点——</p>
-<ul>
-<li>用户画像和收益指标<ul>
-<li>用户规模和质量：<ul>
-<li>活跃、新增、用户构成、</li>
-<li><strong>日常监控</strong>：日活、访问、在线时长。生命周期的转化指标。</li>
-</ul>
-</li>
-<li>收益指标<ul>
-<li>付费产品的总人数，复购率。</li>
-<li>产品本身的监控指标：产品转化漏斗，发文数量。</li>
-<li>商城 订单。销售额，销售量，复购率。环比，同比，</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>讨论过程待补充。</p>
-<h2 id="补充思考"><a href="#补充思考" class="headerlink" title="补充思考"></a>补充思考</h2><h3 id="产品定位"><a href="#产品定位" class="headerlink" title="产品定位"></a>产品定位</h3><p>小红书：用户可以通过短视频、图文等形式记录生活点滴，分享生活方式，并基于兴趣形成互动，是年轻人的生活方式平台。主要为年轻女性提供可分享护肤美妆、时尚穿搭、明星等18个话题内容的社区交流平台，同时为没有明确购物目标的用户提供内容服务，帮助他们做购物决策，养成用户消费需求。</p>
-<p>类型：内容型电商平台。也可以理解：以内容连接消费者和商品的电商模式，使得消费者通过内容的建议和指引而实现消费。</p>
-<p>功能：</p>
-<ul>
-<li>社区（UGC内容）：时尚、个护、美妆、美食、旅行、娱乐、读书、健身、母婴等领域。</li>
-<li>企业号（To B）：连接消费者和品牌，帮助品牌完成一站式闭环<a href="https://www.iyunying.org/yxzs">营销</a>，提供全链条服务。</li>
-<li>福利社（跨境电商平台）自营电商平台，销售来自全世界的优质美妆、时尚、家电、零食商品。</li>
-</ul>
-<h3 id="用户需求分析"><a href="#用户需求分析" class="headerlink" title="用户需求分析"></a>用户需求分析</h3><h4 id="用户画像"><a href="#用户画像" class="headerlink" title="用户画像"></a>用户画像</h4><p>性别、年龄、地域、偏好、消费水平</p>
-<h3 id="盈利指标分析"><a href="#盈利指标分析" class="headerlink" title="盈利指标分析"></a>盈利指标分析</h3><h4 id="盈利模式"><a href="#盈利模式" class="headerlink" title="盈利模式"></a>盈利模式</h4><p>用户以年轻女性为主，</p>
-<ul>
-<li>平台费：自营供应商、第三方店铺入驻需要给产品的平台费（大头）</li>
-<li>广告费：品牌方通过软文的形式在平台发布商业推广广告，很多品牌方都是委托大V在社区中推荐商品，有些会和平台形成长期的合作。</li>
-<li>海外直采的差价：团队与海外品牌合作，低价采进商品在自营店铺中售卖，通过保税仓发货给国内用户，赚取中间差价</li>
-<li>独立品牌店铺</li>
-</ul>
-<h4 id="指标体系"><a href="#指标体系" class="headerlink" title="指标体系"></a>指标体系</h4><p>小红书APP三个最主要的行为：发布内容、浏览内容、下单购买。通过用户行为分析相关指标。小红书主要有两种用户：内容生产者、内容浏览者。</p>
-<h5 id="内容生产者"><a href="#内容生产者" class="headerlink" title="内容生产者"></a>内容生产者</h5><p>构建指标衡量 好的内容生产者、内容生产者的活跃度、生产内容的质量。</p>
-<table>
-<thead>
-<tr>
-<th align="center">指标</th>
-<th align="center">衡量对象</th>
-<th align="center">目的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">关注量、粉丝量、pv、uv</td>
-<td align="center">优质内容生产者</td>
-<td align="center">给予流量曝光和平台分成，激励其再次成为好的内容生产者</td>
-</tr>
-<tr>
-<td align="center">图文偏好、类目偏好、发布数量及发布频率、评论回复数及回复频率、笔记修改次数及修改频率</td>
-<td align="center">内容生产者的活跃度</td>
-<td align="center">确保APP内容<a href="https://www.iyunying.org/">运营</a>的正常运转</td>
-</tr>
-<tr>
-<td align="center">被收藏、被点赞、被评论、被分享、重复访问量、下单率、客单价</td>
-<td align="center">生产内容的质量</td>
-<td align="center">好的内容质量才能不断提升APP的使用粘性</td>
-</tr>
-</tbody></table>
-<h5 id="内容浏览者"><a href="#内容浏览者" class="headerlink" title="内容浏览者"></a>内容浏览者</h5><p>主要目的：实现精准推送，增加用户粘性</p>
-<table>
-<thead>
-<tr>
-<th align="center">指标</th>
-<th align="center">衡量对象</th>
-<th align="center">目的</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">搜索访问量占比、页面偏好、访问时间段分布、访问次数及频率、平均停留时间、人均页面访问量、跳出率、退出率</td>
-<td align="center">用户偏好</td>
-<td align="center">用户画像，实现精准推送</td>
-</tr>
-<tr>
-<td align="center">点赞、评论、关注、分享、下单次数、客单价、回访时间间隔</td>
-<td align="center">用户活跃</td>
-<td align="center">用户画像，确保用户质量</td>
-</tr>
-<tr>
-<td align="center">下载量、注册量及转化率、登录人数、下载来源、注册渠道</td>
-<td align="center">用户体量</td>
-<td align="center">用户画像</td>
-</tr>
-</tbody></table>
-<p>待补充。。在高铁上，姿势有点累。</p>
-<h1 id="Round-2-小红书-amp-活动评估"><a href="#Round-2-小红书-amp-活动评估" class="headerlink" title="Round 2. 小红书&amp;活动评估"></a>Round 2. 小红书&amp;活动评估</h1><p>主题：为小红书策划一次“红人节”活动，并设计指标对活动效果评估。活动主题可自拟。</p>
-<h2 id="小组讨论-1"><a href="#小组讨论-1" class="headerlink" title="小组讨论"></a>小组讨论</h2><p>这一次组员内产生的分歧比较大。主要有两个方面：</p>
-<p>1、有组员认为：重点应该在活动内容设计上，确定了好的活动内容，才有目标。</p>
-<p>2、有组员认为：应该对活动的策略进行一次AB测试，选取效果最好的一组。</p>
-<p>这两个我都不赞同</p>
-<p>对第一点：首先，题目我记的可能不是很标准，但我认为这个重点绝对是在设计指标评估活动效果上，我之前也见过类似的面试题。设计活动内容主要是运营的工作吧。</p>
-<p>对第二点：</p>
-<p>1、同上，活动的目的才是我们首先要确定的，内容/策略不是重点，整个讨论应该围绕两点 1、确定活动目的。2、设计评估指标。</p>
-<p>2、AB测试是为了推动业务决策，比如某一项功能是否上线、某个图标、按钮的改动等。如果要确定什么活动策略效果更好，我们数据分析师更要去关心如何评估活动效果不是么？</p>
-<p>所以整个讨论浪费了挺多时间在这两点上。</p>
-<p>经过第一次讨论后，我的状态好了一点，不那么紧张了。尽管我一开始就单刀直入：先确定活动目的吧，拉新？促活？清库存？我建议拉新。</p>
-<p>然后就确定活动内容讨论了一会。。。我也很遗憾只想到两点：</p>
-<p>1、针对新用户：日增、日活、留存、渠道转化率、环比对比、同比对比</p>
-<p>2、针对小红书的社区类型：统计每日比较火热的（赞、评、转、收藏）帖子数量趋势。（由组员启发）</p>
-<p>所以这一次我要求汇报。但是我的演讲汇报能力有待提高，这是我的一个短板，冲冲冲，加油鸭！</p>
-<p>一定要注意两点：1、条理要清晰。2、语速慢一点【捂脸】</p>
-<h2 id="补充思考-1"><a href="#补充思考-1" class="headerlink" title="补充思考"></a>补充思考</h2><p>（1） 确定大促的目的：拉新？促活？清库存？<br>（2） 根据目的确定核心指标。<br>（3） 效果评估：<br>a. 自身比较：活动前与活动中比较<br>b. 与预定目标比<br>c. 与同期其它活动比<br>d. 与往期同类活动比<br>（4）持续监控：<br>a. 检查活动后情况，避免透支消费情况发生<br>b. 如果是拉新等活动，根据后续数据检验这批新客的质量</p>
-<p>先这么多。。</p>
-<hr>
-<h2 id="反思与收获"><a href="#反思与收获" class="headerlink" title="反思与收获"></a>反思与收获</h2><p>1、个人的语言表达/演讲/汇报能力有待提高，我知道神策的这个数分岗，对这一点还是很看重的，希望在这次面试中我不会被这点拉后腿。</p>
-<p>2、既然是以小组讨论的形式，以下几点就一定要注意：</p>
-<ul>
-<li>觉得自己有能力胜任组长一职的，要先去争取。首先组长对整个讨论的局面把控、结果输出都很有影响，我想面试官不仅看个人表现也更注重整体结果！</li>
-<li>不要刻意表现自己。确实，会想表现自己“我在这方面的知识素养不错”。但一定不要拉踩别人、要贴题点题。</li>
-<li>明白自己的擅长所在，要扬长避短，也要学会为自己争取。</li>
-</ul>
-<p>3、对讨论的主题有点大意。明明知道这个岗位很注重数分业务知识、且是就一个问题小组讨论的形式，应该是可以猜到大概的。所以准备不充分，还好之前也看过很多有关业务指标体系的文章，有点积累，不过还没沉淀成自己的。</p>
-<p>暂时想到这么多。</p>
-<hr>
-]]></content>
   </entry>
   <entry>
     <title>爬虫入门</title>
@@ -1493,6 +1361,138 @@
         <tag>集成算法</tag>
         <tag>机器学习</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>记录第一次群面-神策-数据分析师</title>
+    <url>/2021-03-31-%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%BE%A4%E9%9D%A2-%E7%A5%9E%E7%AD%96-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88/</url>
+    <content><![CDATA[<p>记录第一次群面</p>
+<p>2020-03-30</p>
+<p>第一次接触群面。提前有搜到一些情报有：无领导、小组讨论、选一个组长和记录员、选一个汇报员给面试官汇报讨论内容。</p>
+<p><strong>本次记录的内容：群面概况、两次讨论主题（小红书&amp;指标设计）、补充思考、反思与收获。</strong></p>
+<p>我们小组是4个人，都是女生，除了我都是研究生，有两个分别是大连理工、北京理工的应用统计学研究生。没太听清她们是研几，希望我的自我介绍让面试官听清了【捂脸】。</p>
+<p>自我介绍，面试官一开始让自愿，大家沉默了一会，她挑了一个人。然后我申请第二个。有两个同学介绍了自己的研究内容，一大堆也没听懂说的什么，然后最后一名同学就应该是吸取了经验，也点出来自己就不再介绍那些研究内容了，也跟我一样提了对数据分析的热爱与了解，所以最让我觉得有点竞争力的也就是这位同学了，整场面试下来，她给我最大的印象就是，学霸、说话很有条理、沉着冷静（比较让人有信服感）、气质也是比较沉稳挂的。我要向她学习 ！</p>
+<p>一共两次小组讨论。每次讨论半小时左右。</p>
+<p>我先提出想当记录员（后来我觉得我应该去争取小组长orz）</p>
+<h1 id="Round-1-小红书-amp-指标体系"><a href="#Round-1-小红书-amp-指标体系" class="headerlink" title="Round 1. 小红书&amp;指标体系"></a>Round 1. 小红书&amp;指标体系</h1><p>主题：为小红书这个产品设计一套指标体系。</p>
+<p>内容：先给5min了解这个产品，然后讨论30min，总结发言。</p>
+<p>我自己大概用小红书前前后后的时间有一个月，其他人表示不了解这个产品。</p>
+<p>（个人认为，即使平时不用这个APP，但作为一名想从业数据分析方向的人，对一些比较火热的互联网产品还是要有认知的。就像我不是抖音快手用户 ，但也会被潮流裹挟着了解一二，并且站在数据分析的角度更要有学习和思考。）</p>
+<h2 id="小组讨论"><a href="#小组讨论" class="headerlink" title="小组讨论"></a>小组讨论</h2><p>挑出当时记录的一些点——</p>
+<ul>
+<li>用户画像和收益指标<ul>
+<li>用户规模和质量：<ul>
+<li>活跃、新增、用户构成、</li>
+<li><strong>日常监控</strong>：日活、访问、在线时长。生命周期的转化指标。</li>
+</ul>
+</li>
+<li>收益指标<ul>
+<li>付费产品的总人数，复购率。</li>
+<li>产品本身的监控指标：产品转化漏斗，发文数量。</li>
+<li>商城 订单。销售额，销售量，复购率。环比，同比，</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>讨论过程待补充。</p>
+<h2 id="补充思考"><a href="#补充思考" class="headerlink" title="补充思考"></a>补充思考</h2><h3 id="产品定位"><a href="#产品定位" class="headerlink" title="产品定位"></a>产品定位</h3><p>小红书：用户可以通过短视频、图文等形式记录生活点滴，分享生活方式，并基于兴趣形成互动，是年轻人的生活方式平台。主要为年轻女性提供可分享护肤美妆、时尚穿搭、明星等18个话题内容的社区交流平台，同时为没有明确购物目标的用户提供内容服务，帮助他们做购物决策，养成用户消费需求。</p>
+<p>类型：内容型电商平台。也可以理解：以内容连接消费者和商品的电商模式，使得消费者通过内容的建议和指引而实现消费。</p>
+<p>功能：</p>
+<ul>
+<li>社区（UGC内容）：时尚、个护、美妆、美食、旅行、娱乐、读书、健身、母婴等领域。</li>
+<li>企业号（To B）：连接消费者和品牌，帮助品牌完成一站式闭环<a href="https://www.iyunying.org/yxzs">营销</a>，提供全链条服务。</li>
+<li>福利社（跨境电商平台）自营电商平台，销售来自全世界的优质美妆、时尚、家电、零食商品。</li>
+</ul>
+<h3 id="用户需求分析"><a href="#用户需求分析" class="headerlink" title="用户需求分析"></a>用户需求分析</h3><h4 id="用户画像"><a href="#用户画像" class="headerlink" title="用户画像"></a>用户画像</h4><p>性别、年龄、地域、偏好、消费水平</p>
+<h3 id="盈利指标分析"><a href="#盈利指标分析" class="headerlink" title="盈利指标分析"></a>盈利指标分析</h3><h4 id="盈利模式"><a href="#盈利模式" class="headerlink" title="盈利模式"></a>盈利模式</h4><p>用户以年轻女性为主，</p>
+<ul>
+<li>平台费：自营供应商、第三方店铺入驻需要给产品的平台费（大头）</li>
+<li>广告费：品牌方通过软文的形式在平台发布商业推广广告，很多品牌方都是委托大V在社区中推荐商品，有些会和平台形成长期的合作。</li>
+<li>海外直采的差价：团队与海外品牌合作，低价采进商品在自营店铺中售卖，通过保税仓发货给国内用户，赚取中间差价</li>
+<li>独立品牌店铺</li>
+</ul>
+<h4 id="指标体系"><a href="#指标体系" class="headerlink" title="指标体系"></a>指标体系</h4><p>小红书APP三个最主要的行为：发布内容、浏览内容、下单购买。通过用户行为分析相关指标。小红书主要有两种用户：内容生产者、内容浏览者。</p>
+<h5 id="内容生产者"><a href="#内容生产者" class="headerlink" title="内容生产者"></a>内容生产者</h5><p>构建指标衡量 好的内容生产者、内容生产者的活跃度、生产内容的质量。</p>
+<table>
+<thead>
+<tr>
+<th align="center">指标</th>
+<th align="center">衡量对象</th>
+<th align="center">目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">关注量、粉丝量、pv、uv</td>
+<td align="center">优质内容生产者</td>
+<td align="center">给予流量曝光和平台分成，激励其再次成为好的内容生产者</td>
+</tr>
+<tr>
+<td align="center">图文偏好、类目偏好、发布数量及发布频率、评论回复数及回复频率、笔记修改次数及修改频率</td>
+<td align="center">内容生产者的活跃度</td>
+<td align="center">确保APP内容<a href="https://www.iyunying.org/">运营</a>的正常运转</td>
+</tr>
+<tr>
+<td align="center">被收藏、被点赞、被评论、被分享、重复访问量、下单率、客单价</td>
+<td align="center">生产内容的质量</td>
+<td align="center">好的内容质量才能不断提升APP的使用粘性</td>
+</tr>
+</tbody></table>
+<h5 id="内容浏览者"><a href="#内容浏览者" class="headerlink" title="内容浏览者"></a>内容浏览者</h5><p>主要目的：实现精准推送，增加用户粘性</p>
+<table>
+<thead>
+<tr>
+<th align="center">指标</th>
+<th align="center">衡量对象</th>
+<th align="center">目的</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">搜索访问量占比、页面偏好、访问时间段分布、访问次数及频率、平均停留时间、人均页面访问量、跳出率、退出率</td>
+<td align="center">用户偏好</td>
+<td align="center">用户画像，实现精准推送</td>
+</tr>
+<tr>
+<td align="center">点赞、评论、关注、分享、下单次数、客单价、回访时间间隔</td>
+<td align="center">用户活跃</td>
+<td align="center">用户画像，确保用户质量</td>
+</tr>
+<tr>
+<td align="center">下载量、注册量及转化率、登录人数、下载来源、注册渠道</td>
+<td align="center">用户体量</td>
+<td align="center">用户画像</td>
+</tr>
+</tbody></table>
+<p>待补充。。在高铁上，姿势有点累。</p>
+<h1 id="Round-2-小红书-amp-活动评估"><a href="#Round-2-小红书-amp-活动评估" class="headerlink" title="Round 2. 小红书&amp;活动评估"></a>Round 2. 小红书&amp;活动评估</h1><p>主题：为小红书策划一次“红人节”活动，并设计指标对活动效果评估。活动主题可自拟。</p>
+<h2 id="小组讨论-1"><a href="#小组讨论-1" class="headerlink" title="小组讨论"></a>小组讨论</h2><p>这一次组员内产生的分歧比较大。主要有两个方面：</p>
+<p>1、有组员认为：重点应该在活动内容设计上，确定了好的活动内容，才有目标。</p>
+<p>2、有组员认为：应该对活动的策略进行一次AB测试，选取效果最好的一组。</p>
+<p>这两个我都不赞同</p>
+<p>对第一点：首先，题目我记的可能不是很标准，但我认为这个重点绝对是在设计指标评估活动效果上，我之前也见过类似的面试题。设计活动内容主要是运营的工作吧。</p>
+<p>对第二点：</p>
+<p>1、同上，活动的目的才是我们首先要确定的，内容/策略不是重点，整个讨论应该围绕两点 1、确定活动目的。2、设计评估指标。</p>
+<p>2、AB测试是为了推动业务决策，比如某一项功能是否上线、某个图标、按钮的改动等。如果要确定什么活动策略效果更好，我们数据分析师更要去关心如何评估活动效果不是么？</p>
+<p>所以整个讨论浪费了挺多时间在这两点上。</p>
+<p>经过第一次讨论后，我的状态好了一点，不那么紧张了。尽管我一开始就单刀直入：先确定活动目的吧，拉新？促活？清库存？我建议拉新。</p>
+<p>然后就确定活动内容讨论了一会。。。我也很遗憾只想到两点：</p>
+<p>1、针对新用户：日增、日活、留存、渠道转化率、环比对比、同比对比</p>
+<p>2、针对小红书的社区类型：统计每日比较火热的（赞、评、转、收藏）帖子数量趋势。（由组员启发）</p>
+<p>所以这一次我要求汇报。但是我的演讲汇报能力有待提高，这是我的一个短板，冲冲冲，加油鸭！</p>
+<p>一定要注意两点：1、条理要清晰。2、语速慢一点【捂脸】</p>
+<h2 id="补充思考-1"><a href="#补充思考-1" class="headerlink" title="补充思考"></a>补充思考</h2><p>（1） 确定大促的目的：拉新？促活？清库存？<br>（2） 根据目的确定核心指标。<br>（3） 效果评估：<br>a. 自身比较：活动前与活动中比较<br>b. 与预定目标比<br>c. 与同期其它活动比<br>d. 与往期同类活动比<br>（4）持续监控：<br>a. 检查活动后情况，避免透支消费情况发生<br>b. 如果是拉新等活动，根据后续数据检验这批新客的质量</p>
+<p>先这么多。。</p>
+<hr>
+<h2 id="反思与收获"><a href="#反思与收获" class="headerlink" title="反思与收获"></a>反思与收获</h2><p>1、个人的语言表达/演讲/汇报能力有待提高，我知道神策的这个数分岗，对这一点还是很看重的，希望在这次面试中我不会被这点拉后腿。</p>
+<p>2、既然是以小组讨论的形式，以下几点就一定要注意：</p>
+<ul>
+<li>觉得自己有能力胜任组长一职的，要先去争取。首先组长对整个讨论的局面把控、结果输出都很有影响，我想面试官不仅看个人表现也更注重整体结果！</li>
+<li>不要刻意表现自己。确实，会想表现自己“我在这方面的知识素养不错”。但一定不要拉踩别人、要贴题点题。</li>
+<li>明白自己的擅长所在，要扬长避短，也要学会为自己争取。</li>
+</ul>
+<p>3、对讨论的主题有点大意。明明知道这个岗位很注重数分业务知识、且是就一个问题小组讨论的形式，应该是可以猜到大概的。所以准备不充分，还好之前也看过很多有关业务指标体系的文章，有点积累，不过还没沉淀成自己的。</p>
+<p>暂时想到这么多。</p>
+<hr>
+]]></content>
   </entry>
   <entry>
     <title>酒店预订平台用户流失概率预测</title>
