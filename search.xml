@@ -138,291 +138,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MySQL常用函数总结</title>
-    <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供窗口函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
-<p>窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
-<ul>
-<li>静态窗口函数：随着记录不同，窗口大小都是固定的</li>
-<li>动态窗口函数：不同的记录对应着不同的窗口。</li>
-</ul>
-<p>窗口函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
-<a id="more"></a>
-
-<p><strong>语法</strong></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">窗口函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
-<p>窗口函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，窗口函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
-<ul>
-<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，窗口函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
-<li>order by子句：按照指定字段进行排序，窗口函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
-<li>frame子句：当前分区的一个子集，用来定义子集的规则，通常用来作为滑动窗口使用。</li>
-</ul>
-<p>对于滑动窗口的范围指定，通常使用 between frame_start and frame_end 语法来表示行范围，frame_start和frame_end可以支持如下关键字，来确定不同的动态行记录：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">current row 边界是当前行，一般和其他范围关键字一起使用</span><br><span class="line">unbounded preceding 边界是分区中的第一行</span><br><span class="line">unbounded following 边界是分区中的最后一行</span><br><span class="line">expr preceding 边界是当前行减去expr的值</span><br><span class="line">expr following 边界是当前行加上expr的值</span><br></pre></td></tr></table></figure>
-<p>比如，下面都是合法的范围：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、前一行、后一行一共三行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的前一行、当前行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、后一行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> unbounded preceding 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> unbounded following 窗口范围是分区中的当前行到最后一行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following 窗口范围是当前分区中所有行。</span><br></pre></td></tr></table></figure>
-<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于窗口</p>
-<ul>
-<li>如没有指定排序和滑动窗口范围，默认计算的是分区内的所有记录。</li>
-<li>指定分区和排序后，如没有指定滑动窗口范围，默认计算的是分区内的第一行到当前行。</li>
-</ul>
-<h3 id="FIRST-VALUE-和-LAST-VALUE函数"><a href="#FIRST-VALUE-和-LAST-VALUE函数" class="headerlink" title="FIRST_VALUE 和 LAST_VALUE函数"></a>FIRST_VALUE 和 LAST_VALUE函数</h3><p><code>FIRST_VALUE</code> 取分组内排序后，截止到当前行，第一个值</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT cookieid,createtime,pv,</span><br><span class="line">ROW_NUMBER() OVER(PARTITION BY cookieid ORDER BY createtime) AS rn,</span><br><span class="line">FIRST_VALUE(pv) OVER(PARTITION BY cookieid ORDER BY createtime) AS first  </span><br><span class="line">FROM test1;</span><br></pre></td></tr></table></figure>
-<p><strong>LAST_VALUE 函数则相反：</strong><br><code>LAST_VALUE</code> 取分组内排序后，截止到当前行，最后一个值</p>
-<hr>
-<h2 id="静态窗口函数"><a href="#静态窗口函数" class="headerlink" title="静态窗口函数"></a>静态窗口函数</h2><p>row_number() / rank() / dense_rank() / percent_rank() / cume_dist()/lag() /<br>lead() / ntile()</p>
-<ul>
-<li>不管是否指定滑动窗口范围，窗口都是固定的，所以指定的滑动窗口范围无效。</li>
-</ul>
-<p>窗口函数和普通聚合函数的区别：</p>
-<ul>
-<li>聚合函数是将多条记录聚合为一条；而窗口函数是每条记录都会执行，有几条记录执行完还是几条。</li>
-<li>聚合函数也可以用于窗口函数中。</li>
-</ul>
-<h3 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h3><ul>
-<li>rank()：重复间断的组内排序，例如 1，1，3，4，4，6</li>
-<li>dense_rank()：重复不间断的组内排序，例如 1，1，2，2，3</li>
-<li>row_number()：不重复不间断的组内排序，例如 1，2，3，4，5</li>
-</ul>
-<h3 id="cume-dist"><a href="#cume-dist" class="headerlink" title="cume_dist()"></a>cume_dist()</h3><p><em>注：不允许在 CUME_DIST 函数中使用组合排序键（RANGE,ROWS）</em></p>
-<p><code>cume_dist</code> 计算某个值在一组行中的相对位置</p>
-<p>以下示例返回一个包含居住在 California 的职员的<strong>薪水累计分布的结果集</strong>。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary,</span><br><span class="line"><span class="built_in">CUME_DIST</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> DepartmentID <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span>) &quot;Rank&quot; </span><br><span class="line"><span class="keyword">FROM</span> Employees  </span><br><span class="line"><span class="keyword">WHERE</span> State <span class="keyword">IN</span> (<span class="string">&#x27;CA&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>以下是该结果集：</p>
-<table>
-<thead>
-<tr>
-<th>DepartmentID</th>
-<th>Surname</th>
-<th>Salary</th>
-<th>Rank</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>200</td>
-<td>Savarino</td>
-<td>72300.000</td>
-<td>0.333333333333333</td>
-</tr>
-<tr>
-<td>200</td>
-<td>Clark</td>
-<td>45000.000</td>
-<td>0.666666666666667</td>
-</tr>
-<tr>
-<td>200</td>
-<td>Overbey</td>
-<td>39300.000</td>
-<td>1</td>
-</tr>
-</tbody></table>
-<p>也就是说，薪水小于等于72300的人，占整个分组的0.33；薪水小于等于45000的人，占整个分组的0.66。</p>
-<h3 id="PERCENT-RANK-函数"><a href="#PERCENT-RANK-函数" class="headerlink" title="PERCENT_RANK 函数"></a>PERCENT_RANK 函数</h3><p>与 PERCENT 函数类似，PERCENT_RANK 函数为窗口的 ORDER BY 子句所指定列中的值返回秩，但以介于 0 和 1 之间的小数形式表示，计算方法为 (分组内当前行的RANK值-1) / (分组内总行数-1)</p>
-<p>随着窗口在输入行中向下移动，会计算在窗口的 ORDER BY 子句中所指定的表达式的秩。当 ORDER BY 子句包括多个表达式时，若第一个表达式与相邻行具有相同值，则第二个及后续表达式将用于区分并列情况。NULL 值排在任何其它值的前面（在升序序列中）。</p>
-<p><strong>示例 1</strong></p>
-<p>以下示例返回按性别显示 New York 雇员薪水排位的结果集。该结果使用百分比数按降序列出排位并按性别分区。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary, Sex,    <span class="built_in">PERCENT_RANK</span>( ) <span class="keyword">OVER</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> Sex      <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) <span class="keyword">AS</span> PctRank  <span class="keyword">FROM</span> Employees   <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;NY&#x27;</span> );</span><br></pre></td></tr></table></figure>
-<p>此查询会返回以下结果：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>DepartmentID</th>
-<th>Surname</th>
-<th>Salary</th>
-<th>Sex</th>
-<th>PctRank</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>200</td>
-<td>Martel</td>
-<td>55700.000</td>
-<td>M</td>
-<td>0.0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>100</td>
-<td>Guevara</td>
-<td>42998.000</td>
-<td>M</td>
-<td>0.333333333</td>
-</tr>
-<tr>
-<td>3</td>
-<td>100</td>
-<td>Soo</td>
-<td>39075.000</td>
-<td>M</td>
-<td>0.666666667</td>
-</tr>
-<tr>
-<td>4</td>
-<td>400</td>
-<td>Ahmed</td>
-<td>34992.000</td>
-<td>M</td>
-<td>1.0</td>
-</tr>
-<tr>
-<td>5</td>
-<td>300</td>
-<td>Davidson</td>
-<td>57090.000</td>
-<td>F</td>
-<td>0.0</td>
-</tr>
-<tr>
-<td>6</td>
-<td>400</td>
-<td>Blaikie</td>
-<td>54900.000</td>
-<td>F</td>
-<td>0.333333333</td>
-</tr>
-<tr>
-<td>7</td>
-<td>100</td>
-<td>Whitney</td>
-<td>45700.000</td>
-<td>F</td>
-<td>0.666666667</td>
-</tr>
-<tr>
-<td>8</td>
-<td>400</td>
-<td>Wetherby</td>
-<td>35745.000</td>
-<td>F</td>
-<td>1.0</td>
-</tr>
-</tbody></table>
-<p>由于按性别 (Sex) 划分输入，所以分别对男雇员和女雇员执行 PERCENT_RANK 计算。</p>
-<p><strong>示例 2</strong></p>
-<p>以下示例返回 Utah 和 Arizona 的一些女雇员的列表并根据薪水以降序顺序排列她们。这里的 PERCENT_RANK 函数用于以降序顺序提供累计总数。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Surname, Salary,      <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     <span class="keyword">FROM</span> Employees  <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;UT&#x27;</span>, <span class="string">&#x27;AZ&#x27;</span> ) <span class="keyword">AND</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;F&#x27;</span> );</span><br></pre></td></tr></table></figure>
-<p>此查询会返回以下结果：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Surname</th>
-<th>Salary</th>
-<th>Rank</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>Shishov</td>
-<td>72995.00</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Jordan</td>
-<td>51432.00</td>
-<td>0.25</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Hildebrand</td>
-<td>45829.00</td>
-<td>0.5</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Bigelow</td>
-<td>31200.00</td>
-<td>0.75</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Bertrand</td>
-<td>29800.00</td>
-<td>1</td>
-</tr>
-</tbody></table>
-<p><strong>使用 PERCENT_RANK 查找最高和最低百分点</strong></p>
-<p>在以下示例中，查询会返回其薪水在数据集的最高的五个百分点之内的男雇员。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  </span><br><span class="line"><span class="keyword">FROM</span>  ( <span class="keyword">SELECT</span> Surname, Salary,</span><br><span class="line">       <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     </span><br><span class="line">       <span class="keyword">FROM</span> Employees  </span><br><span class="line">       <span class="keyword">WHERE</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;M&#x27;</span> )  ) </span><br><span class="line">       <span class="keyword">AS</span> DerivedTable ( Surname, Salary, <span class="keyword">Percent</span> ) </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Percent</span> <span class="operator">&lt;</span> <span class="number">0.05</span>;</span><br></pre></td></tr></table></figure>
-<p>此查询会返回以下结果：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Surname</th>
-<th>Salary</th>
-<th>Percent</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>Scott</td>
-<td>96300.00</td>
-<td>0</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Sheffield</td>
-<td>87900.00</td>
-<td>0.025</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Lull</td>
-<td>87900.00</td>
-<td>0.025</td>
-</tr>
-</tbody></table>
-<h3 id="前后函数"><a href="#前后函数" class="headerlink" title="前后函数"></a>前后函数</h3><p>​                   <strong>lag(expr,n)                / lead(expr,n)</strong><br>分区中位于当前行前n行（lag）/ 后n行(lead)的记录值<br>示例：查询各部门员工入职间隔天数</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>,datediff(hiredate,前一位员工的入职日期) <span class="keyword">as</span> 间隔天数</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span>,<span class="built_in">lag</span>(hiredate,<span class="number">1</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> deptno <span class="keyword">order</span> <span class="keyword">by</span> hiredate) <span class="keyword">as</span> 前</span><br><span class="line">一位员工的入职日期 <span class="keyword">from</span> emp) <span class="keyword">as</span> t;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span> empno <span class="operator">|</span> ename <span class="operator">|</span> job    <span class="operator">|</span> mgr <span class="operator">|</span> hiredate  <span class="operator">|</span> sal <span class="operator">|</span> comm <span class="operator">|</span> deptno <span class="operator">|</span> 前一位员工的入职日期 <span class="operator">|</span> 间隔天数 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7782</span> <span class="operator">|</span> clark <span class="operator">|</span> manager  <span class="operator">|</span> <span class="number">7839</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span> <span class="operator">|</span> <span class="number">2450</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="keyword">NULL</span>          <span class="operator">|</span>    <span class="keyword">NULL</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7839</span> <span class="operator">|</span> king  <span class="operator">|</span> persident <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span> <span class="operator">|</span> <span class="number">5000</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span>   <span class="operator">|</span>    <span class="number">161</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7934</span> <span class="operator">|</span> miller <span class="operator">|</span> clerk   <span class="operator">|</span> <span class="number">7782</span> <span class="operator">|</span> <span class="number">1982</span><span class="number">-01</span><span class="number">-23</span> <span class="operator">|</span> <span class="number">1300</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span>    <span class="operator">|</span>    <span class="number">67</span>   <span class="operator">|</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="NTILE-函数"><a href="#NTILE-函数" class="headerlink" title="NTILE 函数"></a>NTILE 函数</h3><p>NTILE(n), 用于将分组函数按照顺序切分成n片，返回当前切片值</p>
-<p>例如：</p>
-<p>统计一个cookie，pv数最多的前1/3的天：取 <code>ntile = 1</code> 的记录，就是我们想要的结果</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> pv <span class="keyword">DESC</span>) <span class="keyword">AS</span> ntile </span><br><span class="line"><span class="keyword">FROM</span> test1;</span><br></pre></td></tr></table></figure>
-<p><em>注1：如果切片不均匀，<strong>默认增加第一个切片的分布</strong></em><br><em>注2：NTILE不支持ROWS BETWEEN</em></p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">2</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile1,	<span class="comment">--分组内将数据分成2片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile2,  <span class="comment">--分组内将数据分成3片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">4</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile3   <span class="comment">--将所有数据分成4片</span></span><br><span class="line"><span class="keyword">FROM</span> test1 </span><br><span class="line"><span class="comment">-- ...</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>SQL</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-        <tag>函数</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Pandas常用函数总结</title>
     <url>/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p><a href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
@@ -1017,6 +732,291 @@
       </tags>
   </entry>
   <entry>
+    <title>MySQL常用函数总结</title>
+    <url>/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="窗口函数"><a href="#窗口函数" class="headerlink" title="窗口函数"></a>窗口函数</h1><p><em>注：<strong>hive</strong>、<strong>oracle</strong>提供窗口函数，<strong>mysql8之前版本</strong>不提供</em>，<em>但Oracle发布的 <strong>MySQL 8.0</strong>版本支持窗口函数（over）和公用表表达式（with）这两个重要的功能！</em></p>
+<p>窗口函数是在满足某种条件的记录集合上执行的特殊函数，对于每条记录都要在此窗口内执行函数。函数可分为静态窗口函数和动态窗口函数。</p>
+<ul>
+<li>静态窗口函数：随着记录不同，窗口大小都是固定的</li>
+<li>动态窗口函数：不同的记录对应着不同的窗口。</li>
+</ul>
+<p>窗口函数的本质还是聚合运算，只不过更具灵活性，它对数据的每一行，都使用与该行相关的行进行计算并返回计算结果。</p>
+<a id="more"></a>
+
+<p><strong>语法</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">窗口函数名([<span class="operator">&lt;</span>字段名<span class="operator">&gt;</span>]) <span class="keyword">over</span>([<span class="keyword">partition</span> <span class="keyword">by</span> <span class="operator">&lt;</span>分组字段<span class="operator">&gt;</span>] [<span class="keyword">order</span> <span class="keyword">by</span> <span class="operator">&lt;</span>排序字段<span class="operator">&gt;</span> [<span class="keyword">desc</span>]] [<span class="operator">&lt;</span></span><br><span class="line">滑动窗口<span class="operator">&gt;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 比如“排序”</span></span><br><span class="line"><span class="built_in">row_number</span>(),<span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> <span class="type">date</span> <span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span>)</span><br></pre></td></tr></table></figure>
+<p>窗口函数的一个概念是当前行，当前行属于某个窗口，窗口由<strong>over关键字</strong>来指定函数执行的窗口范围，<br>如果后面括号中什么都不写，则意味着窗口包含满足where条件的所有行，窗口函数基于所有行进行计算；如果不为空，则有三个参数来设置窗口：</p>
+<ul>
+<li>partition by子句：按照指定字段进行分区，两个分区由边界分隔，窗口函数在不同的分区内分别执行，在跨越分区边界时重新初始化。</li>
+<li>order by子句：按照指定字段进行排序，窗口函数将按照排序后的记录顺序进行编号。可以和<br>partition by子句配合使用，也可以单独使用。</li>
+<li>frame子句：当前分区的一个子集，用来定义子集的规则，通常用来作为滑动窗口使用。</li>
+</ul>
+<p>对于滑动窗口的范围指定，通常使用 between frame_start and frame_end 语法来表示行范围，frame_start和frame_end可以支持如下关键字，来确定不同的动态行记录：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">current row 边界是当前行，一般和其他范围关键字一起使用</span><br><span class="line">unbounded preceding 边界是分区中的第一行</span><br><span class="line">unbounded following 边界是分区中的最后一行</span><br><span class="line">expr preceding 边界是当前行减去expr的值</span><br><span class="line">expr following 边界是当前行加上expr的值</span><br></pre></td></tr></table></figure>
+<p>比如，下面都是合法的范围：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、前一行、后一行一共三行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="number">1</span> preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的前一行、当前行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> <span class="number">1</span> following 窗口范围是分区中的当前行、后一行一共两行记录。</span><br><span class="line"><span class="keyword">rows</span> unbounded preceding 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> <span class="keyword">current</span> <span class="type">row</span> 窗口范围是分区中的第一行到当前行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> <span class="keyword">current</span> <span class="type">row</span> <span class="keyword">and</span> unbounded following 窗口范围是分区中的当前行到最后一行。</span><br><span class="line"><span class="keyword">rows</span> <span class="keyword">between</span> unbounded preceding <span class="keyword">and</span> unbounded following 窗口范围是当前分区中所有行。</span><br></pre></td></tr></table></figure>
+<h2 id="动态窗口函数"><a href="#动态窗口函数" class="headerlink" title="动态窗口函数"></a>动态窗口函数</h2><p>first_value() / last_value() / nth_value()/聚合函数用于窗口</p>
+<ul>
+<li>如没有指定排序和滑动窗口范围，默认计算的是分区内的所有记录。</li>
+<li>指定分区和排序后，如没有指定滑动窗口范围，默认计算的是分区内的第一行到当前行。</li>
+</ul>
+<h3 id="FIRST-VALUE-和-LAST-VALUE函数"><a href="#FIRST-VALUE-和-LAST-VALUE函数" class="headerlink" title="FIRST_VALUE 和 LAST_VALUE函数"></a>FIRST_VALUE 和 LAST_VALUE函数</h3><p><code>FIRST_VALUE</code> 取分组内排序后，截止到当前行，第一个值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT cookieid,createtime,pv,</span><br><span class="line">ROW_NUMBER() OVER(PARTITION BY cookieid ORDER BY createtime) AS rn,</span><br><span class="line">FIRST_VALUE(pv) OVER(PARTITION BY cookieid ORDER BY createtime) AS first  </span><br><span class="line">FROM test1;</span><br></pre></td></tr></table></figure>
+<p><strong>LAST_VALUE 函数则相反：</strong><br><code>LAST_VALUE</code> 取分组内排序后，截止到当前行，最后一个值</p>
+<hr>
+<h2 id="静态窗口函数"><a href="#静态窗口函数" class="headerlink" title="静态窗口函数"></a>静态窗口函数</h2><p>row_number() / rank() / dense_rank() / percent_rank() / cume_dist()/lag() /<br>lead() / ntile()</p>
+<ul>
+<li>不管是否指定滑动窗口范围，窗口都是固定的，所以指定的滑动窗口范围无效。</li>
+</ul>
+<p>窗口函数和普通聚合函数的区别：</p>
+<ul>
+<li>聚合函数是将多条记录聚合为一条；而窗口函数是每条记录都会执行，有几条记录执行完还是几条。</li>
+<li>聚合函数也可以用于窗口函数中。</li>
+</ul>
+<h3 id="排序函数"><a href="#排序函数" class="headerlink" title="排序函数"></a>排序函数</h3><ul>
+<li>rank()：重复间断的组内排序，例如 1，1，3，4，4，6</li>
+<li>dense_rank()：重复不间断的组内排序，例如 1，1，2，2，3</li>
+<li>row_number()：不重复不间断的组内排序，例如 1，2，3，4，5</li>
+</ul>
+<h3 id="cume-dist"><a href="#cume-dist" class="headerlink" title="cume_dist()"></a>cume_dist()</h3><p><em>注：不允许在 CUME_DIST 函数中使用组合排序键（RANGE,ROWS）</em></p>
+<p><code>cume_dist</code> 计算某个值在一组行中的相对位置</p>
+<p>以下示例返回一个包含居住在 California 的职员的<strong>薪水累计分布的结果集</strong>。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary,</span><br><span class="line"><span class="built_in">CUME_DIST</span>() <span class="keyword">OVER</span> (<span class="keyword">PARTITION</span> <span class="keyword">BY</span> DepartmentID <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span>) &quot;Rank&quot; </span><br><span class="line"><span class="keyword">FROM</span> Employees  </span><br><span class="line"><span class="keyword">WHERE</span> State <span class="keyword">IN</span> (<span class="string">&#x27;CA&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>以下是该结果集：</p>
+<table>
+<thead>
+<tr>
+<th>DepartmentID</th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200</td>
+<td>Savarino</td>
+<td>72300.000</td>
+<td>0.333333333333333</td>
+</tr>
+<tr>
+<td>200</td>
+<td>Clark</td>
+<td>45000.000</td>
+<td>0.666666666666667</td>
+</tr>
+<tr>
+<td>200</td>
+<td>Overbey</td>
+<td>39300.000</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>也就是说，薪水小于等于72300的人，占整个分组的0.33；薪水小于等于45000的人，占整个分组的0.66。</p>
+<h3 id="PERCENT-RANK-函数"><a href="#PERCENT-RANK-函数" class="headerlink" title="PERCENT_RANK 函数"></a>PERCENT_RANK 函数</h3><p>与 PERCENT 函数类似，PERCENT_RANK 函数为窗口的 ORDER BY 子句所指定列中的值返回秩，但以介于 0 和 1 之间的小数形式表示，计算方法为 (分组内当前行的RANK值-1) / (分组内总行数-1)</p>
+<p>随着窗口在输入行中向下移动，会计算在窗口的 ORDER BY 子句中所指定的表达式的秩。当 ORDER BY 子句包括多个表达式时，若第一个表达式与相邻行具有相同值，则第二个及后续表达式将用于区分并列情况。NULL 值排在任何其它值的前面（在升序序列中）。</p>
+<p><strong>示例 1</strong></p>
+<p>以下示例返回按性别显示 New York 雇员薪水排位的结果集。该结果使用百分比数按降序列出排位并按性别分区。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DepartmentID, Surname, Salary, Sex,    <span class="built_in">PERCENT_RANK</span>( ) <span class="keyword">OVER</span> ( <span class="keyword">PARTITION</span> <span class="keyword">BY</span> Sex      <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) <span class="keyword">AS</span> PctRank  <span class="keyword">FROM</span> Employees   <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;NY&#x27;</span> );</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>DepartmentID</th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Sex</th>
+<th>PctRank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>200</td>
+<td>Martel</td>
+<td>55700.000</td>
+<td>M</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100</td>
+<td>Guevara</td>
+<td>42998.000</td>
+<td>M</td>
+<td>0.333333333</td>
+</tr>
+<tr>
+<td>3</td>
+<td>100</td>
+<td>Soo</td>
+<td>39075.000</td>
+<td>M</td>
+<td>0.666666667</td>
+</tr>
+<tr>
+<td>4</td>
+<td>400</td>
+<td>Ahmed</td>
+<td>34992.000</td>
+<td>M</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>5</td>
+<td>300</td>
+<td>Davidson</td>
+<td>57090.000</td>
+<td>F</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>400</td>
+<td>Blaikie</td>
+<td>54900.000</td>
+<td>F</td>
+<td>0.333333333</td>
+</tr>
+<tr>
+<td>7</td>
+<td>100</td>
+<td>Whitney</td>
+<td>45700.000</td>
+<td>F</td>
+<td>0.666666667</td>
+</tr>
+<tr>
+<td>8</td>
+<td>400</td>
+<td>Wetherby</td>
+<td>35745.000</td>
+<td>F</td>
+<td>1.0</td>
+</tr>
+</tbody></table>
+<p>由于按性别 (Sex) 划分输入，所以分别对男雇员和女雇员执行 PERCENT_RANK 计算。</p>
+<p><strong>示例 2</strong></p>
+<p>以下示例返回 Utah 和 Arizona 的一些女雇员的列表并根据薪水以降序顺序排列她们。这里的 PERCENT_RANK 函数用于以降序顺序提供累计总数。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Surname, Salary,      <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     <span class="keyword">FROM</span> Employees  <span class="keyword">WHERE</span> State <span class="keyword">IN</span> ( <span class="string">&#x27;UT&#x27;</span>, <span class="string">&#x27;AZ&#x27;</span> ) <span class="keyword">AND</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;F&#x27;</span> );</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Shishov</td>
+<td>72995.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Jordan</td>
+<td>51432.00</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hildebrand</td>
+<td>45829.00</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Bigelow</td>
+<td>31200.00</td>
+<td>0.75</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bertrand</td>
+<td>29800.00</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p><strong>使用 PERCENT_RANK 查找最高和最低百分点</strong></p>
+<p>在以下示例中，查询会返回其薪水在数据集的最高的五个百分点之内的男雇员。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span>  </span><br><span class="line"><span class="keyword">FROM</span>  ( <span class="keyword">SELECT</span> Surname, Salary,</span><br><span class="line">       <span class="built_in">PERCENT_RANK</span> ( ) <span class="keyword">OVER</span> ( <span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> ) &quot;Rank&quot;     </span><br><span class="line">       <span class="keyword">FROM</span> Employees  </span><br><span class="line">       <span class="keyword">WHERE</span> Sex <span class="keyword">IN</span> ( <span class="string">&#x27;M&#x27;</span> )  ) </span><br><span class="line">       <span class="keyword">AS</span> DerivedTable ( Surname, Salary, <span class="keyword">Percent</span> ) </span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">Percent</span> <span class="operator">&lt;</span> <span class="number">0.05</span>;</span><br></pre></td></tr></table></figure>
+<p>此查询会返回以下结果：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Surname</th>
+<th>Salary</th>
+<th>Percent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Scott</td>
+<td>96300.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Sheffield</td>
+<td>87900.00</td>
+<td>0.025</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Lull</td>
+<td>87900.00</td>
+<td>0.025</td>
+</tr>
+</tbody></table>
+<h3 id="前后函数"><a href="#前后函数" class="headerlink" title="前后函数"></a>前后函数</h3><p>​                   <strong>lag(expr,n)                / lead(expr,n)</strong><br>分区中位于当前行前n行（lag）/ 后n行(lead)的记录值<br>示例：查询各部门员工入职间隔天数</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span>,datediff(hiredate,前一位员工的入职日期) <span class="keyword">as</span> 间隔天数</span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">select</span> <span class="operator">*</span>,<span class="built_in">lag</span>(hiredate,<span class="number">1</span>) <span class="keyword">over</span>(<span class="keyword">partition</span> <span class="keyword">by</span> deptno <span class="keyword">order</span> <span class="keyword">by</span> hiredate) <span class="keyword">as</span> 前</span><br><span class="line">一位员工的入职日期 <span class="keyword">from</span> emp) <span class="keyword">as</span> t;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span> empno <span class="operator">|</span> ename <span class="operator">|</span> job    <span class="operator">|</span> mgr <span class="operator">|</span> hiredate  <span class="operator">|</span> sal <span class="operator">|</span> comm <span class="operator">|</span> deptno <span class="operator">|</span> 前一位员工的入职日期 <span class="operator">|</span> 间隔天数 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------+-----------+------+------------+------+------+--------+----------------------+----------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7782</span> <span class="operator">|</span> clark <span class="operator">|</span> manager  <span class="operator">|</span> <span class="number">7839</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span> <span class="operator">|</span> <span class="number">2450</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="keyword">NULL</span>          <span class="operator">|</span>    <span class="keyword">NULL</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7839</span> <span class="operator">|</span> king  <span class="operator">|</span> persident <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span> <span class="operator">|</span> <span class="number">5000</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-06</span><span class="number">-09</span>   <span class="operator">|</span>    <span class="number">161</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">7934</span> <span class="operator">|</span> miller <span class="operator">|</span> clerk   <span class="operator">|</span> <span class="number">7782</span> <span class="operator">|</span> <span class="number">1982</span><span class="number">-01</span><span class="number">-23</span> <span class="operator">|</span> <span class="number">1300</span> <span class="operator">|</span> <span class="keyword">NULL</span> <span class="operator">|</span>   <span class="number">10</span> <span class="operator">|</span> <span class="number">1981</span><span class="number">-11</span><span class="number">-17</span>    <span class="operator">|</span>    <span class="number">67</span>   <span class="operator">|</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="NTILE-函数"><a href="#NTILE-函数" class="headerlink" title="NTILE 函数"></a>NTILE 函数</h3><p>NTILE(n), 用于将分组函数按照顺序切分成n片，返回当前切片值</p>
+<p>例如：</p>
+<p>统计一个cookie，pv数最多的前1/3的天：取 <code>ntile = 1</code> 的记录，就是我们想要的结果</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> pv <span class="keyword">DESC</span>) <span class="keyword">AS</span> ntile </span><br><span class="line"><span class="keyword">FROM</span> test1;</span><br></pre></td></tr></table></figure>
+<p><em>注1：如果切片不均匀，<strong>默认增加第一个切片的分布</strong></em><br><em>注2：NTILE不支持ROWS BETWEEN</em></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cookieid,createtime,pv,</span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">2</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile1,	<span class="comment">--分组内将数据分成2片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">3</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile2,  <span class="comment">--分组内将数据分成3片</span></span><br><span class="line"><span class="built_in">NTILE</span>(<span class="number">4</span>) <span class="keyword">OVER</span>(<span class="keyword">PARTITION</span> <span class="keyword">BY</span> cookieid <span class="keyword">ORDER</span> <span class="keyword">BY</span> createtime) <span class="keyword">AS</span> ntile3   <span class="comment">--将所有数据分成4片</span></span><br><span class="line"><span class="keyword">FROM</span> test1 </span><br><span class="line"><span class="comment">-- ...</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+        <tag>函数</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python中的单，双，三引号用法</title>
     <url>/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<h1 id="单引号和双引号"><a href="#单引号和双引号" class="headerlink" title="单引号和双引号"></a>单引号和双引号</h1><p>在Python中单引号和双引号都可以用来表示一个字符串，比如</p>
@@ -1105,6 +1105,125 @@
       </categories>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二面-神策-数据分析师</title>
+    <url>/2021-04-10-%E4%BA%8C%E9%9D%A2-%E7%A5%9E%E7%AD%96-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88-md/</url>
+    <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>每次面试的总结我都尽量做到三点：1、复现面试场景   2、复盘面试回答  3、搜索学习加之个人思考</p>
+<p>这次二面是北京现场面，一位部门leader加三个候选人。第一部分自我介绍，第二部分面试官提问题三人分别回答，第三部分反问。</p>
+<a id="more"></a>
+
+<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>除了我（卑微双非本科大四在校生），其余两位妹子都是留学回来的研究生（学校和本科学校都忘记了），一个是商业分析专业一个是对外经济贸易（我也忘记是本科还是研究生了，我真傻，不过不重要。）</p>
+<p>她们二人的自我介绍偏向介绍自己的项目（数分）和实习经历（小红书），听起来都很厉害，一度让我想临阵脱逃，而且两位的谈吐也比我强很多，落落大方、自信优雅。我是第二个自我介绍的，在把脑子里练过很多遍的内容尽可能完美表达出来后，我就不那么紧张了，而且针对第一次的经验，我分条阐述了个人软素质（积极主动、与人沟通、组织能力、数据驱动的思维、热爱大数据和数据分析），个人硬技能（老三样、数据库、数仓、数据采集的理论知识，业务知识体系的构建（理论上）），总结语句（准备、规划、愿景）。</p>
+<h1 id="为什么想加入神策"><a href="#为什么想加入神策" class="headerlink" title="为什么想加入神策"></a>为什么想加入神策</h1><p>我还是第二个回答的，问就是那个妹子比我更抢先。这里我很想撞墙，因为我主要阐述了我对神策的了解，但我发现她们都有补充为什么会是数据分析师这个岗位，听完后我就很懊悔，不知道我是没听清面试官的问题还是我个人忘记了，总之都是我的不足，不过我在我的回答基础上也很全面了：</p>
+<p>神策数据成立于2015年，是中国领先的大数据分析和营销科技服务提供商，致力于帮助企业实现数据驱动，规模持续增长，总融资额已突破6亿+RMB，收获业界广泛认可。下面我想从以下四个方面来描述我对神策的理解也是我选择神策的理由。</p>
+<p><strong>从企业文化来说</strong>，神策奉行帮助为客户实现价值和把事情做到极致的理念。</p>
+<p><strong>从产品和服务来说</strong>，核心理念和特点：</p>
+<p>核心理念：</p>
+<ol>
+<li>数据源是根基，很重要</li>
+<li>数据驱动的理念</li>
+<li>自助式数据分析</li>
+<li>数据的两面价值：业务决策（BI） 和 产品智能（AI）</li>
+</ol>
+<p>特点：</p>
+<ol>
+<li>私有化部署，让客户对数据放心</li>
+<li>帮客户建立基础数据源。</li>
+<li>神策的产品是 Saas+Paas 的，底层平台是给客户开放的，能做二次开发，客户可以用底层平台去做推荐、竞争广告等产品智能。</li>
+</ol>
+<p><strong>从技术优势来说</strong>，以下两点：</p>
+<ol>
+<li>神策开创了集私有化部署、标准产品、订阅制为一体的SaaS行业新模式，推动企业数字化运营的发展。作为SaaS产品，私有化部署对团队能力要求更高更全面。</li>
+<li>数据采集领域构建SDK开源社区。不断向业界产出知识沉淀，比如《iOS 全埋点技术白皮书》《Android 全埋点解决方案》。</li>
+</ol>
+<p><strong>从组织和管理来说</strong>： 注重高效率跨部门协作：信息高度透明、战略高度统一。</p>
+<p>最后，神策有一位很优秀的CEO和强大的团队。</p>
+<hr>
+<p>回答后我才意识到我说了好长，面试官当时震惊的问我“这些你都从哪知道的？”我说：正如我之前说我做了大量的准备，主要从公司官网、公司在其他平台上的社交账号（知乎、csdn、公众号）、采访报道。</p>
+<p>那我再补充对<strong>数据分析师岗位的理解</strong>。可惜没有展现出来。</p>
+<p>1、从<strong>组织架构</strong>上来说，归属于交付团队，服务于产品在客户的实施交付，以及产品在客户实际业务应用上的深度、广度和数据驱动的价值实现。</p>
+<p>2、从<strong>主要工作</strong>上来说，前期做产品的基础交付实施，到后面会有专项专题资讯和建设内部业务知识体系。</p>
+<p>那具体内容（前期）是<strong>协助客户梳理数据应用需求</strong>，根据需求<strong>引导并完善埋点需求文档</strong>，<strong>协助客户做采集的数据校验</strong>，<strong>上线后完善系统的配置交付</strong>，以及<strong>对客户团队人员的使用培训</strong>。基础交付质量对于神策业务模式的重要性非常高，几乎决定了客户初期埋点质量的基础和上手使用神策的产品是否顺利，同时也是日后客户深度的业务分析应用和持续深度合作的基础。</p>
+<p>总结来说：在产品交付的<strong>各个环节内对客户的引导、沟通、培训、答疑，以及各个环节的质量校验和修改确认</strong>。</p>
+<p>3、从对分析师的<strong>能力要求</strong>来说，</p>
+<ul>
+<li><strong>沟通</strong>能力、<strong>演讲培训</strong>能力、<strong>跨行业的学习和迁移能力</strong>等方面有较高的要求。</li>
+<li>后续高难度工作，能力要求：独立的问题解决能力、客户需求沉淀成系统、通用的业务机制，对个人的视野格局、抽象总结、逻辑体系化能力均有较高的要求。</li>
+</ul>
+<hr>
+<p>虽然我事先总结了很多，但在面试时候一定要注重把控重点和时间。</p>
+<h1 id="微信公众号提升日活"><a href="#微信公众号提升日活" class="headerlink" title="微信公众号提升日活"></a>微信公众号提升日活</h1><p>如果你是负责微信公众号的运维人员。现在公众号的日活是30万，现在想要在三个月内达到日活60万。可以怎么做？5min思考时间。</p>
+<p>不是很清楚，这个微信公众号的性质是怎么样的，主要为了营收还是公司的一个宣传渠道。</p>
+<p>在这里既然是复盘，我就暂且认为是后者（我真的忘记是面试官没讲还是忘记了。在这里为啥要区分两种模式，我认为有关于广告，营收会需要恰饭，但宣传自家公司是为了引流）</p>
+<p>同学1的观点：对新用户、老用户、流失用户分别做相应的对策。与广告商的合作为用户争取优惠。</p>
+<p>同学2的观点：开源和节流。我表示emmm，有种生搬硬套的感觉。虽然内容也是提升文章内容，对用户画像然后做个性化推荐这种。我当时问她微信公众号有个性化推荐这种功能吗？她表示，分析关注一段时间的用户的兴趣是啥，然后私信推送她可能感兴趣的内容。害，我之所以问她是因为据我所知微信公众号没有个性化推荐这种功能呀（其实有的，不过是给你推荐其他公众号的内容），而且也不合适。原因如下：</p>
+<ol>
+<li>个性化推荐的本质是个性化，但微信公众号的运营内容的风格是相对固定的，用户会按需按喜好选择不同的公众号，你的用户大部分就是这么个样子，不会有特别明显和特殊的差异化。</li>
+<li>连接公众号和用户的是文章内容本身，让大部分用户喜欢才是王道，然后是运营方式，再加上平台的局限，精准打击不是其所长。</li>
+<li>如果要去挖掘用户画像，应用点我认为应该在广告、部分策略性调整、公众号成熟以后的转型或开拓。</li>
+</ol>
+<p>我是第二个回答的（问就是因为我不熟悉运营）。因为我没有研究过微信公众号运营这方面，就从用户增长的角度入手。</p>
+<p>我的回答：好的，已知现在日活是3万，要在3个月内做到日活6万，所以我们的目的是用户增长（定位需求，虽然不对）。我会采用RARRA用户增长模型，这个模型的重点是用户留存。因为我们知道，一味的追求用户数不可取，最重要的是用户的质量，好的用户会实现自传播，这样用户数就会像滚雪球一样越来越多。（其实我在想这里会不会有点偏，因为微信公众号运营不是企业级服务，或许也会追求一时的爆发式增长来达到一个热度的传播？）</p>
+<p>所以我下面的展开是<strong>用户留存</strong>这块（1、用户画像，调整内容策略和广告投放 ；2、追踪渠道转化率，优化不同的渠道的合作力度），然后<strong>用户激活</strong>（好的文章内容才是核心，这里可以通过与自身和外界的好文爆文做对比，同时也对比不可观的文章，扬长避短。）</p>
+<p>其实我的问题很明显，运营这块我不了解，我总是往数据分析的角度带，思路应该是这样的：</p>
+<ol>
+<li>目的是增加日活。从<strong>提高已有粉丝的活跃度</strong>和<strong>增加粉丝数</strong>两块入手。</li>
+<li>从内容（内容质量）和服务（运营方式）两方面开展。</li>
+</ol>
+<p>下面是我搜集资料后的总结。</p>
+<p>待补充，这两天有其他事情。</p>
+<h1 id="任务时间冲突怎么办"><a href="#任务时间冲突怎么办" class="headerlink" title="任务时间冲突怎么办"></a>任务时间冲突怎么办</h1><p>如果你突然接到任务是，某个客户刚做完一次大促活动，想要你在本周之前（五天）就活动效果做一次专题报告。但你手头上已经有一个任务了，并且也要在本周完成。你要怎么协调？</p>
+<p>当时我内心想，我搜过这个问题！没想到真的遇到，可惜当时也没有得到啥结果。我反问了面试官一个问题，这个用户的这次活动是用我们公司的产品监控数据吧？得到肯定答复后我说那我再思考一下。</p>
+<p>于是我变成了第三位回答的。当时在等待的过程中，我还怕如果她们有人跟我的回答一样咋办（所以除非你真的不擅长，想听听别人的发言启发自己，不然真的要尽早回答比较好，有把握就冲！）</p>
+<p>我的回答：</p>
+<p>好的，所以我们的情况是，现在手头上已经有任务了，突发任务是对某客户的活动效果做一个专题报告，都要在本周之前完成。我的想法是首先我们的目标是尽可能两个任务都准时完成，那对已经在做的任务可以加快进度，对新任务：</p>
+<p>1、在了解该客户的业务背景和活动背景后，评估难度，再结合着评估自己的能力，是否可以独自完成？那一般情况很难做到，就要去调动可用的资源协助自己。</p>
+<p>2、首先结合对这次<strong>活动的了解</strong>和客户使用我们神策分析的<strong>线上数据</strong>，做一个简报。然后把这个简报发给我们的同事、上级。希望他们能够根据我提供的信息结合自己的资源为我提供帮助，上级可以帮你提出建议和调度人手，同事可以给你提建议或直接帮你完成。</p>
+<p>另外两位说，跟客户反映我们的情况，沟通，希望能够体谅理解彼此，延期一下，最重要的是要在事后对自己能力不足的反思。</p>
+<p>我不太赞同哎，可以一上来就默认自己完不成吗？要争取呀，虽然我也不清楚真实情况下会怎么样。以及如果真的延期，确实应该反思自己的能力不足吧（因为你没有独自完成的能力，也不知道调动资源），所以我就是默认只要大家齐心协力就好了是吗，职场上真的是这样咩。</p>
+<p>后来我也去搜索了一下，得到一个回答。</p>
+<p>百度问题：问【工作中资源产生冲突怎么办】回答：资源产生冲突时分析当时的情况，先把资源提供给更紧急需要的地方，同时调动各方能力想办法供应更多资源直到满足各方需要、直到冲突状况解决</p>
+<p>可作参考。</p>
+<p>数据分析师本身也是调动各种资源去让数据驱动业务的想法落地呀~</p>
+<h1 id="反问阶段"><a href="#反问阶段" class="headerlink" title="反问阶段"></a>反问阶段</h1><p>我最后一个问的，因为想看一下她们会问什么问题。</p>
+<p>同学1：公司的培养机制</p>
+<p>面试官：为期一个月的脱产培训，配对mentor，主要学习产品使用和业务知识，后面会边学边练。</p>
+<p>这个查一查可以了解到的。</p>
+<blockquote>
+<p><a href="%5Bhttps://blog.csdn.net/sensorsdata/article/details/99300315?ops_request_misc=%7B%22request_id%22:%22161752454516780264075035%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-9-99300315.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%5D(https://blog.csdn.net/sensorsdata/article/details/99300315?ops_request_misc=%7B%22request_id%22:%22161752454516780264075035%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-9-99300315.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90)">官宣：了解神策数据分析师，这一篇就够了 | 神策招人记</a></p>
+</blockquote>
+<p>同学2：具体工作内容。好像是这个吧？</p>
+<p>这个也是，搜搜就有的。不过能够从真人那里听到，也挺好的，更真实吧maybe。但下面的链接里据说也是真实内容。</p>
+<blockquote>
+<p><a href="https://www.zhihu.com/question/302819959/answer/534489024">神策数据分析师的发展前景？</a></p>
+<p><a href="https://blog.csdn.net/sensorsdata/article/details/80935899?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161752454516780264075035%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-3-80935899.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90">数据分析师的具体工作职责和工作内容有哪些？</a></p>
+</blockquote>
+<p>我的问题：</p>
+<p>1、乙方工作模式下，不能深入熟悉、跟进业务的情况下，如何做到，在数据平台构建、业务咨询阶段，给出非常贴合业务的分析和建议？</p>
+<p>面试官：首先客户如果真想推进数据驱动业务，一定要全面、真实地向我们展示他们的数据，不然只靠我们也做不到。其次客户数据驱动的意愿要真实和强烈，如果只是想单纯地做做报表分析，这样的客户我们也是不接受的。</p>
+<p>我说：也就是说，对于给出的建议是否“贴合”的标准来源于客户本身的要求，如果要求很高，我们也会对其进行更专业的专项咨询，是吗？ ——是的。</p>
+<p>2、平台建设或者分析建议，在甲方落地环节会不可控和受阻，可能主要是客户那边的问题，比如他不配合或者业务模式有变等，那遵循着我们一定要为客户带来价值的原则，身为数据分析师可以做的有哪些？这种情况是否也在背调中（没有问出来）</p>
+<p>面试官：这在任何公司都会遇到。我们会提前了解客户的公司、业务、产品背景，加之分析的过程中，如果觉得会发生这种情况，我们会提前告知客户。</p>
+<p>也就是说，会具有预判的能力，大概是这样吧，她的具体回答细节我没有能及时整理。</p>
+<p>然后又有同学补充说，如果我们新人对接客户的CEO，但是他不相信我的资质和能力，怎么办？</p>
+<p>面试官说的比较委婉，我补充概况一下。</p>
+<p>1、新人的资质和能力呢，确实会缺乏，要有自知之明。</p>
+<p>2、客户是CEO出面，相信我们也会是CEO或者COO对接呢。</p>
+<p>对于一些常见问题呢，真的想知道就直接去主动搜索啦。那在准备面试的时候，如果有认真思考，想必自己是会有疑问的。</p>
+<h1 id="反思与总结"><a href="#反思与总结" class="headerlink" title="反思与总结"></a>反思与总结</h1><p>面试不一会，我就发现我很严重的一个问题，发言时候和听别人发言时，我会忍不住晃动身体！要命，我想我是紧张的再加上我在想我自己的东西，我就克制自己，让自己记笔记来缓解（学习别人的优点，避开别人的缺点，总结自己的要点）。我也看过人家站着演讲的时候，身体前后左右摇摆的。</p>
+<p>还有我可能被第一位同学误导，她发言时候的目光是给我们所有人的，面试官都算少的，然后我有一次也这样了，甚至还去眼神互动边角的同学。啊，大可不必，意思下就可以了，你的汇报人还是面试官。还好就一次。。</p>
+<p>以及这次面试官问了三个问题，我提前准备到了两个（虽然最后一个不完整，但好歹自己提前想过了），所以提前准备很重要，现场表达和反应能力也非常重要。</p>
+<p>1、发言时候，可以用恰当的手部动作，但别转笔。</p>
+<p>2、发言和聆听时候，控制好身体！看着别人的眼睛给予眼神示意，记记笔记，随便写写也行。</p>
+<p>3、跟面试官的眼神互动</p>
+<p>4、要仔细听面试官的问题，有疑惑及时问！</p>
+<p>想到再补充。</p>
+]]></content>
+      <tags>
+        <tag>数据分析</tag>
+        <tag>面经</tag>
       </tags>
   </entry>
   <entry>
@@ -1272,135 +1391,19 @@
       </tags>
   </entry>
   <entry>
-    <title>二面-神策-数据分析师</title>
-    <url>/2021-04-10-%E4%BA%8C%E9%9D%A2-%E7%A5%9E%E7%AD%96-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88-md/</url>
-    <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>每次面试的总结我都尽量做到三点：1、复现面试场景   2、复盘面试回答  3、搜索学习加之个人思考</p>
-<p>这次二面是北京现场面，一位部门leader加三个候选人。第一部分自我介绍，第二部分面试官提问题三人分别回答，第三部分反问。</p>
+    <title>趋于美化经验的本能</title>
+    <url>/2021-04-11-%E8%B6%8B%E4%BA%8E%E7%BE%8E%E5%8C%96%E7%BB%8F%E9%AA%8C%E7%9A%84%E6%9C%AC%E8%83%BD/</url>
+    <content><![CDATA[<blockquote>
+<p>人类所有的经验其实都是一种被筛选，甚至被美化的过程。当一个人讲述出自己的经验，就会带有自我欺骗的特点，有些内心深处的东西，可能你并不愿意真的跟别人叙述，你愿意说的东西也许并不是你最深的真实经验。</p>
+</blockquote>
+<p>这是今天读到罗翔老师的文章《<a href="https://mp.weixin.qq.com/s/_EKrL_DzfrepNV5ClzxC9g">说说什么是好工作</a>》中，觉得很有启发性的一段话。背景大概是：尽量不要求助于网上的一些“考试经验贴”，原因之一是他们很多人在“传授”经验的时候都在有意或者无意地凡尔赛，那对你是没有什么帮助的。</p>
 <a id="more"></a>
 
-<h1 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h1><p>除了我（卑微双非本科大四在校生），其余两位妹子都是留学回来的研究生（学校和本科学校都忘记了），一个是商业分析专业一个是对外经济贸易（我也忘记是本科还是研究生了，我真傻，不过不重要。）</p>
-<p>她们二人的自我介绍偏向介绍自己的项目（数分）和实习经历（小红书），听起来都很厉害，一度让我想临阵脱逃，而且两位的谈吐也比我强很多，落落大方、自信优雅。我是第二个自我介绍的，在把脑子里练过很多遍的内容尽可能完美表达出来后，我就不那么紧张了，而且针对第一次的经验，我分条阐述了个人软素质（积极主动、与人沟通、组织能力、数据驱动的思维、热爱大数据和数据分析），个人硬技能（老三样、数据库、数仓、数据采集的理论知识，业务知识体系的构建（理论上）），总结语句（准备、规划、愿景）。</p>
-<h1 id="为什么想加入神策"><a href="#为什么想加入神策" class="headerlink" title="为什么想加入神策"></a>为什么想加入神策</h1><p>我还是第二个回答的，问就是那个妹子比我更抢先。这里我很想撞墙，因为我主要阐述了我对神策的了解，但我发现她们都有补充为什么会是数据分析师这个岗位，听完后我就很懊悔，不知道我是没听清面试官的问题还是我个人忘记了，总之都是我的不足，不过我在我的回答基础上也很全面了：</p>
-<p>神策数据成立于2015年，是中国领先的大数据分析和营销科技服务提供商，致力于帮助企业实现数据驱动，规模持续增长，总融资额已突破6亿+RMB，收获业界广泛认可。下面我想从以下四个方面来描述我对神策的理解也是我选择神策的理由。</p>
-<p><strong>从企业文化来说</strong>，神策奉行帮助为客户实现价值和把事情做到极致的理念。</p>
-<p><strong>从产品和服务来说</strong>，核心理念和特点：</p>
-<p>核心理念：</p>
-<ol>
-<li>数据源是根基，很重要</li>
-<li>数据驱动的理念</li>
-<li>自助式数据分析</li>
-<li>数据的两面价值：业务决策（BI） 和 产品智能（AI）</li>
-</ol>
-<p>特点：</p>
-<ol>
-<li>私有化部署，让客户对数据放心</li>
-<li>帮客户建立基础数据源。</li>
-<li>神策的产品是 Saas+Paas 的，底层平台是给客户开放的，能做二次开发，客户可以用底层平台去做推荐、竞争广告等产品智能。</li>
-</ol>
-<p><strong>从技术优势来说</strong>，以下两点：</p>
-<ol>
-<li>神策开创了集私有化部署、标准产品、订阅制为一体的SaaS行业新模式，推动企业数字化运营的发展。作为SaaS产品，私有化部署对团队能力要求更高更全面。</li>
-<li>数据采集领域构建SDK开源社区。不断向业界产出知识沉淀，比如《iOS 全埋点技术白皮书》《Android 全埋点解决方案》。</li>
-</ol>
-<p><strong>从组织和管理来说</strong>： 注重高效率跨部门协作：信息高度透明、战略高度统一。</p>
-<p>最后，神策有一位很优秀的CEO和强大的团队。</p>
-<hr>
-<p>回答后我才意识到我说了好长，面试官当时震惊的问我“这些你都从哪知道的？”我说：正如我之前说我做了大量的准备，主要从公司官网、公司在其他平台上的社交账号（知乎、csdn、公众号）、采访报道。</p>
-<p>那我再补充对<strong>数据分析师岗位的理解</strong>。可惜没有展现出来。</p>
-<p>1、从<strong>组织架构</strong>上来说，归属于交付团队，服务于产品在客户的实施交付，以及产品在客户实际业务应用上的深度、广度和数据驱动的价值实现。</p>
-<p>2、从<strong>主要工作</strong>上来说，前期做产品的基础交付实施，到后面会有专项专题资讯和建设内部业务知识体系。</p>
-<p>那具体内容（前期）是<strong>协助客户梳理数据应用需求</strong>，根据需求<strong>引导并完善埋点需求文档</strong>，<strong>协助客户做采集的数据校验</strong>，<strong>上线后完善系统的配置交付</strong>，以及<strong>对客户团队人员的使用培训</strong>。基础交付质量对于神策业务模式的重要性非常高，几乎决定了客户初期埋点质量的基础和上手使用神策的产品是否顺利，同时也是日后客户深度的业务分析应用和持续深度合作的基础。</p>
-<p>总结来说：在产品交付的<strong>各个环节内对客户的引导、沟通、培训、答疑，以及各个环节的质量校验和修改确认</strong>。</p>
-<p>3、从对分析师的<strong>能力要求</strong>来说，</p>
-<ul>
-<li><strong>沟通</strong>能力、<strong>演讲培训</strong>能力、<strong>跨行业的学习和迁移能力</strong>等方面有较高的要求。</li>
-<li>后续高难度工作，能力要求：独立的问题解决能力、客户需求沉淀成系统、通用的业务机制，对个人的视野格局、抽象总结、逻辑体系化能力均有较高的要求。</li>
-</ul>
-<hr>
-<p>虽然我事先总结了很多，但在面试时候一定要注重把控重点和时间。</p>
-<h1 id="微信公众号提升日活"><a href="#微信公众号提升日活" class="headerlink" title="微信公众号提升日活"></a>微信公众号提升日活</h1><p>如果你是负责微信公众号的运维人员。现在公众号的日活是30万，现在想要在三个月内达到日活60万。可以怎么做？5min思考时间。</p>
-<p>不是很清楚，这个微信公众号的性质是怎么样的，主要为了营收还是公司的一个宣传渠道。</p>
-<p>在这里既然是复盘，我就暂且认为是后者（我真的忘记是面试官没讲还是忘记了。在这里为啥要区分两种模式，我认为有关于广告，营收会需要恰饭，但宣传自家公司是为了引流）</p>
-<p>同学1的观点：对新用户、老用户、流失用户分别做相应的对策。与广告商的合作为用户争取优惠。</p>
-<p>同学2的观点：开源和节流。我表示emmm，有种生搬硬套的感觉。虽然内容也是提升文章内容，对用户画像然后做个性化推荐这种。我当时问她微信公众号有个性化推荐这种功能吗？她表示，分析关注一段时间的用户的兴趣是啥，然后私信推送她可能感兴趣的内容。害，我之所以问她是因为据我所知微信公众号没有个性化推荐这种功能呀（其实有的，不过是给你推荐其他公众号的内容），而且也不合适。原因如下：</p>
-<ol>
-<li>个性化推荐的本质是个性化，但微信公众号的运营内容的风格是相对固定的，用户会按需按喜好选择不同的公众号，你的用户大部分就是这么个样子，不会有特别明显和特殊的差异化。</li>
-<li>连接公众号和用户的是文章内容本身，让大部分用户喜欢才是王道，然后是运营方式，再加上平台的局限，精准打击不是其所长。</li>
-<li>如果要去挖掘用户画像，应用点我认为应该在广告、部分策略性调整、公众号成熟以后的转型或开拓。</li>
-</ol>
-<p>我是第二个回答的（问就是因为我不熟悉运营）。因为我没有研究过微信公众号运营这方面，就从用户增长的角度入手。</p>
-<p>我的回答：好的，已知现在日活是3万，要在3个月内做到日活6万，所以我们的目的是用户增长（定位需求，虽然不对）。我会采用RARRA用户增长模型，这个模型的重点是用户留存。因为我们知道，一味的追求用户数不可取，最重要的是用户的质量，好的用户会实现自传播，这样用户数就会像滚雪球一样越来越多。（其实我在想这里会不会有点偏，因为微信公众号运营不是企业级服务，或许也会追求一时的爆发式增长来达到一个热度的传播？）</p>
-<p>所以我下面的展开是<strong>用户留存</strong>这块（1、用户画像，调整内容策略和广告投放 ；2、追踪渠道转化率，优化不同的渠道的合作力度），然后<strong>用户激活</strong>（好的文章内容才是核心，这里可以通过与自身和外界的好文爆文做对比，同时也对比不可观的文章，扬长避短。）</p>
-<p>其实我的问题很明显，运营这块我不了解，我总是往数据分析的角度带，思路应该是这样的：</p>
-<ol>
-<li>目的是增加日活。从<strong>提高已有粉丝的活跃度</strong>和<strong>增加粉丝数</strong>两块入手。</li>
-<li>从内容（内容质量）和服务（运营方式）两方面开展。</li>
-</ol>
-<p>下面是我搜集资料后的总结。</p>
-<p>待补充，这两天有其他事情。</p>
-<h1 id="任务时间冲突怎么办"><a href="#任务时间冲突怎么办" class="headerlink" title="任务时间冲突怎么办"></a>任务时间冲突怎么办</h1><p>如果你突然接到任务是，某个客户刚做完一次大促活动，想要你在本周之前（五天）就活动效果做一次专题报告。但你手头上已经有一个任务了，并且也要在本周完成。你要怎么协调？</p>
-<p>当时我内心想，我搜过这个问题！没想到真的遇到，可惜当时也没有得到啥结果。我反问了面试官一个问题，这个用户的这次活动是用我们公司的产品监控数据吧？得到肯定答复后我说那我再思考一下。</p>
-<p>于是我变成了第三位回答的。当时在等待的过程中，我还怕如果她们有人跟我的回答一样咋办（所以除非你真的不擅长，想听听别人的发言启发自己，不然真的要尽早回答比较好，有把握就冲！）</p>
-<p>我的回答：</p>
-<p>好的，所以我们的情况是，现在手头上已经有任务了，突发任务是对某客户的活动效果做一个专题报告，都要在本周之前完成。我的想法是首先我们的目标是尽可能两个任务都准时完成，那对已经在做的任务可以加快进度，对新任务：</p>
-<p>1、在了解该客户的业务背景和活动背景后，评估难度，再结合着评估自己的能力，是否可以独自完成？那一般情况很难做到，就要去调动可用的资源协助自己。</p>
-<p>2、首先结合对这次<strong>活动的了解</strong>和客户使用我们神策分析的<strong>线上数据</strong>，做一个简报。然后把这个简报发给我们的同事、上级。希望他们能够根据我提供的信息结合自己的资源为我提供帮助，上级可以帮你提出建议和调度人手，同事可以给你提建议或直接帮你完成。</p>
-<p>另外两位说，跟客户反映我们的情况，沟通，希望能够体谅理解彼此，延期一下，最重要的是要在事后对自己能力不足的反思。</p>
-<p>我不太赞同哎，可以一上来就默认自己完不成吗？要争取呀，虽然我也不清楚真实情况下会怎么样。以及如果真的延期，确实应该反思自己的能力不足吧（因为你没有独自完成的能力，也不知道调动资源），所以我就是默认只要大家齐心协力就好了是吗，职场上真的是这样咩。</p>
-<p>后来我也去搜索了一下，得到一个回答。</p>
-<p>百度问题：问【工作中资源产生冲突怎么办】回答：资源产生冲突时分析当时的情况，先把资源提供给更紧急需要的地方，同时调动各方能力想办法供应更多资源直到满足各方需要、直到冲突状况解决</p>
-<p>可作参考。</p>
-<p>数据分析师本身也是调动各种资源去让数据驱动业务的想法落地呀~</p>
-<h1 id="反问阶段"><a href="#反问阶段" class="headerlink" title="反问阶段"></a>反问阶段</h1><p>我最后一个问的，因为想看一下她们会问什么问题。</p>
-<p>同学1：公司的培养机制</p>
-<p>面试官：为期一个月的脱产培训，配对mentor，主要学习产品使用和业务知识，后面会边学边练。</p>
-<p>这个查一查可以了解到的。</p>
-<blockquote>
-<p><a href="%5Bhttps://blog.csdn.net/sensorsdata/article/details/99300315?ops_request_misc=%7B%22request_id%22:%22161752454516780264075035%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-9-99300315.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%5D(https://blog.csdn.net/sensorsdata/article/details/99300315?ops_request_misc=%7B%22request_id%22:%22161752454516780264075035%22,%22scm%22:%2220140713.130102334.pc_blog.%22%7D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-9-99300315.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90)">官宣：了解神策数据分析师，这一篇就够了 | 神策招人记</a></p>
-</blockquote>
-<p>同学2：具体工作内容。好像是这个吧？</p>
-<p>这个也是，搜搜就有的。不过能够从真人那里听到，也挺好的，更真实吧maybe。但下面的链接里据说也是真实内容。</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/302819959/answer/534489024">神策数据分析师的发展前景？</a></p>
-<p><a href="https://blog.csdn.net/sensorsdata/article/details/80935899?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161752454516780264075035%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=161752454516780264075035&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-3-80935899.nonecase&utm_term=%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90">数据分析师的具体工作职责和工作内容有哪些？</a></p>
-</blockquote>
-<p>我的问题：</p>
-<p>1、乙方工作模式下，不能深入熟悉、跟进业务的情况下，如何做到，在数据平台构建、业务咨询阶段，给出非常贴合业务的分析和建议？</p>
-<p>面试官：首先客户如果真想推进数据驱动业务，一定要全面、真实地向我们展示他们的数据，不然只靠我们也做不到。其次客户数据驱动的意愿要真实和强烈，如果只是想单纯地做做报表分析，这样的客户我们也是不接受的。</p>
-<p>我说：也就是说，对于给出的建议是否“贴合”的标准来源于客户本身的要求，如果要求很高，我们也会对其进行更专业的专项咨询，是吗？ ——是的。</p>
-<p>2、平台建设或者分析建议，在甲方落地环节会不可控和受阻，可能主要是客户那边的问题，比如他不配合或者业务模式有变等，那遵循着我们一定要为客户带来价值的原则，身为数据分析师可以做的有哪些？这种情况是否也在背调中（没有问出来）</p>
-<p>面试官：这在任何公司都会遇到。我们会提前了解客户的公司、业务、产品背景，加之分析的过程中，如果觉得会发生这种情况，我们会提前告知客户。</p>
-<p>也就是说，会具有预判的能力，大概是这样吧，她的具体回答细节我没有能及时整理。</p>
-<p>然后又有同学补充说，如果我们新人对接客户的CEO，但是他不相信我的资质和能力，怎么办？</p>
-<p>面试官说的比较委婉，我补充概况一下。</p>
-<p>1、新人的资质和能力呢，确实会缺乏，要有自知之明。</p>
-<p>2、客户是CEO出面，相信我们也会是CEO或者COO对接呢。</p>
-<p>对于一些常见问题呢，真的想知道就直接去主动搜索啦。那在准备面试的时候，如果有认真思考，想必自己是会有疑问的。</p>
-<h1 id="反思与总结"><a href="#反思与总结" class="headerlink" title="反思与总结"></a>反思与总结</h1><p>面试不一会，我就发现我很严重的一个问题，发言时候和听别人发言时，我会忍不住晃动身体！要命，我想我是紧张的再加上我在想我自己的东西，我就克制自己，让自己记笔记来缓解（学习别人的优点，避开别人的缺点，总结自己的要点）。我也看过人家站着演讲的时候，身体前后左右摇摆的。</p>
-<p>还有我可能被第一位同学误导，她发言时候的目光是给我们所有人的，面试官都算少的，然后我有一次也这样了，甚至还去眼神互动边角的同学。啊，大可不必，意思下就可以了，你的汇报人还是面试官。还好就一次。。</p>
-<p>以及这次面试官问了三个问题，我提前准备到了两个（虽然最后一个不完整，但好歹自己提前想过了），所以提前准备很重要，现场表达和反应能力也非常重要。</p>
-<p>1、发言时候，可以用恰当的手部动作，但别转笔。</p>
-<p>2、发言和聆听时候，控制好身体！看着别人的眼睛给予眼神示意，记记笔记，随便写写也行。</p>
-<p>3、跟面试官的眼神互动</p>
-<p>4、要仔细听面试官的问题，有疑惑及时问！</p>
-<p>想到再补充。</p>
-]]></content>
-      <tags>
-        <tag>数据分析</tag>
-        <tag>面经</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>完美主义的陷阱</title>
-    <url>/2021-04-02-%E5%AE%8C%E7%BE%8E%E4%B8%BB%E4%B9%89%E7%9A%84%E9%99%B7%E9%98%B1/</url>
-    <content><![CDATA[<p>今天偶然看到张涛老师的一个知乎回答：<a href="https://www.zhihu.com/question/41365485/answer/349337429">有哪些典型的「学生思维」</a>,谈到<strong>完美主义从某种意义上说，也是拖延症。</strong></p>
-<a id="more"></a>
-<p>对号入座：不能出现任何差池、不顺。在做之前就会给自己这样的暗示：“至于其他…，不不不，不会这样，这样不行。算了吧，等时机成熟、我准备好了再做。”</p>
-<p>具体表现为：<br>1、昨晚睡得晚，这节课还是补觉吧，精神状态不好，一定听不进去。<br>2、今天上课了太累了，睡一觉再跑步吧！<br>3、今天没有状态，明天在看书吧！</p>
-<p>用自己的“完美主义”找借口，减轻自己炽热的内疚和懊恼，反正等明天做也没什么影响！</p>
-<p>太真实了，看到这段话的时候，我简直醍醐灌顶，我平时就是一个有足够把握再行动、对计划之外的变故会感到有点焦虑的人，也承认为此我错过一些机遇。其实平时也有意无意地在迫使自己不这样，也有过冲一把、放手一搏的经历，但目前为止还是喜欢做很多准备工作来确保自己胸有成竹。完美主义一定不好吗？当然不是，但当你发现你的完美主义成为你拖延的借口、害怕面对的理由的时候，要学会做出清醒的判断，而不是继续自我欺骗。<br>张涛老师还说：“进入社会，这种思维会害了你，领导叫你做个ppt，策划个方案，你会说：“我不会，我没学过，等我准备好了再做吧”？等着被炒鱿鱼吧！而你为了保住你的工作，你会加班加点的学和做。感觉痛苦，和折磨。”<br>我很庆幸我不会这样，岗位必备技能我怎么能不提前准备呢？而且对于突然要学习的，我也不带怕的，因为我很爱学习新知识，掌握新技能XD</p>
-<p>最后还是奉上张涛老师的告诫：</p>
-<p>“<strong>有这种思维的人，往往不是外界因素限制了你，而是你自己把自己限制了，只有将能控制的因素控制好，不可控的随其自然，这就是最完美的解决方式！</strong>”</p>
+<p>这适用于很多种类型的经验贴对吧，求职、试、约会等，重点在于，很多人都会包装自己的经验，包括我自己。</p>
+<p>所以我的第一反应是反思。我自己正在养成记录文字的习惯，初衷是更好地思考，但我也意识到，我也会去筛选自己的记忆。就拿我刚记录的二面来说吧，我又去看了两遍，我绝对有在强调我的提前准备对比其他人是多么充分，我的思考比别人更有深度等。或许这在一些前辈们看来会觉得低级不够格，但现在我意识不到，依然觉得挺不错的了并沾沾自喜想要展现出这种优越。我记录的原因是什么？不是一次大型自我夸夸现场，而是在求真的还原基础上，做到自我的反思、学习、总结。但我没做到“求真”，我在回忆的时候，我就像一个在我的记忆宫殿里买菜的阿姨会下意识地选取我个人更满意的地方。就像人本身在回忆的时候就会想忘记不堪一样，记录下经验也是，更会下意识找到美化的点，这是本能的行为。</p>
+<p>处理记忆的大脑尚且如此，我们又能做些什么？好了，本能绝对不是一个逃避的借口，人的思想的力量是无穷无尽的，这是我们与芦苇的区别。</p>
+<p>改变很难，因为无知会促使自己找各种理由。所以当我们知道了这是在跟本能作斗争的时候，才要更有直面的勇气。</p>
+<p>那么就从再次审视自己的面试记录开始^ ^</p>
 ]]></content>
       <categories>
         <category>杂谈</category>
@@ -1642,25 +1645,6 @@
       </tags>
   </entry>
   <entry>
-    <title>趋于美化经验的本能</title>
-    <url>/2021-04-11-%E8%B6%8B%E4%BA%8E%E7%BE%8E%E5%8C%96%E7%BB%8F%E9%AA%8C%E7%9A%84%E6%9C%AC%E8%83%BD/</url>
-    <content><![CDATA[<blockquote>
-<p>人类所有的经验其实都是一种被筛选，甚至被美化的过程。当一个人讲述出自己的经验，就会带有自我欺骗的特点，有些内心深处的东西，可能你并不愿意真的跟别人叙述，你愿意说的东西也许并不是你最深的真实经验。</p>
-</blockquote>
-<p>这是今天读到罗翔老师的文章《<a href="https://mp.weixin.qq.com/s/_EKrL_DzfrepNV5ClzxC9g">说说什么是好工作</a>》中，觉得很有启发性的一段话。背景大概是：尽量不要求助于网上的一些“考试经验贴”，原因之一是他们很多人在“传授”经验的时候都在有意或者无意地凡尔赛，那对你是没有什么帮助的。</p>
-<a id="more"></a>
-
-<p>这适用于很多种类型的经验贴对吧，求职、试、约会等，重点在于，很多人都会包装自己的经验，包括我自己。</p>
-<p>所以我的第一反应是反思。我自己正在养成记录文字的习惯，初衷是更好地思考，但我也意识到，我也会去筛选自己的记忆。就拿我刚记录的二面来说吧，我又去看了两遍，我绝对有在强调我的提前准备对比其他人是多么充分，我的思考比别人更有深度等。或许这在一些前辈们看来会觉得低级不够格，但现在我意识不到，依然觉得挺不错的了并沾沾自喜想要展现出这种优越。我记录的原因是什么？不是一次大型自我夸夸现场，而是在求真的还原基础上，做到自我的反思、学习、总结。但我没做到“求真”，我在回忆的时候，我就像一个在我的记忆宫殿里买菜的阿姨会下意识地选取我个人更满意的地方。就像人本身在回忆的时候就会想忘记不堪一样，记录下经验也是，更会下意识找到美化的点，这是本能的行为。</p>
-<p>处理记忆的大脑尚且如此，我们又能做些什么？好了，本能绝对不是一个逃避的借口，人的思想的力量是无穷无尽的，这是我们与芦苇的区别。</p>
-<p>改变很难，因为无知会促使自己找各种理由。所以当我们知道了这是在跟本能作斗争的时候，才要更有直面的勇气。</p>
-<p>那么就从再次审视自己的面试记录开始^ ^</p>
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-  </entry>
-  <entry>
     <title>随机森林</title>
     <url>/2021-01-15-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</url>
     <content><![CDATA[<p> bagging方法的代表算法是随机森林，准确的来说，随机森林是bagging的⼀个特化进阶版，所谓的特化是因为随机森林的弱学习器都是决策树。所谓的进阶是随机森林在bagging的样本随机采样基础上，⼜加上了特征的随机选择，其基本思想没有脱离bagging的范畴。分类树组成的森林就叫做随机森林分类器，回归树所集成的森林就叫做随机森林回归器。</p>
@@ -1721,6 +1705,21 @@
         <tag>集成算法</tag>
         <tag>机器学习</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>完美主义的陷阱</title>
+    <url>/2021-04-02-%E5%AE%8C%E7%BE%8E%E4%B8%BB%E4%B9%89%E7%9A%84%E9%99%B7%E9%98%B1/</url>
+    <content><![CDATA[<p>偶然看到一个知乎回答：<a href="https://www.zhihu.com/question/41365485/answer/349337429">有哪些典型的「学生思维」</a>,谈到<strong>完美主义从某种意义上说，也是拖延症。</strong></p>
+<p>在这之前，我知道完美主义可以有「吹毛求疵」和「追求极致」两种，在乎个人格局。我自认为也是完美主义者，却不知我是格局不够的那个。</p>
+<a id="more"></a>
+
+<p>我平时就是一个有足够把握再行动、对计划之外的变故会感到有点焦虑的人，也承认为此我错过一些机遇，也有意无意地在迫使自己不要因为小事而踌躇不前，但目前为止还是喜欢做很多准备工作来确保自己胸有成竹。我很注重细节，自我安慰说掌握更多信息胜券才会更大！但往往我会脱离主线，受困于那些边界的、标准很高的 ”自我要求“。完美主义一定不好吗？当然不是，但当我发现我的完美主义成为我拖延的借口、害怕面对的理由的时候，要学会做出清醒的判断，而不是继续自我欺骗。</p>
+<p>那只要自我认知清醒，知道自己不是在找借口，就可以心安理得地继续沉浸在自己的世界吗？有时候，我会围绕着一件事情的最初目的，逐渐用自我标准扩充要求范围，要么力不从心事倍功半，要么迷途而返及时止损。我会沮丧，我只是想把事情做得更好而已啊？好的定义是什么？既然处于一个学校、一个公司、一个社会，就会有外界的标准约束自己，虽然抵不上初心二字，但这更是一份任务、责任。。。没人想去了解你的过程多么曲折，内心有多少波动，一份标准的答卷是底线，如果自己的那些 “高标准”反而束缚了自己，那才就只是自我感动罢了。</p>
+<p>不要作茧自缚，如果阅历能力不够，那就将能掌控的事情做好，不可控的顺其自然，当下困顿你的，或许柳暗花明又一村。</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
   </entry>
   <entry>
     <title>酒店预订平台用户流失概率预测</title>
@@ -1962,8 +1961,8 @@
         <category>个人项目</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>数据分析</tag>
+        <tag>机器学习</tag>
         <tag>特征工程</tag>
       </tags>
   </entry>
