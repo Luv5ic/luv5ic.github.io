@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/hy.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/hy.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pandas官方文档 相关库12import pandas as pdimport numpy as np Input&#x2F;Output创建数据集123456# 列表和字典均可传入DataFrame，这里用的是字典传入：data&#x3D;pd.DataFrame(&amp;#123;    &quot;id&quot;:np.arange(101,111)                          &amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pandas常用函数总结">
+<meta property="og:url" content="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="luv5ic&#39;s blog">
+<meta property="og:description" content="Pandas官方文档 相关库12import pandas as pdimport numpy as np Input&#x2F;Output创建数据集123456# 列表和字典均可传入DataFrame，这里用的是字典传入：data&#x3D;pd.DataFrame(&amp;#123;    &quot;id&quot;:np.arange(101,111)                          &amp;#125">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://luv5ic.github.io/images/2021-03-12-00-01-44.png">
+<meta property="article:published_time" content="2021-03-11T11:54:41.000Z">
+<meta property="article:modified_time" content="2021-04-02T08:40:26.189Z">
+<meta property="article:author" content="luv5ic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://luv5ic.github.io/images/2021-03-12-00-01-44.png">
+
+<link rel="canonical" href="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Pandas常用函数总结 | luv5ic's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">luv5ic's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-03-11-Pandas%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tx.jpg">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pandas常用函数总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-11 19:54:41" itemprop="dateCreated datePublished" datetime="2021-03-11T19:54:41+08:00">2021-03-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-02 16:40:26" itemprop="dateModified" datetime="2021-04-02T16:40:26+08:00">2021-04-02</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/">Pandas官方文档</a></p>
+<h1 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h1 id="Input-Output"><a href="#Input-Output" class="headerlink" title="Input/Output"></a>Input/Output</h1><h2 id="创建数据集"><a href="#创建数据集" class="headerlink" title="创建数据集"></a>创建数据集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表和字典均可传入DataFrame，这里用的是字典传入：</span></span><br><span class="line">data=pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;id&quot;</span>:np.arange(<span class="number">101</span>,<span class="number">111</span>)                       </span><br><span class="line">   </span><br><span class="line">&#125;)</span><br><span class="line">data  </span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="写入与读取"><a href="#写入与读取" class="headerlink" title="写入与读取"></a>写入与读取</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 写入</span></span><br><span class="line">data.to_csv(<span class="string">&quot;XXX.csv&quot;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取</span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;XXX.csv&#x27;</span>) <span class="comment">#单双引号都行</span></span><br></pre></td></tr></table></figure>
+<p><a href="">Python中的单，双，三引号用法</a></p>
+<h1 id="数据查看"><a href="#数据查看" class="headerlink" title="数据查看"></a>数据查看</h1><h2 id="数据集基础信息"><a href="#数据集基础信息" class="headerlink" title="数据集基础信息"></a>数据集基础信息</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data.shape            <span class="comment"># 行数列数</span></span><br><span class="line">data.dtypes           <span class="comment"># 所有列的数据类型</span></span><br><span class="line">data[<span class="string">&#x27;id&#x27;</span>].dtype      <span class="comment"># 某一列的数据类型</span></span><br><span class="line">data.ndim             <span class="comment"># 数据维度</span></span><br><span class="line">data.index            <span class="comment"># 行索引</span></span><br><span class="line">data.columns          <span class="comment"># 列索引</span></span><br><span class="line">data.values           <span class="comment"># 对象值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据集整体情况"><a href="#数据集整体情况" class="headerlink" title="数据集整体情况"></a>数据集整体情况</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data.head()    <span class="comment"># 显示头部几行（默认5行）</span></span><br><span class="line">data.tail()    <span class="comment"># 显示末尾几行（默认5行）</span></span><br><span class="line">data.info()    <span class="comment"># 数据集相关信息概览：索引情况、列数据类型、非空值、内存使用情况</span></span><br><span class="line">data.describe()    <span class="comment"># 快速综合统计结果</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h1><h2 id="异常值"><a href="#异常值" class="headerlink" title="异常值"></a>异常值</h2><p>箱线图</p>
+<h2 id="空值"><a href="#空值" class="headerlink" title="空值"></a>空值</h2><h3 id="空值查询"><a href="#空值查询" class="headerlink" title="空值查询"></a>空值查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data.isnull()                <span class="comment"># 查看整个数据集的空值</span></span><br><span class="line">data[<span class="string">&#x27;columnA&#x27;</span>].isnull()  <span class="comment"># 查看某一列的空值</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通常使用mean() 或 sum() 更好地查看空值所占频率和总数</span></span><br><span class="line">data.isnull().mean()</span><br><span class="line">data.isnull().<span class="built_in">sum</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后汇总查看，更加直观</span></span><br><span class="line">data.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="空值处理"><a href="#空值处理" class="headerlink" title="空值处理"></a>空值处理</h3><p><code>pandas.DataFrame.fillna（value = None，method = None，inplace = False）</code></p>
+<ul>
+<li>value：用于填充的值，可以是具体值、字典和数组，不能是列表；</li>
+<li>method：填充方法，有 ffill(填充上一个值) 和 bfill(填充下一个值)  等；</li>
+<li>inplace默认无False，如果为True，则将修改此对象上的所有其他视图。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.fillna.html">更多 pandas.DataFrame.fillna()用法</a></p>
+</blockquote>
+<h2 id="空格-‘-‘-‘-’-等特殊字符处理"><a href="#空格-‘-‘-‘-’-等特殊字符处理" class="headerlink" title="空格/‘-‘/‘_’ 等特殊字符处理"></a>空格/‘-‘/‘_’ 等特殊字符处理</h2><p>只针对object类型数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:                                  </span><br><span class="line">    <span class="keyword">if</span> pd.api.types.is_object_dtype(data[i]):     </span><br><span class="line">        data[i]=data[i].<span class="built_in">str</span>.strip()  </span><br></pre></td></tr></table></figure>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Series.<span class="built_in">str</span>.title()         <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.capitalize()    <span class="comment"># 将首字母大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.upper()         <span class="comment"># 全部大写</span></span><br><span class="line">Series.<span class="built_in">str</span>.lower()         <span class="comment"># 全部小写</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.str.title.html">更多 pandas.Series.str 相关用法</a></p>
+</blockquote>
+<h2 id="数据替换"><a href="#数据替换" class="headerlink" title="数据替换"></a>数据替换</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Series.replace(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;B&#x27;</span>, inplace=<span class="literal">True</span>)              <span class="comment">#将A替换成B</span></span><br><span class="line"></span><br><span class="line">Series.replace(-<span class="number">10</span>,np.nan,inplace=<span class="literal">True</span>)             <span class="comment"># 将负值替换为空值</span></span><br><span class="line"></span><br><span class="line">Series.replace(np.nan,Series.mean(),inplace=<span class="literal">True</span>)   <span class="comment"># 将空值替换为均值</span></span><br></pre></td></tr></table></figure>
+<h2 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h2><p><strong>等值判断</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data1 = data[data.origin != <span class="string">&#x27;American&#x27;</span>] <span class="comment">#去掉origin为American的行</span></span><br><span class="line"></span><br><span class="line">data2=data[(data != <span class="string">&#x27;Japan&#x27;</span>).<span class="built_in">all</span>(<span class="number">1</span>)]    <span class="comment">#去掉所有包含Japan的行。返回True值，即不等于Japan的行</span></span><br></pre></td></tr></table></figure>
+<p><strong>去除重复值</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Series.drop_duplicates()      <span class="comment"># 默认删除后面出现的重复值，即保留第一次出现的重复值</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html#pandas.DataFrame.drop_duplicates">更多 pandas.DataFrame.drop_duplicates() 用法</a></p>
+</blockquote>
+<h2 id="数据格式转换"><a href="#数据格式转换" class="headerlink" title="数据格式转换"></a>数据格式转换</h2><p>将某一列转换为 str 格式<br><code>Series.astype(&#39;str)</code></p>
+<p>常见的数据类型对照<br><img src="../images/2021-03-12-00-01-44.png"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html">pandas.Series.map</a><br><a target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html#pandas.DataFrame.apply">pandas.DataFrame.apply</a></p>
+</blockquote>
+<h2 id="更改column-name"><a href="#更改column-name" class="headerlink" title="更改column_name"></a>更改column_name</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.rename(columns=&#123;<span class="string">&#x27;id&#x27;</span>:<span class="string">&#x27;ID&#x27;</span>, <span class="string">&#x27;origin&#x27;</span>:<span class="string">&#x27;产地&#x27;</span>&#125;)     <span class="comment"># 将id列改为ID，将origin改为产地。</span></span><br></pre></td></tr></table></figure>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><h2 id="数据合并"><a href="#数据合并" class="headerlink" title="数据合并"></a>数据合并</h2><h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p><code>DataFrame.merge(self，right，how =‘inner’，on = None)</code></p>
+<ul>
+<li>right 指要合并的对象</li>
+<li>on 指要加入的列或索引级别名称，必须在两个 DataFrame 中都可以找到。</li>
+<li>how 决定要执行的合并类型：left（使用左框架中的键）、right、inner（交集，默认）、outer（并集）</li>
+</ul>
+<p><strong>先创建两个df</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>], <span class="string">&#x27;b&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;a&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;baz&#x27;</span>], <span class="string">&#x27;c&#x27;</span>: [<span class="number">3</span>, <span class="number">4</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    a  b</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    a  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">3</span></span><br><span class="line"><span class="number">1</span>   baz  <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;inner&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)       </span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;left&#x27;</span>, on=<span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">      a  b  c</span><br><span class="line"><span class="number">0</span>   foo  <span class="number">1</span>  <span class="number">3.0</span></span><br><span class="line"><span class="number">1</span>   bar  <span class="number">2</span>  NaN</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1 = pd.DataFrame(&#123;<span class="string">&#x27;left&#x27;</span>: [<span class="string">&#x27;foo&#x27;</span>, <span class="string">&#x27;bar&#x27;</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2 = pd.DataFrame(&#123;<span class="string">&#x27;right&#x27;</span>: [<span class="number">7</span>, <span class="number">8</span>]&#125;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1</span><br><span class="line">    left</span><br><span class="line"><span class="number">0</span>   foo</span><br><span class="line"><span class="number">1</span>   bar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>df2</span><br><span class="line">    right</span><br><span class="line"><span class="number">0</span>   <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>df1.merge(df2, how=<span class="string">&#x27;cross&#x27;</span>)</span><br><span class="line">   left  right</span><br><span class="line"><span class="number">0</span>   foo      <span class="number">7</span></span><br><span class="line"><span class="number">1</span>   foo      <span class="number">8</span></span><br><span class="line"><span class="number">2</span>   bar      <span class="number">7</span></span><br><span class="line"><span class="number">3</span>   bar      <span class="number">8</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">更多 pandas.DataFrame.merge() 用法</a></p>
+</blockquote>
+<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><p><strong>在原数据集的下方合并入新的数据集</strong><br><code>df1.append(df2)</code></p>
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><p><code>pandas.concat(objs,axis = 0,ignore_index = False,keys = None)</code></p>
+<ul>
+<li>objs:Series，DataFrame或Panel对象的序列或映射。</li>
+<li>axis：串联的轴，默认为0，即以索引串联（竖直拼接）；如果为1，则以列串联（水平拼接）</li>
+<li>ignore_index：清除现有索引并将其重置，默认为False。</li>
+<li>key：在数据的最外层添加层次结构索引。</li>
+</ul>
+<p>比如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data_new=pd.concat([data,data2,data3],axis = <span class="number">1</span>,keys=[<span class="string">&#x27;data&#x27;</span>, <span class="string">&#x27;data2&#x27;</span>,<span class="string">&#x27;data3&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.concat.html">更多 pandas.concat() 用法</a></p>
+</blockquote>
+<h2 id="设置索引列"><a href="#设置索引列" class="headerlink" title="设置索引列"></a>设置索引列</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.set_index(<span class="string">&quot;id&quot;</span>)           <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.reset_index(drop=<span class="literal">True</span>)    <span class="comment"># 重置索引列，并且避免将旧索引添加为列</span></span><br></pre></td></tr></table></figure>
+<h2 id="按照特定列的值排序"><a href="#按照特定列的值排序" class="headerlink" title="按照特定列的值排序"></a>按照特定列的值排序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.sort_index()              <span class="comment"># 设置id为索引列</span></span><br><span class="line"></span><br><span class="line">data.sort_values(by=<span class="string">&quot;columnA&quot;</span>,ascending = <span class="literal">True</span>)    <span class="comment"># 按照columnA的值排序，默认升序</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sort_values.html">更多 pandas.DataFrame.sort_values()用法</a></p>
+</blockquote>
+<h2 id="分类显示"><a href="#分类显示" class="headerlink" title="分类显示"></a>分类显示</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果money列的值&gt;=10, level列显示high，否则显示low</span></span><br><span class="line">data[<span class="string">&#x27;level&#x27;</span>] = np.where(data[<span class="string">&#x27;money&#x27;</span>]&gt;=<span class="number">10</span>, <span class="string">&#x27;high&#x27;</span>, <span class="string">&#x27;low&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="分组标记"><a href="#分组标记" class="headerlink" title="分组标记"></a>分组标记</h2><p>定位到 level 行==high 并且 origin 行==China，sign列的数据。赋值为“棒”<br><code>data.loc[(data[&#39;level&#39;]==&quot;high&quot;) &amp; (data[&#39;origin&#39;]==&quot;China&quot;),&quot;sign&quot;]=&quot;棒&quot;</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-02-11-Python%E4%B8%AD%E7%9A%84%E5%8D%95%EF%BC%8C%E5%8F%8C%EF%BC%8C%E4%B8%89%E5%BC%95%E5%8F%B7%E5%8C%BA%E5%88%AB/" rel="prev" title="Python中的单，双，三引号用法">
+      <i class="fa fa-chevron-left"></i> Python中的单，双，三引号用法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-03-31-%E8%AE%B0%E5%BD%95%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%BE%A4%E9%9D%A2-%E7%A5%9E%E7%AD%96-%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E5%B8%88/" rel="next" title="记录第一次群面-神策-数据分析师">
+      记录第一次群面-神策-数据分析师 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">相关库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Input-Output"><span class="nav-number">2.</span> <span class="nav-text">Input&#x2F;Output</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">创建数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E4%B8%8E%E8%AF%BB%E5%8F%96"><span class="nav-number">2.2.</span> <span class="nav-text">写入与读取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E7%9C%8B"><span class="nav-number">3.</span> <span class="nav-text">数据查看</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%9F%BA%E7%A1%80%E4%BF%A1%E6%81%AF"><span class="nav-number">3.1.</span> <span class="nav-text">数据集基础信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E6%95%B4%E4%BD%93%E6%83%85%E5%86%B5"><span class="nav-number">3.2.</span> <span class="nav-text">数据集整体情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B8%85%E6%B4%97"><span class="nav-number">4.</span> <span class="nav-text">数据清洗</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">异常值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E5%80%BC"><span class="nav-number">4.2.</span> <span class="nav-text">空值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E5%80%BC%E6%9F%A5%E8%AF%A2"><span class="nav-number">4.2.1.</span> <span class="nav-text">空值查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E5%80%BC%E5%A4%84%E7%90%86"><span class="nav-number">4.2.2.</span> <span class="nav-text">空值处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC-%E2%80%98-%E2%80%98-%E2%80%98-%E2%80%99-%E7%AD%89%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86"><span class="nav-number">4.3.</span> <span class="nav-text">空格&#x2F;‘-‘&#x2F;‘_’ 等特殊字符处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.4.</span> <span class="nav-text">大小写转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%9B%BF%E6%8D%A2"><span class="nav-number">4.5.</span> <span class="nav-text">数据替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4"><span class="nav-number">4.6.</span> <span class="nav-text">数据删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">4.7.</span> <span class="nav-text">数据格式转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9column-name"><span class="nav-number">4.8.</span> <span class="nav-text">更改column_name</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6"><span class="nav-number">5.1.</span> <span class="nav-text">数据合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">5.1.1.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#append"><span class="nav-number">5.1.2.</span> <span class="nav-text">append</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">5.1.3.</span> <span class="nav-text">concat</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%B4%A2%E5%BC%95%E5%88%97"><span class="nav-number">5.2.</span> <span class="nav-text">设置索引列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E7%85%A7%E7%89%B9%E5%AE%9A%E5%88%97%E7%9A%84%E5%80%BC%E6%8E%92%E5%BA%8F"><span class="nav-number">5.3.</span> <span class="nav-text">按照特定列的值排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E6%98%BE%E7%A4%BA"><span class="nav-number">5.4.</span> <span class="nav-text">分类显示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E6%A0%87%E8%AE%B0"><span class="nav-number">5.5.</span> <span class="nav-text">分组标记</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="luv5ic"
+      src="/images/tx.jpg">
+  <p class="site-author-name" itemprop="name">luv5ic</p>
+  <div class="site-description" itemprop="description">Practice makes perfect 👩🏻‍💻</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luv5ic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

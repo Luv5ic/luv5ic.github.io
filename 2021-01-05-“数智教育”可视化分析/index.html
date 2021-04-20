@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/hy.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/hy.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"luv5ic.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="“数智教育”可视化分析可视化报表地址 项目背景：分析某学校2018年7月到2019年1月共一个学期、包括130名老师，1740个学生的数据，在校园、年级、班级三个层面分析师生基本信息、学生的日常考勤、违规信息、学生成绩、学生消费、住宿情况。 目的与意义：通过大数据分析和可视化展示，挖掘重要信息，可以改善学生成绩，服务教务设计，优化学生服务等，能够更好服务精细化教学管理工作，对于教学改进意义重大。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“数智教育”可视化分析">
+<meta property="og:url" content="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="luv5ic&#39;s blog">
+<meta property="og:description" content="“数智教育”可视化分析可视化报表地址 项目背景：分析某学校2018年7月到2019年1月共一个学期、包括130名老师，1740个学生的数据，在校园、年级、班级三个层面分析师生基本信息、学生的日常考勤、违规信息、学生成绩、学生消费、住宿情况。 目的与意义：通过大数据分析和可视化展示，挖掘重要信息，可以改善学生成绩，服务教务设计，优化学生服务等，能够更好服务精细化教学管理工作，对于教学改进意义重大。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-01-05T03:39:53.000Z">
+<meta property="article:modified_time" content="2021-04-02T08:38:12.743Z">
+<meta property="article:author" content="luv5ic">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="Tableau">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>“数智教育”可视化分析 | luv5ic's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">luv5ic's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://luv5ic.github.io/2021-01-05-%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/tx.jpg">
+      <meta itemprop="name" content="luv5ic">
+      <meta itemprop="description" content="Practice makes perfect 👩🏻‍💻">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luv5ic's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          “数智教育”可视化分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-01-05 11:39:53" itemprop="dateCreated datePublished" datetime="2021-01-05T11:39:53+08:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-02 16:38:12" itemprop="dateModified" datetime="2021-04-02T16:38:12+08:00">2021-04-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">个人项目</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="“数智教育”可视化分析"><a href="#“数智教育”可视化分析" class="headerlink" title="“数智教育”可视化分析"></a>“数智教育”可视化分析</h1><p><a target="_blank" rel="noopener" href="https://public.tableau.com/profile/.58051095#!/vizhome/_luv5ic/5__">可视化报表地址</a></p>
+<p><strong>项目背景</strong>：分析某学校2018年7月到2019年1月共一个学期、包括130名老师，1740个学生的数据，在校园、年级、班级三个层面分析师生基本信息、学生的日常考勤、违规信息、学生成绩、学生消费、住宿情况。</p>
+<p><strong>目的与意义</strong>：通过<strong>大数据分析</strong>和可视化展示，挖掘重要信息，可以改善学生成绩，服务教务设计，优化学生服务等，能够更好服务<strong>精细化教学管理</strong>工作，对于教学改进意义重大。</p>
+<p>未来学生的学习行为画像、考试分数、发展潜力方向等所有重要的信息等数据价值将会持续被显现出来，大数据将掀起新的教育革命，比如革新学生的学习、教师的教学、教育政策制定的方式与方法。</p>
+<a id="more"></a>
+
+<p><strong>我做了哪些内容</strong>：对原始数据的清洗，构建面向学生、课程、群体三个层面的指标体系，利用 Tableau进行统计分析和可视化展示，最后的结果是深度为三个层次，广度包括基本信息、成绩、考勤、消费情况的动态可视化报表。</p>
+<p><strong>得到的结果（部分</strong>）：</p>
+<ul>
+<li>消费：男生消费金额占比比女生高17%<ul>
+<li>各年级中，高一消费金额占比最高达到44%，其余各站一半</li>
+<li>不住校学生消费金额占比比住校学生略高7%</li>
+<li>学生整体在九月份消费最多，每周在周一消费金额最高，大约是周五的两倍。校园卡人均消费2244元。</li>
+</ul>
+</li>
+<li>迟到违规：次数最多的分别是高三、高二、高一。冬季数值偏高<ul>
+<li>迟到最多的班级，成绩排名都会比较波动且位于中下。</li>
+<li>成绩排名第一第二的班级，排名稳定且班级考勤情况也比较好。（高三考试更多所以表现更明显）</li>
+</ul>
+</li>
+<li>高三选科分析：物-化-生的比例最高，最少的是化-政-物。同时年级成绩考前的班级，主要选择的科目组合是物-化-生，物-地-化，化-政-物。排名靠后的班级对应选择是化-政-生，历-政-物。可以推测学生认为比较难的科目为物理、化学、地理。</li>
+</ul>
+<p><strong>可以优化的地方</strong>：可视化只是一层表面内容，应该去更深层次地探索这些信息之间的关联，想到以下两点：</p>
+<ol>
+<li>具体到每一个学生，分析其成绩趋势、日常消费、考勤、违规、住宿信息之间的联系。</li>
+<li>具体到每一个班级，查看这个班级的校园排名、整体的选课情况、考勤分布、住宿分布、消费分布之间的联系。</li>
+</ol>
+<p>总而言之就是：去<strong>思考</strong>要解决的<strong>问题</strong>有哪些，然后再<strong>驱动</strong>自己如何利用数据去<strong>解决</strong>问题。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/Tableau/" rel="tag"># Tableau</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021-01-04-hexo-%E9%85%8D%E7%BD%AE%E5%8D%9A%E5%AE%A2-debug/" rel="prev" title="hexo-配置博客">
+      <i class="fa fa-chevron-left"></i> hexo-配置博客
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021-01-07-MySQL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/" rel="next" title="MySQL常用函数总结">
+      MySQL常用函数总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%80%9C%E6%95%B0%E6%99%BA%E6%95%99%E8%82%B2%E2%80%9D%E5%8F%AF%E8%A7%86%E5%8C%96%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">“数智教育”可视化分析</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="luv5ic"
+      src="/images/tx.jpg">
+  <p class="site-author-name" itemprop="name">luv5ic</p>
+  <div class="site-description" itemprop="description">Practice makes perfect 👩🏻‍💻</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luv5ic</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
